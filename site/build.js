@@ -43,6 +43,11 @@ const GITHUB_URL = env('GITHUB_URL', `https://github.com/${GITHUB_USER}`);
 const SPONSOR_URL = env('SPONSOR_URL', `https://github.com/sponsors/${GITHUB_USER}`);
 const CONTACT_EMAIL = env('CONTACT_EMAIL', 'valithor@valgorithms.com');
 
+// Legal pages (terms.html / privacy.html) — the ToS + Privacy Policy URLs for
+// the Discord applications published under this developer account.
+const OPERATING_NAME = env('OPERATING_NAME', 'ValZarGaming');
+const LEGAL_EFFECTIVE = env('LEGAL_EFFECTIVE', 'September 8, 2026');
+
 const HERO_KICKER = env('HERO_KICKER', 'Open source, in the open');
 const HERO_TAGLINE = env(
   'HERO_TAGLINE',
@@ -235,6 +240,8 @@ const vars = {
   LIBRARIES,
   BOTS,
   HAS_BOTS: BOTS.length > 0,
+  OPERATING_NAME,
+  LEGAL_EFFECTIVE,
   SUPPORT_LINKS,
   SOCIAL_LINKS,
   YEAR,
