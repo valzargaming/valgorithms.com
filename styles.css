@@ -268,6 +268,57 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
 }
 .closer p { margin: 0 auto 1.5rem; max-width: 52ch; color: var(--muted); }
 
+/* ── Legal pages (terms / privacy) ────────────────────────────────────── */
+.legal {
+  max-width: 44rem;
+  padding-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.legal h1 {
+  margin: 0.4rem 0 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: -0.02em;
+}
+.legal-meta {
+  margin: 0 0 2rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.legal h2 {
+  margin: 2.2rem 0 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+.legal p { margin: 0 0 1rem; }
+.legal ul { margin: 0 0 1rem; padding-left: 1.3rem; }
+.legal li { margin: 0 0 0.5rem; }
+.legal a { text-decoration: underline; text-underline-offset: 2px; }
+.legal strong { color: var(--text); font-weight: 600; }
+
+.legal-callout {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--accent);
+  border-left-width: 3px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+  color: var(--text);
+}
+
+.legal-back {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .site-footer {
   max-width: var(--wrap);

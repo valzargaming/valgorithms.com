@@ -1,8 +1,10 @@
 {
-  "builtAt": "2026-09-08T13:20:54.983Z",
+  "builtAt": "2026-09-08T13:28:16.296Z",
   "pages": [
     "404.html",
-    "index.html"
+    "index.html",
+    "privacy.html",
+    "terms.html"
   ],
   "projects": 9,
   "cname": "www.valgorithms.com"
