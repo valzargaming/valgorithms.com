@@ -64,6 +64,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          cname: ${{ vars.CNAME || 'valgorithms.com' }}
+          cname: ${{ vars.CNAME || 'www.valgorithms.com' }}
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com

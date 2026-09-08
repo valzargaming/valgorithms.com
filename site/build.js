@@ -32,7 +32,7 @@ const env = (key, fallback) => {
 };
 
 const SITE_TITLE = env('SITE_TITLE', 'valgorithms');
-const SITE_URL = env('SITE_URL', 'https://valgorithms.com');
+const SITE_URL = env('SITE_URL', 'https://www.valgorithms.com');
 const SITE_DESCRIPTION = env(
   'SITE_DESCRIPTION',
   'Open-source PHP & ReactPHP developer — maintainer of the DiscordPHP ecosystem. Sponsor the work.',
@@ -231,7 +231,7 @@ for (const page of pages) {
 }
 
 // A CNAME so gh-pages keeps the custom domain (the workflow also sets it).
-const CNAME = process.env.CNAME || 'valgorithms.com';
+const CNAME = process.env.CNAME || 'www.valgorithms.com';
 if (CNAME) fs.writeFileSync(path.join(OUT, 'CNAME'), CNAME + '\n');
 
 fs.writeFileSync(
