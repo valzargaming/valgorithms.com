@@ -31,8 +31,8 @@ const env = (key, fallback) => {
   return v == null || v === '' ? fallback : v;
 };
 
-const SITE_TITLE = env('SITE_TITLE', 'valzargaming');
-const SITE_URL = env('SITE_URL', 'https://valzargaming.com');
+const SITE_TITLE = env('SITE_TITLE', 'valgorithms');
+const SITE_URL = env('SITE_URL', 'https://valgorithms.com');
 const SITE_DESCRIPTION = env(
   'SITE_DESCRIPTION',
   'Open-source PHP & ReactPHP developer — maintainer of the DiscordPHP ecosystem. Sponsor the work.',
@@ -41,7 +41,7 @@ const AUTHOR = env('AUTHOR', 'Valithor Obsidion');
 const GITHUB_USER = env('GITHUB_USER', 'valzargaming');
 const GITHUB_URL = env('GITHUB_URL', `https://github.com/${GITHUB_USER}`);
 const SPONSOR_URL = env('SPONSOR_URL', `https://github.com/sponsors/${GITHUB_USER}`);
-const CONTACT_EMAIL = env('CONTACT_EMAIL', 'valithor@valzargaming.com');
+const CONTACT_EMAIL = env('CONTACT_EMAIL', 'valithor@valgorithms.com');
 
 const HERO_KICKER = env('HERO_KICKER', 'Open source, in the open');
 const HERO_TAGLINE = env(
@@ -231,7 +231,7 @@ for (const page of pages) {
 }
 
 // A CNAME so gh-pages keeps the custom domain (the workflow also sets it).
-const CNAME = process.env.CNAME || 'valzargaming.com';
+const CNAME = process.env.CNAME || 'valgorithms.com';
 if (CNAME) fs.writeFileSync(path.join(OUT, 'CNAME'), CNAME + '\n');
 
 fs.writeFileSync(

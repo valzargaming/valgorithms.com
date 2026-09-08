@@ -1,6 +1,6 @@
-# valzargaming.com
+# valgorithms.com
 
-Source for **[valzargaming.com](https://valzargaming.com)** — a one-page sponsorship
+Source for **[valgorithms.com](https://valgorithms.com)** — a one-page sponsorship
 site for [@valzargaming](https://github.com/valzargaming) and the DiscordPHP /
 ReactPHP libraries maintained there.
 
@@ -20,19 +20,19 @@ the environment; the defaults in `build.js` produce the live site as-is.
 
 | Var | Default | Notes |
 |---|---|---|
-| `SITE_TITLE` | `valzargaming` | brand + `<title>` |
-| `SITE_URL` | `https://valzargaming.com` | canonical / OG url |
+| `SITE_TITLE` | `valgorithms` | brand + `<title>` |
+| `SITE_URL` | `https://valgorithms.com` | canonical / OG url |
 | `SITE_DESCRIPTION` | … | meta description / OG |
 | `AUTHOR` | `Valithor Obsidion` | name in hero + footer |
 | `GITHUB_USER` | `valzargaming` | drives `GITHUB_URL` + `SPONSOR_URL` |
 | `SPONSOR_URL` | `https://github.com/sponsors/valzargaming` | primary CTA |
-| `CONTACT_EMAIL` | `valithor@valzargaming.com` | "Hire me" mailto |
+| `CONTACT_EMAIL` | `valithor@valgorithms.com` | "Hire me" mailto |
 | `HERO_KICKER` / `HERO_TAGLINE` / `HERO_CTA` | … | hero copy (tagline allows inline HTML) |
 | `SUPPORT_HEADING` / `SUPPORT_BODY` | … | support-section copy |
 | `PROJECTS_JSON` | curated list | JSON array of `{name, blurb, url}` — replaces the shelf wholesale |
 | `KOFI_URL` / `PAYPAL_URL` / `HIRE_URL` | PayPal defaults on | a support card shows only when its URL is set |
 | `DISCORD_URL` / `TWITCH_URL` | Discord defaults on | footer links, shown when set |
-| `CNAME` | `valzargaming.com` | written to `dist/CNAME`, also passed to the deploy action |
+| `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
 
 ## Deploy
 
@@ -40,16 +40,21 @@ the environment; the defaults in `build.js` produce the live site as-is.
 publishes `dist/` to `gh-pages` via
 [`peaceiris/actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages).
 
-One-time GitHub setup:
+One-time setup (`valgorithms.com` on Namecheap BasicDNS):
 
-1. **Settings → Pages** → Source: *Deploy from a branch* → `gh-pages` / `/ (root)`.
-2. **Settings → Pages → Custom domain** → `valzargaming.com` (writes the domain;
-   the workflow keeps the `CNAME` file in sync on every deploy).
-3. **Namecheap DNS** (do this whenever): an `ALIAS`/`ANAME` or four `A` records for
-   the apex to GitHub Pages
-   (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`),
-   and a `CNAME` for `www` → `valzargaming.github.io`.
-4. Optionally override any of the vars above under
+1. **GitHub → Settings → Pages** → Source: *Deploy from a branch* → `gh-pages` / `/ (root)`.
+2. **GitHub → Settings → Pages → "Add a domain"** → `valgorithms.com` → note the
+   `_github-pages-challenge-valzargaming` TXT record it shows.
+3. **Namecheap → Domain List → valgorithms.com → Advanced DNS**:
+   - delete the URL-redirect records on `@` and `www`
+   - `A` `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `CNAME` `www` → `valzargaming.github.io.`
+   - `TXT` `_github-pages-challenge-valzargaming` → *(value from step 2)*
+   - leave the Zoho `MX` and `TXT` (SPF / verification) records alone
+4. Back on the GitHub Pages page, click **Verify** once DNS propagates, then set
+   the repo's **Custom domain** to `valgorithms.com` and tick **Enforce HTTPS**.
+   The workflow keeps `dist/CNAME` in sync on every deploy.
+5. Optionally override any of the vars above under
    **Settings → Secrets and variables → Actions → Variables**.
 
 ## Editing content
