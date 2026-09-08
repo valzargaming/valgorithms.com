@@ -117,14 +117,26 @@ const DEFAULT_PROJECTS = [
   },
   {
     name: 'TwitchPHP',
-    blurb: 'Event-driven Twitch IRC client for PHP, same ReactPHP foundation.',
-    url: 'https://github.com/twitchphp/TwitchPHP',
+    blurb: 'Async Twitch framework for PHP — Helix REST, EventSub over WebSocket, and IRC chat, built like DiscordPHP.',
+    url: 'https://github.com/Valgorithms/TwitchPHP',
+    kind: 'library',
+  },
+  {
+    name: 'TwitchPHP-Http',
+    blurb: 'The standalone Helix transport for TwitchPHP — async queue, points rate-limiting, typed errors.',
+    url: 'https://github.com/Valgorithms/TwitchPHP-Http',
     kind: 'library',
   },
   {
     name: 'DiscordPHP-EventLogger',
     blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
     url: 'https://github.com/valzargaming/DiscordPHP-EventLogger',
+    kind: 'library',
+  },
+  {
+    name: 'NFG',
+    blurb: 'Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.',
+    url: 'https://github.com/valzargaming/NFG',
     kind: 'library',
   },
   {
