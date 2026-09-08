@@ -29,7 +29,7 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `CONTACT_EMAIL` | `valithor@valgorithms.com` | "Hire me" mailto |
 | `HERO_KICKER` / `HERO_TAGLINE` / `HERO_CTA` | … | hero copy (tagline allows inline HTML) |
 | `SUPPORT_HEADING` / `SUPPORT_BODY` | … | support-section copy |
-| `PROJECTS_JSON` | curated list | JSON array of `{name, blurb, url}` — replaces the shelf wholesale |
+| `PROJECTS_JSON` | curated list | JSON array of `{name, blurb, url, kind}` — replaces the shelf wholesale. `kind` is `library` (default) or `bot`; the shelf renders a **Libraries** group and, when any are present, a **Bots** group. A library that also ships a bot stays `library`. |
 | `KOFI_URL` / `PAYPAL_URL` / `HIRE_URL` | PayPal defaults on | a support card shows only when its URL is set |
 | `DISCORD_URL` / `TWITCH_URL` | Discord defaults on | footer links, shown when set |
 | `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
@@ -61,6 +61,7 @@ One-time setup (`valgorithms.com` on Namecheap BasicDNS):
 
 - Copy lives in `site/build.js` defaults and `site/templates/*.html`.
 - The project shelf is the `DEFAULT_PROJECTS` array in `build.js` (or set
-  `PROJECTS_JSON`).
+  `PROJECTS_JSON`); each entry's `kind` (`library` / `bot`) sorts it into the
+  Libraries or Bots group.
 - Styling is a single `site/static/styles.css`; dark by default, light under
   `prefers-color-scheme`.

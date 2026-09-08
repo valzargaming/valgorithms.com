@@ -56,8 +56,10 @@ const SUPPORT_BODY = env(
   'Everything here is MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
 );
 
-// Project cards. Override wholesale with PROJECTS_JSON (a JSON array of
-// {name, blurb, url}); otherwise this curated set ships.
+// Project cards. Each is {name, blurb, url, kind} where kind is 'library'
+// (default) or 'bot' — a standalone bot that is NOT itself a reusable package.
+// A library that also ships a bot stays 'library'. Override the whole set with
+// PROJECTS_JSON (a JSON array of the same shape).
 function parseProjects(raw) {
   if (!raw) return null;
   try {
@@ -68,6 +70,7 @@ function parseProjects(raw) {
         name: String(p.name || '').trim(),
         blurb: String(p.blurb || '').trim(),
         url: String(p.url || '').trim(),
+        kind: String(p.kind || 'library').trim().toLowerCase() === 'bot' ? 'bot' : 'library',
       }))
       .filter((p) => p.name);
   } catch (e) {
@@ -81,45 +84,61 @@ const DEFAULT_PROJECTS = [
     name: 'DiscordPHP',
     blurb: 'The async PHP library for building Discord bots, on ReactPHP.',
     url: 'https://github.com/discord-php/DiscordPHP',
+    kind: 'library',
   },
   {
     name: 'DiscordPHP-Http',
     blurb: 'The standalone HTTP + rate-limit layer the library talks to Discord through.',
     url: 'https://github.com/discord-php/DiscordPHP-Http',
+    kind: 'library',
   },
   {
     name: 'DiscordPHP-Voice',
     blurb: 'Voice send/receive, Opus & DAVE end-to-end encryption for DiscordPHP.',
     url: 'https://github.com/discord-php/DiscordPHP-Voice',
+    kind: 'library',
   },
   {
     name: 'DiscordPHP-NHA',
-    blurb: 'Client + bot for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.',
+    blurb: 'API library (and bot) for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.',
     url: 'https://github.com/valzargaming/DiscordPHP-NHA',
+    kind: 'library',
   },
   {
     name: 'DiscordPHP-MTG',
-    blurb: 'Magic: The Gathering card search and rules helpers as a bot.',
+    blurb: 'A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.',
     url: 'https://github.com/valzargaming/DiscordPHP-MTG',
+    kind: 'library',
   },
   {
     name: 'TwitchPHP',
     blurb: 'Event-driven Twitch IRC client for PHP, same ReactPHP foundation.',
     url: 'https://github.com/twitchphp/TwitchPHP',
+    kind: 'library',
   },
   {
     name: 'DiscordPHP-EventLogger',
     blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
     url: 'https://github.com/valzargaming/DiscordPHP-EventLogger',
+    kind: 'library',
   },
   {
     name: 'Civilizationbot',
-    blurb: 'The moderation and server-management bot behind the Civ13 community.',
+    blurb: 'Civ13’s official Discord bot — game-server management, player verification, moderation.',
     url: 'https://github.com/valzargaming/Civilizationbot',
+    kind: 'bot',
+  },
+  {
+    name: 'PS13-Bot',
+    blurb: 'The Pocket Stronghold 13 community bot, built on DiscordPHP.',
+    url: 'https://github.com/valzargaming/PS13-Bot',
+    kind: 'bot',
   },
 ];
 
 const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
+const LIBRARIES = PROJECTS.filter((p) => p.kind !== 'bot');
+const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
 
 // Support options. GitHub Sponsors is always shown; the rest appear only when
 // their URL is provided.
@@ -213,6 +232,9 @@ const vars = {
   SUPPORT_HEADING,
   SUPPORT_BODY,
   PROJECTS,
+  LIBRARIES,
+  BOTS,
+  HAS_BOTS: BOTS.length > 0,
   SUPPORT_LINKS,
   SOCIAL_LINKS,
   YEAR,

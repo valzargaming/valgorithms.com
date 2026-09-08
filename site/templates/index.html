@@ -44,17 +44,34 @@
         A sample of what&rsquo;s maintained here. All MIT, all async PHP on ReactPHP,
         all with real users filing real issues.
       </p>
+
+      <h3 class="shelf-group">Libraries</h3>
       <ul class="project-grid">
-        {{#each PROJECTS}}
+        {{#each LIBRARIES}}
         <li class="project-card">
           <a href="{{this.url}}" rel="noopener">
-            <h3>{{this.name}}</h3>
+            <h4>{{this.name}}</h4>
             <p>{{this.blurb}}</p>
             <span class="project-link">{{this.url}}</span>
           </a>
         </li>
         {{/each}}
       </ul>
+
+      {{#if HAS_BOTS}}
+      <h3 class="shelf-group">Bots</h3>
+      <ul class="project-grid">
+        {{#each BOTS}}
+        <li class="project-card">
+          <a href="{{this.url}}" rel="noopener">
+            <h4>{{this.name}}</h4>
+            <p>{{this.blurb}}</p>
+            <span class="project-link">{{this.url}}</span>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+      {{/if}}
     </section>
 
     <section class="closer">
