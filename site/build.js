@@ -145,6 +145,12 @@ const DEFAULT_PROJECTS = [
     url: 'https://github.com/valzargaming/Civilizationbot',
     kind: 'bot',
   },
+  {
+    name: 'DiscordPHP-Tutelar',
+    blurb: 'A Discord community-management bot — event logging, native onboarding, rotating presence, per-guild config — on a PSR-4 module architecture.',
+    url: 'https://github.com/discord-php/DiscordPHP-Tutelar',
+    kind: 'bot',
+  },
 ];
 
 const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
