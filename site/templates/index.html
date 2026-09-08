@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>{{SITE_TITLE}} — sponsor open-source PHP</title>
+  {{> head}}
+</head>
+<body>
+  {{> header}}
+
+  <main>
+    <section class="hero">
+      <p class="kicker">{{HERO_KICKER}}</p>
+      <h1>
+        Hi, I&rsquo;m <span class="accent">{{AUTHOR}}</span>.
+        On GitHub I&rsquo;m <a class="handle" href="{{GITHUB_URL}}" rel="noopener">@{{GITHUB_USER}}</a>.
+      </h1>
+      <p class="lede">{{HERO_TAGLINE}}</p>
+      <div class="cta-row">
+        <a class="btn btn-sponsor" href="{{SPONSOR_URL}}" rel="noopener">
+          <span class="heart" aria-hidden="true">&#9825;</span> {{HERO_CTA}}
+        </a>
+        <a class="btn btn-ghost" href="{{GITHUB_URL}}" rel="noopener">See the code</a>
+      </div>
+    </section>
+
+    <section id="support" class="panel">
+      <h2>{{SUPPORT_HEADING}}</h2>
+      <p class="panel-lede">{{SUPPORT_BODY}}</p>
+      <ul class="support-grid">
+        {{#each SUPPORT_LINKS}}
+        <li class="support-card{{#if this.primary}} is-primary{{/if}}">
+          <a href="{{this.url}}" rel="noopener">
+            <span class="support-label">{{this.label}}</span>
+            <span class="support-note">{{this.note}}</span>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </section>
+
+    <section id="projects" class="panel">
+      <h2>The shelf</h2>
+      <p class="panel-lede">
+        A sample of what&rsquo;s maintained here. All MIT, all async PHP on ReactPHP,
+        all with real users filing real issues.
+      </p>
+      <ul class="project-grid">
+        {{#each PROJECTS}}
+        <li class="project-card">
+          <a href="{{this.url}}" rel="noopener">
+            <h3>{{this.name}}</h3>
+            <p>{{this.blurb}}</p>
+            <span class="project-link">{{this.url}}</span>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </section>
+
+    <section class="closer">
+      <h2>Sponsoring is the whole business model</h2>
+      <p>
+        There&rsquo;s no paid tier, no open-core bait-and-switch, no rug pull planned.
+        If these libraries save you a sprint, <a href="{{SPONSOR_URL}}" rel="noopener">chip in</a>
+        so the next release lands on time.
+      </p>
+      <a class="btn btn-sponsor" href="{{SPONSOR_URL}}" rel="noopener">
+        <span class="heart" aria-hidden="true">&#9825;</span> {{HERO_CTA}}
+      </a>
+    </section>
+  </main>
+
+  {{> footer}}
+</body>
+</html>

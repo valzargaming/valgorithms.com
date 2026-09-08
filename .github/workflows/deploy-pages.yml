@@ -1,0 +1,69 @@
+name: Build and Deploy Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# One in-flight deploy at a time.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      # Content — repo Variables (Settings → Secrets and variables → Actions → Variables).
+      # Every one is optional; build.js has sensible defaults for all of them.
+      SITE_TITLE: ${{ vars.SITE_TITLE }}
+      SITE_URL: ${{ vars.SITE_URL }}
+      SITE_DESCRIPTION: ${{ vars.SITE_DESCRIPTION }}
+      AUTHOR: ${{ vars.AUTHOR }}
+      GITHUB_USER: ${{ vars.SITE_GITHUB_USER }}
+      GITHUB_URL: ${{ vars.SITE_GITHUB_URL }}
+      SPONSOR_URL: ${{ vars.SPONSOR_URL }}
+      CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+      HERO_KICKER: ${{ vars.HERO_KICKER }}
+      HERO_TAGLINE: ${{ vars.HERO_TAGLINE }}
+      HERO_CTA: ${{ vars.HERO_CTA }}
+      SUPPORT_HEADING: ${{ vars.SUPPORT_HEADING }}
+      SUPPORT_BODY: ${{ vars.SUPPORT_BODY }}
+      PROJECTS_JSON: ${{ vars.PROJECTS_JSON }}
+      KOFI_URL: ${{ vars.KOFI_URL }}
+      PAYPAL_URL: ${{ vars.PAYPAL_URL }}
+      HIRE_URL: ${{ vars.HIRE_URL }}
+      DISCORD_URL: ${{ vars.DISCORD_URL }}
+      TWITCH_URL: ${{ vars.TWITCH_URL }}
+      CNAME: ${{ vars.CNAME }}
+      OUTPUT_DIR: dist
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build site
+        run: node site/build.js
+
+      - name: Show output
+        run: ls -la dist
+
+      - name: Deploy to gh-pages
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          cname: ${{ vars.CNAME || 'valzargaming.com' }}
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com

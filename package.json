@@ -1,0 +1,11 @@
+{
+  "name": "valzargaming-com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Source for valzargaming.com — a single-page sponsorship site.",
+  "scripts": {
+    "build": "node site/build.js",
+    "serve": "node site/build.js && node -e \"const h=require('http'),f=require('fs'),p=require('path'),d='dist';h.createServer((q,s)=>{let u=q.url==='/'?'/index.html':q.url;let fp=p.join(d,u.split('?')[0]);f.readFile(fp,(e,b)=>{if(e){f.readFile(p.join(d,'404.html'),(e2,b2)=>{s.writeHead(404);s.end(e2?'404':b2)});return}const t={'.html':'text/html','.css':'text/css','.json':'application/json'}[p.extname(fp)]||'text/plain';s.writeHead(200,{'content-type':t});s.end(b)})}).listen(4173,()=>console.log('http://localhost:4173'))\""
+  },
+  "license": "MIT"
+}
