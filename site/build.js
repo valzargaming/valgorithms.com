@@ -145,12 +145,6 @@ const DEFAULT_PROJECTS = [
     url: 'https://github.com/valzargaming/Civilizationbot',
     kind: 'bot',
   },
-  {
-    name: 'PS13-Bot',
-    blurb: 'The Pocket Stronghold 13 community bot, built on DiscordPHP.',
-    url: 'https://github.com/valzargaming/PS13-Bot',
-    kind: 'bot',
-  },
 ];
 
 const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
