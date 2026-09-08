@@ -108,14 +108,14 @@ const DEFAULT_PROJECTS = [
     url: 'https://github.com/twitchphp/TwitchPHP',
   },
   {
+    name: 'DiscordPHP-EventLogger',
+    blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
+    url: 'https://github.com/valzargaming/DiscordPHP-EventLogger',
+  },
+  {
     name: 'Civilizationbot',
     blurb: 'The moderation and server-management bot behind the Civ13 community.',
     url: 'https://github.com/valzargaming/Civilizationbot',
-  },
-  {
-    name: 'Restcord',
-    blurb: 'Maintained fork of the REST client for the Discord API.',
-    url: 'https://github.com/valzargaming/Restcord',
   },
 ];
 
