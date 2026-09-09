@@ -104,12 +104,6 @@
         "description": "GitHub Sponsors — monthly or one-time, every tier."
       },
       {
-        "guid": "patreon",
-        "type": "payment-provider",
-        "address": "https://www.patreon.com/DiscordPHP",
-        "description": "Patreon — recurring support for the DiscordPHP ecosystem."
-      },
-      {
         "guid": "paypal",
         "type": "payment-provider",
         "address": "https://www.paypal.me/valithor",
@@ -135,7 +129,7 @@
         "amount": 10,
         "currency": "USD",
         "frequency": "monthly",
-        "channels": ["github-sponsors", "patreon"]
+        "channels": ["github-sponsors"]
       },
       {
         "guid": "sustaining-monthly",
@@ -145,7 +139,7 @@
         "amount": 50,
         "currency": "USD",
         "frequency": "monthly",
-        "channels": ["github-sponsors", "patreon"]
+        "channels": ["github-sponsors"]
       },
       {
         "guid": "company-monthly",
