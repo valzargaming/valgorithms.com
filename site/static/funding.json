@@ -1,0 +1,172 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.1.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Valithor Obsidion",
+    "email": "valithor@valgorithms.com",
+    "description": "Independent open-source developer. Owner and maintainer of the DiscordPHP ecosystem — async PHP libraries built on ReactPHP for Discord and Twitch — together with a shelf of related libraries and bots. Everything is MIT-licensed and used in production by other people filing real issues. Sponsorship is the entire funding model: there is no paid tier and no open-core plan. Funding pays for the unglamorous half of maintenance — issue triage, release chores, keeping up with Discord and Twitch API breakage, security patches, and documentation.",
+    "webpageUrl": {
+      "url": "https://valgorithms.com",
+      "wellKnown": "https://valgorithms.com/.well-known/funding-manifest-urls"
+    }
+  },
+  "projects": [
+    {
+      "guid": "discordphp",
+      "name": "DiscordPHP",
+      "description": "The async PHP library for building Discord bots, built on ReactPHP. Full gateway + REST coverage, an event-driven model, and a large ecosystem of downstream bots and libraries.",
+      "webpageUrl": { "url": "https://discord-php.github.io/DiscordPHP/" },
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "discord-api", "reactphp", "async", "bot-framework", "library"]
+    },
+    {
+      "guid": "discordphp-http",
+      "name": "DiscordPHP-Http",
+      "description": "The standalone async HTTP and rate-limit layer DiscordPHP talks to Discord through — queueing, bucket rate-limiting, and typed errors. Reusable outside DiscordPHP.",
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Http" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "http-client", "rate-limiting", "reactphp", "async", "discord", "library"]
+    },
+    {
+      "guid": "discordphp-voice",
+      "name": "DiscordPHP-Voice",
+      "description": "Voice send and receive for DiscordPHP, including Opus audio and DAVE end-to-end encryption.",
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Voice" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "voice", "opus", "encryption", "reactphp", "library"]
+    },
+    {
+      "guid": "twitchphp",
+      "name": "TwitchPHP",
+      "description": "Async Twitch framework for PHP, built like DiscordPHP: Helix REST, EventSub over WebSocket, and IRC chat.",
+      "repositoryUrl": { "url": "https://github.com/Valgorithms/TwitchPHP" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "twitch", "helix", "eventsub", "irc", "reactphp", "library"]
+    },
+    {
+      "guid": "twitchphp-http",
+      "name": "TwitchPHP-Http",
+      "description": "The standalone Helix transport for TwitchPHP — async request queue, points rate-limiting, and typed errors.",
+      "repositoryUrl": { "url": "https://github.com/valgorithms/TwitchPHP-Http" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "http-client", "twitch", "rate-limiting", "reactphp", "library"]
+    },
+    {
+      "guid": "discordphp-eventlogger",
+      "name": "DiscordPHP-EventLogger",
+      "description": "Drop-in audit logging for DiscordPHP bots — every gateway event, formatted and routed.",
+      "repositoryUrl": { "url": "https://github.com/Valgorithms/DiscordPHP-EventLogger" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "logging", "audit", "reactphp", "library"]
+    },
+    {
+      "guid": "discordphp-nha",
+      "name": "DiscordPHP-NHA",
+      "description": "API library and bot for the \"No Human Allowed\" agent-sandbox world, including a deterministic ladder plus LLM autoplayer.",
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-NHA" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "game-api", "llm", "agent", "library"]
+    },
+    {
+      "guid": "discordphp-mtg",
+      "name": "DiscordPHP-MTG",
+      "description": "A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.",
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-MTG" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "magic-the-gathering", "card-search", "library"]
+    },
+    {
+      "guid": "discordphp-tutelar",
+      "name": "DiscordPHP-Tutelar",
+      "description": "A Discord community-management bot — event logging, native onboarding, rotating presence, and per-guild config on a PSR-4 module architecture.",
+      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Tutelar" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "community-management", "moderation", "bot"]
+    },
+    {
+      "guid": "nfg",
+      "name": "NFG",
+      "description": "Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.",
+      "repositoryUrl": { "url": "https://github.com/valzargaming/NFG" },
+      "licenses": ["spdx:MIT"],
+      "tags": ["javascript", "html", "forms", "no-dependencies", "tool"]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/valzargaming",
+        "description": "GitHub Sponsors — monthly or one-time, every tier."
+      },
+      {
+        "guid": "patreon",
+        "type": "payment-provider",
+        "address": "https://www.patreon.com/DiscordPHP",
+        "description": "Patreon — recurring support for the DiscordPHP ecosystem."
+      },
+      {
+        "guid": "paypal",
+        "type": "payment-provider",
+        "address": "https://www.paypal.me/valithor",
+        "description": "PayPal — direct, for one-off or invoiced support."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "one-time-tip",
+        "status": "active",
+        "name": "One-time tip",
+        "description": "A single contribution of any size toward ongoing maintenance.",
+        "amount": 25,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["github-sponsors", "paypal"]
+      },
+      {
+        "guid": "supporter-monthly",
+        "status": "active",
+        "name": "Supporter",
+        "description": "Individual monthly support — keeps the lights on for issue triage and releases.",
+        "amount": 10,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["github-sponsors", "patreon"]
+      },
+      {
+        "guid": "sustaining-monthly",
+        "status": "active",
+        "name": "Sustaining sponsor",
+        "description": "For teams that ship on top of these libraries and want releases to stay on schedule.",
+        "amount": 50,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["github-sponsors", "patreon"]
+      },
+      {
+        "guid": "company-monthly",
+        "status": "active",
+        "name": "Company sponsor",
+        "description": "Recurring company sponsorship. Invoiced support and sponsored features available on request.",
+        "amount": 250,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["github-sponsors", "paypal"]
+      },
+      {
+        "guid": "ecosystem-maintenance-year",
+        "status": "active",
+        "name": "One year of ecosystem maintenance",
+        "description": "Grant-scale support: one year of sustained part-time maintenance across the DiscordPHP and TwitchPHP libraries — issue triage, scheduled releases, Discord and Twitch API-breakage tracking, dependency and security updates, and documentation.",
+        "amount": 30000,
+        "currency": "USD",
+        "frequency": "yearly",
+        "channels": ["github-sponsors", "paypal"]
+      }
+    ]
+  }
+}
