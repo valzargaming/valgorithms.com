@@ -9,7 +9,7 @@
     "description": "Independent open-source developer. Owner and maintainer of the DiscordPHP ecosystem — async PHP libraries built on ReactPHP for Discord and Twitch — together with a shelf of related libraries and bots. Everything is MIT-licensed and used in production by other people filing real issues. Sponsorship is the entire funding model: there is no paid tier and no open-core plan. Funding pays for the unglamorous half of maintenance — issue triage, release chores, keeping up with Discord and Twitch API breakage, security patches, and documentation.",
     "webpageUrl": {
       "url": "https://valgorithms.com",
-      "wellKnown": "https://valgorithms.com/.well-known/funding-manifest-urls"
+      "wellKnown": "https://www.valgorithms.com/.well-known/funding-manifest-urls"
     }
   },
   "projects": [
