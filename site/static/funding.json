@@ -19,7 +19,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/discord-php/DiscordPHP",
-        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP/master/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/discord-php/DiscordPHP/raw/master/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "discord", "discord-api", "reactphp", "async", "bot-framework", "library"]
@@ -31,7 +31,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/discord-php/DiscordPHP-Http",
-        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP-Http/master/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/discord-php/DiscordPHP-Http/raw/master/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "http-client", "rate-limiting", "reactphp", "async", "discord", "library"]
@@ -43,7 +43,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/discord-php/DiscordPHP-Voice",
-        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP-Voice/main/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/discord-php/DiscordPHP-Voice/raw/main/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "discord", "voice", "opus", "encryption", "reactphp", "library"]
@@ -55,7 +55,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/Valgorithms/TwitchPHP",
-        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/TwitchPHP/main/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/Valgorithms/TwitchPHP/raw/main/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "twitch", "helix", "eventsub", "irc", "reactphp", "library"]
@@ -67,7 +67,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/Valgorithms/TwitchPHP-Http",
-        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/TwitchPHP-Http/main/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/Valgorithms/TwitchPHP-Http/raw/main/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "http-client", "twitch", "rate-limiting", "reactphp", "library"]
@@ -79,7 +79,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/Valgorithms/DiscordPHP-EventLogger",
-        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/DiscordPHP-EventLogger/master/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/Valgorithms/DiscordPHP-EventLogger/raw/master/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["php", "discord", "logging", "audit", "reactphp", "library"]
@@ -91,7 +91,7 @@
       "webpageUrl": { "url": "https://www.valgorithms.com" },
       "repositoryUrl": {
         "url": "https://github.com/valzargaming/NFG",
-        "wellKnown": "https://raw.githubusercontent.com/valzargaming/NFG/main/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/valzargaming/NFG/raw/main/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["javascript", "html", "forms", "no-dependencies", "tool"]
