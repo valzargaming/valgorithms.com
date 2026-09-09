@@ -11,6 +11,92 @@
       "url": "https://www.valgorithms.com"
     }
   },
+  "projects": [
+    {
+      "guid": "discordphp",
+      "name": "DiscordPHP",
+      "description": "The async PHP library for building Discord bots, built on ReactPHP. Full gateway and REST coverage, an event-driven model, and a large ecosystem of downstream bots and libraries.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/discord-php/DiscordPHP",
+        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP/master/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "discord-api", "reactphp", "async", "bot-framework", "library"]
+    },
+    {
+      "guid": "discordphp-http",
+      "name": "DiscordPHP-Http",
+      "description": "The standalone async HTTP and rate-limit layer DiscordPHP talks to Discord through — request queueing, bucket rate-limiting, and typed errors. Reusable outside DiscordPHP.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/discord-php/DiscordPHP-Http",
+        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP-Http/master/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "http-client", "rate-limiting", "reactphp", "async", "discord", "library"]
+    },
+    {
+      "guid": "discordphp-voice",
+      "name": "DiscordPHP-Voice",
+      "description": "Voice send and receive for DiscordPHP, including Opus audio and DAVE end-to-end encryption.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/discord-php/DiscordPHP-Voice",
+        "wellKnown": "https://raw.githubusercontent.com/discord-php/DiscordPHP-Voice/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "voice", "opus", "encryption", "reactphp", "library"]
+    },
+    {
+      "guid": "twitchphp",
+      "name": "TwitchPHP",
+      "description": "Async Twitch framework for PHP, built like DiscordPHP: Helix REST, EventSub over WebSocket, and IRC chat.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/Valgorithms/TwitchPHP",
+        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/TwitchPHP/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "twitch", "helix", "eventsub", "irc", "reactphp", "library"]
+    },
+    {
+      "guid": "twitchphp-http",
+      "name": "TwitchPHP-Http",
+      "description": "The standalone Helix transport for TwitchPHP — async request queue, points rate-limiting, and typed errors.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/Valgorithms/TwitchPHP-Http",
+        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/TwitchPHP-Http/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "http-client", "twitch", "rate-limiting", "reactphp", "library"]
+    },
+    {
+      "guid": "discordphp-eventlogger",
+      "name": "DiscordPHP-EventLogger",
+      "description": "Drop-in audit logging for DiscordPHP bots — every gateway event, formatted and routed.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/Valgorithms/DiscordPHP-EventLogger",
+        "wellKnown": "https://raw.githubusercontent.com/Valgorithms/DiscordPHP-EventLogger/master/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["php", "discord", "logging", "audit", "reactphp", "library"]
+    },
+    {
+      "guid": "nfg",
+      "name": "NFG",
+      "description": "Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.",
+      "webpageUrl": { "url": "https://www.valgorithms.com" },
+      "repositoryUrl": {
+        "url": "https://github.com/valzargaming/NFG",
+        "wellKnown": "https://raw.githubusercontent.com/valzargaming/NFG/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["javascript", "html", "forms", "no-dependencies", "tool"]
+    }
+  ],
   "funding": {
     "channels": [
       {
