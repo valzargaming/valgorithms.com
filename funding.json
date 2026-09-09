@@ -158,7 +158,7 @@
         "status": "active",
         "name": "One year of ecosystem maintenance",
         "description": "Grant-scale support: one year of sustained part-time maintenance across the DiscordPHP and TwitchPHP libraries — issue triage, scheduled releases, Discord and Twitch API-breakage tracking, dependency and security updates, and documentation.",
-        "amount": 30000,
+        "amount": 35000,
         "currency": "USD",
         "frequency": "yearly",
         "channels": ["github-sponsors", "paypal"]
