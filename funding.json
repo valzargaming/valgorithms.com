@@ -1,100 +1,16 @@
 {
-  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
-  "version": "v1.1.0",
+  "$schema": "https://fundingjson.org/schema/v1.0.0.json",
+  "version": "v1.0.0",
   "entity": {
     "type": "individual",
     "role": "owner",
     "name": "Valithor Obsidion",
     "email": "valithor@valgorithms.com",
-    "description": "Independent open-source developer. Owner and maintainer of the DiscordPHP ecosystem — async PHP libraries built on ReactPHP for Discord and Twitch — together with a shelf of related libraries and bots. Everything is MIT-licensed and used in production by other people filing real issues. Sponsorship is the entire funding model: there is no paid tier and no open-core plan. Funding pays for the unglamorous half of maintenance — issue triage, release chores, keeping up with Discord and Twitch API breakage, security patches, and documentation.",
+    "description": "Independent open-source developer. Owner and maintainer of the DiscordPHP ecosystem — the async PHP library for building Discord bots on ReactPHP (github.com/discord-php/DiscordPHP), its HTTP and rate-limit transport (DiscordPHP-Http), its voice stack with Opus and DAVE end-to-end encryption (DiscordPHP-Voice), plus the TwitchPHP family and several smaller libraries and bots. Everything is MIT-licensed and used in production by other people filing real issues. Sponsorship is the entire funding model: there is no paid tier and no open-core plan. Funding pays for the unglamorous half of maintenance — issue triage, release chores, keeping up with Discord and Twitch API breakage, dependency and security updates, and documentation.",
     "webpageUrl": {
-      "url": "https://valgorithms.com",
-      "wellKnown": "https://www.valgorithms.com/.well-known/funding-manifest-urls"
+      "url": "https://www.valgorithms.com"
     }
   },
-  "projects": [
-    {
-      "guid": "discordphp",
-      "name": "DiscordPHP",
-      "description": "The async PHP library for building Discord bots, built on ReactPHP. Full gateway + REST coverage, an event-driven model, and a large ecosystem of downstream bots and libraries.",
-      "webpageUrl": { "url": "https://discord-php.github.io/DiscordPHP/" },
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "discord-api", "reactphp", "async", "bot-framework", "library"]
-    },
-    {
-      "guid": "discordphp-http",
-      "name": "DiscordPHP-Http",
-      "description": "The standalone async HTTP and rate-limit layer DiscordPHP talks to Discord through — queueing, bucket rate-limiting, and typed errors. Reusable outside DiscordPHP.",
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Http" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "http-client", "rate-limiting", "reactphp", "async", "discord", "library"]
-    },
-    {
-      "guid": "discordphp-voice",
-      "name": "DiscordPHP-Voice",
-      "description": "Voice send and receive for DiscordPHP, including Opus audio and DAVE end-to-end encryption.",
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Voice" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "voice", "opus", "encryption", "reactphp", "library"]
-    },
-    {
-      "guid": "twitchphp",
-      "name": "TwitchPHP",
-      "description": "Async Twitch framework for PHP, built like DiscordPHP: Helix REST, EventSub over WebSocket, and IRC chat.",
-      "repositoryUrl": { "url": "https://github.com/Valgorithms/TwitchPHP" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "twitch", "helix", "eventsub", "irc", "reactphp", "library"]
-    },
-    {
-      "guid": "twitchphp-http",
-      "name": "TwitchPHP-Http",
-      "description": "The standalone Helix transport for TwitchPHP — async request queue, points rate-limiting, and typed errors.",
-      "repositoryUrl": { "url": "https://github.com/valgorithms/TwitchPHP-Http" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "http-client", "twitch", "rate-limiting", "reactphp", "library"]
-    },
-    {
-      "guid": "discordphp-eventlogger",
-      "name": "DiscordPHP-EventLogger",
-      "description": "Drop-in audit logging for DiscordPHP bots — every gateway event, formatted and routed.",
-      "repositoryUrl": { "url": "https://github.com/Valgorithms/DiscordPHP-EventLogger" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "logging", "audit", "reactphp", "library"]
-    },
-    {
-      "guid": "discordphp-nha",
-      "name": "DiscordPHP-NHA",
-      "description": "API library and bot for the \"No Human Allowed\" agent-sandbox world, including a deterministic ladder plus LLM autoplayer.",
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-NHA" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "game-api", "llm", "agent", "library"]
-    },
-    {
-      "guid": "discordphp-mtg",
-      "name": "DiscordPHP-MTG",
-      "description": "A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.",
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-MTG" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "magic-the-gathering", "card-search", "library"]
-    },
-    {
-      "guid": "discordphp-tutelar",
-      "name": "DiscordPHP-Tutelar",
-      "description": "A Discord community-management bot — event logging, native onboarding, rotating presence, and per-guild config on a PSR-4 module architecture.",
-      "repositoryUrl": { "url": "https://github.com/discord-php/DiscordPHP-Tutelar" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["php", "discord", "community-management", "moderation", "bot"]
-    },
-    {
-      "guid": "nfg",
-      "name": "NFG",
-      "description": "Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.",
-      "repositoryUrl": { "url": "https://github.com/valzargaming/NFG" },
-      "licenses": ["spdx:MIT"],
-      "tags": ["javascript", "html", "forms", "no-dependencies", "tool"]
-    }
-  ],
   "funding": {
     "channels": [
       {
