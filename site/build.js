@@ -140,6 +140,12 @@ const DEFAULT_PROJECTS = [
     kind: 'library',
   },
   {
+    name: 'phpdoc-tool',
+    blurb: 'phpDocumentor, patched to read and print the ?T|null types the DiscordPHP family documents itself with — the builder behind every reference on this shelf.',
+    url: 'https://github.com/discord-php/phpdoc-tool',
+    kind: 'library',
+  },
+  {
     name: 'NFG',
     blurb: 'Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.',
     url: 'https://github.com/valzargaming/NFG',
