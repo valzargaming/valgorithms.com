@@ -128,6 +128,12 @@ const DEFAULT_PROJECTS = [
     kind: 'library',
   },
   {
+    name: 'TelegramPHP',
+    blurb: 'Async Telegram Bot API framework for PHP — every method and type generated from the official spec, built like DiscordPHP.',
+    url: 'https://github.com/Valgorithms/TelegramPHP',
+    kind: 'library',
+  },
+  {
     name: 'DiscordPHP-EventLogger',
     blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
     url: 'https://github.com/valzargaming/DiscordPHP-EventLogger',
