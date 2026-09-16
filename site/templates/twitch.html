@@ -189,9 +189,41 @@
         <input type="text" id="start-client-id" name="client_id" autocomplete="off"
                spellcheck="false" placeholder="your application's client id" required />
 
-        <label for="start-scopes">Scopes</label>
-        <input type="text" id="start-scopes" name="scope" autocomplete="off"
-               spellcheck="false" value="chat:read chat:edit" />
+        <!--
+          Every scope Twitch defines, checkboxed, with the bot's set ticked.
+
+          The catalogue and the checked defaults are both generated in
+          twitch-oauth.js — 81 entries is too many to keep correct by hand in
+          markup, and the defaults have to stay in step with the bot's
+          Bot::TWITCH_SCOPES.
+        -->
+        <span class="oauth-form-label">Scopes</span>
+        <details class="oauth-scopes" id="scope-picker">
+          <summary>
+            <span id="scope-count">…</span>
+            <span class="oauth-note">&mdash; click to choose</span>
+          </summary>
+
+          <p class="oauth-note oauth-presets">
+            Preset:
+            <button type="button" class="oauth-link" data-scope-preset="bot">this bot</button>
+            <button type="button" class="oauth-link" data-scope-preset="relay">relay only</button>
+            <button type="button" class="oauth-link" data-scope-preset="none">none</button>
+            <button type="button" class="oauth-link" data-scope-preset="all">everything</button>
+          </p>
+          <p class="oauth-note">
+            &ldquo;This bot&rdquo; is exactly what DiscordPHP-TwitchBot&rsquo;s
+            commands use; those are the ones annotated below. Asking for more
+            than you need lengthens the consent screen and grants authority
+            nothing will exercise.
+          </p>
+
+          <div id="scope-groups" class="oauth-scope-groups"></div>
+        </details>
+
+        <label for="start-scopes" class="oauth-note">Resulting <code>scope</code> parameter</label>
+        <textarea id="start-scopes" name="scope" rows="4" autocomplete="off"
+                  spellcheck="false" aria-describedby="scope-count"></textarea>
 
         <label for="start-response-type">Flow</label>
         <select id="start-response-type" name="response_type">
