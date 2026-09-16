@@ -498,3 +498,142 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
     margin-bottom: 0.5rem;
   }
 }
+
+/* ── Scope picker (twitch.html) ────────────────────────────────────────
+   81 checkboxes behind a disclosure: compact when you trust the defaults,
+   fully auditable when you don't. */
+
+.oauth-form-label,
+.oauth-form textarea {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.oauth-form textarea {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.oauth-form textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.oauth-scopes {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--bg);
+}
+
+.oauth-scopes > summary {
+  cursor: pointer;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.oauth-scopes > summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.oauth-scopes[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.oauth-scopes > *:not(summary) {
+  padding-inline: 0.7rem;
+}
+
+.oauth-scope-groups {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  /* Tall families (channel, moderator) get their own column where there is
+     room, so the list does not become one endless scroll. */
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.oauth-scope-group {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+}
+
+.oauth-scope-group legend {
+  padding: 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.oauth-scope {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 0.15rem 0.5rem;
+  padding: 0.22rem 0;
+  cursor: pointer;
+}
+
+.oauth-scope input {
+  margin: 0;
+  align-self: center;
+}
+
+.oauth-scope code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.oauth-scope-why,
+.oauth-scope-warn {
+  grid-column: 2;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.oauth-scope-why {
+  color: var(--accent);
+}
+
+.oauth-scope-warn {
+  color: var(--pink);
+}
+
+.oauth-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0.7rem 0;
+}
+
+.oauth-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.oauth-link:hover {
+  color: var(--text);
+}
+
+.oauth-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
