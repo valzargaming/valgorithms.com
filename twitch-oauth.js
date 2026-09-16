@@ -23,6 +23,99 @@
   var AUTHORIZE = 'https://id.twitch.tv/oauth2/authorize';
 
   /*
+   * What DiscordPHP-TwitchBot's built-in commands need, and nothing else.
+   *
+   * Mirrors Bot::TWITCH_SCOPES. The value is the command it powers, which is
+   * shown next to the checkbox — so the consent screen can be justified line
+   * by line rather than taken on trust.
+   *
+   * Which family a scope belongs to decides what it can act on. `channel:*`
+   * needs the token to be the broadcaster's, or a channel editor's, and only
+   * ever applies to that one channel; `moderator:*` applies anywhere the
+   * authorizing account is a moderator. That is why `title` and `raid` work
+   * only on the account's own channel while `ban` and `announce` work wherever
+   * the bot is modded.
+   */
+  var BOT_SCOPES = {
+    'chat:read': 'relay, inbound',
+    'chat:edit': 'relay outbound, and every reply',
+    'channel:manage:broadcast': 'title, game, tags, marker',
+    'moderator:read:followers': 'followers',
+    'clips:edit': 'clip',
+    'moderator:manage:banned_users': 'ban, unban, timeout',
+    'moderator:manage:chat_messages': 'clear',
+    'moderator:manage:announcements': 'announce',
+    'moderator:manage:shoutouts': 'shoutout',
+    'moderator:manage:chat_settings': 'slow, subonly, emoteonly, followersonly',
+    'channel:manage:vips': 'vip, unvip',
+    'channel:manage:moderators': 'mod, unmod',
+    'channel:manage:raids': 'raid, unraid',
+    'channel:edit:commercial': 'commercial'
+  };
+
+  var RELAY_SCOPES = ['chat:read', 'chat:edit'];
+
+  /*
+   * Every scope Twitch defines, by family.
+   *
+   * Taken from the Twitch OpenAPI description rather than the documentation
+   * pages, which have been wrong about this API before.
+   * https://github.com/DmitryScaletta/twitch-api-swagger
+   *
+   * Only the entries in BOT_SCOPES carry a description, deliberately: those
+   * are the ones whose effect has actually been verified against the endpoints
+   * this bot calls. Inventing a sentence for the other sixty-seven would look
+   * more authoritative than it would be, and the names are self-describing.
+   */
+  var ALL_SCOPES = {
+    chat: ['chat:edit', 'chat:read'],
+    channel: [
+      'channel:bot', 'channel:edit:commercial', 'channel:manage:ads',
+      'channel:manage:broadcast', 'channel:manage:clips', 'channel:manage:extensions',
+      'channel:manage:guest_star', 'channel:manage:moderators', 'channel:manage:polls',
+      'channel:manage:predictions', 'channel:manage:raids', 'channel:manage:redemptions',
+      'channel:manage:schedule', 'channel:manage:videos', 'channel:manage:vips',
+      'channel:moderate', 'channel:read:ads', 'channel:read:charity',
+      'channel:read:editors', 'channel:read:goals', 'channel:read:guest_star',
+      'channel:read:hype_train', 'channel:read:polls', 'channel:read:predictions',
+      'channel:read:redemptions', 'channel:read:stream_key', 'channel:read:subscriptions',
+      'channel:read:vips'
+    ],
+    moderator: [
+      'moderator:manage:announcements', 'moderator:manage:automod',
+      'moderator:manage:automod_settings', 'moderator:manage:banned_users',
+      'moderator:manage:blocked_terms', 'moderator:manage:chat_messages',
+      'moderator:manage:chat_settings', 'moderator:manage:guest_star',
+      'moderator:manage:shield_mode', 'moderator:manage:shoutouts',
+      'moderator:manage:suspicious_users', 'moderator:manage:unban_requests',
+      'moderator:manage:warnings', 'moderator:read:automod_settings',
+      'moderator:read:banned_users', 'moderator:read:blocked_terms',
+      'moderator:read:chat_messages', 'moderator:read:chat_settings',
+      'moderator:read:chatters', 'moderator:read:followers', 'moderator:read:guest_star',
+      'moderator:read:moderators', 'moderator:read:shield_mode', 'moderator:read:shoutouts',
+      'moderator:read:suspicious_users', 'moderator:read:unban_requests',
+      'moderator:read:vips', 'moderator:read:warnings'
+    ],
+    user: [
+      'user:bot', 'user:edit', 'user:edit:broadcast', 'user:manage:blocked_users',
+      'user:manage:chat_color', 'user:manage:whispers', 'user:read:blocked_users',
+      'user:read:broadcast', 'user:read:chat', 'user:read:email', 'user:read:emotes',
+      'user:read:follows', 'user:read:moderated_channels', 'user:read:subscriptions',
+      'user:read:whispers', 'user:write:chat'
+    ],
+    other: [
+      'analytics:read:extensions', 'analytics:read:games', 'bits:read', 'clips:edit',
+      'editor:manage:clips', 'moderation:read', 'whispers:read'
+    ]
+  };
+
+  /* Scopes that hand back a credential or a private detail, flagged in the UI. */
+  var SENSITIVE_SCOPES = {
+    'channel:read:stream_key': 'returns your live stream key',
+    'user:read:email': 'returns your email address'
+  };
+
+  /*
    * Refuse to run inside a frame.
    *
    * A page that displays a credential should never be embeddable: framed, it
@@ -257,6 +350,131 @@
     return uri;
   }
 
+  // ── Scope picker ───────────────────────────────────────────────────
+
+  var GROUP_LABELS = {
+    chat: 'Chat',
+    channel: 'Channel — needs the broadcaster’s own token',
+    moderator: 'Moderator — works wherever the account is modded',
+    user: 'User',
+    other: 'Other'
+  };
+
+  /** Builds the grouped checkbox list. */
+  function renderScopePicker() {
+    var host = $('scope-groups');
+    if (!host) return;
+
+    Object.keys(ALL_SCOPES).forEach(function (group) {
+      var fieldset = document.createElement('fieldset');
+      fieldset.className = 'oauth-scope-group';
+
+      var legend = document.createElement('legend');
+      legend.textContent = GROUP_LABELS[group] || group;
+      fieldset.appendChild(legend);
+
+      ALL_SCOPES[group].forEach(function (scope) {
+        var row = document.createElement('label');
+        row.className = 'oauth-scope';
+
+        var box = document.createElement('input');
+        box.type = 'checkbox';
+        box.value = scope;
+        box.checked = Object.prototype.hasOwnProperty.call(BOT_SCOPES, scope);
+        box.addEventListener('change', syncScopes);
+
+        var name = document.createElement('code');
+        name.textContent = scope;
+
+        row.appendChild(box);
+        row.appendChild(name);
+
+        if (BOT_SCOPES[scope]) {
+          var why = document.createElement('span');
+          why.className = 'oauth-scope-why';
+          why.textContent = BOT_SCOPES[scope];
+          row.appendChild(why);
+        }
+
+        if (SENSITIVE_SCOPES[scope]) {
+          var warn = document.createElement('span');
+          warn.className = 'oauth-scope-warn';
+          warn.textContent = SENSITIVE_SCOPES[scope];
+          row.appendChild(warn);
+        }
+
+        fieldset.appendChild(row);
+      });
+
+      host.appendChild(fieldset);
+    });
+  }
+
+  /** @return {HTMLInputElement[]} */
+  function scopeBoxes() {
+    var host = $('scope-groups');
+    return host ? Array.prototype.slice.call(host.querySelectorAll('input[type=checkbox]')) : [];
+  }
+
+  /**
+   * Pushes the ticked boxes into the textarea and the summary count.
+   *
+   * The textarea stays the single source of truth for what gets submitted, so
+   * it remains directly editable — paste a scope string in and it is used as
+   * typed, even if it names something not in the catalogue.
+   */
+  function syncScopes() {
+    var selected = scopeBoxes()
+      .filter(function (box) { return box.checked; })
+      .map(function (box) { return box.value; });
+
+    var field = $('start-scopes');
+    if (field) field.value = selected.join(' ');
+
+    text('scope-count', selected.length + (selected.length === 1 ? ' scope' : ' scopes') + ' selected');
+  }
+
+  /** Ticks the boxes to match a hand-edited scope string. */
+  function syncBoxesFromField() {
+    var field = $('start-scopes');
+    if (!field) return;
+
+    var wanted = field.value.split(/[\s,]+/).filter(Boolean);
+    scopeBoxes().forEach(function (box) {
+      box.checked = wanted.indexOf(box.value) !== -1;
+    });
+
+    text('scope-count', wanted.length + (wanted.length === 1 ? ' scope' : ' scopes') + ' selected');
+  }
+
+  function applyPreset(preset) {
+    var wanted =
+      preset === 'bot' ? Object.keys(BOT_SCOPES)
+      : preset === 'relay' ? RELAY_SCOPES
+      : preset === 'all' ? scopeBoxes().map(function (b) { return b.value; })
+      : [];
+
+    scopeBoxes().forEach(function (box) {
+      box.checked = wanted.indexOf(box.value) !== -1;
+    });
+
+    syncScopes();
+  }
+
+  function wireScopePicker() {
+    renderScopePicker();
+    syncScopes();
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-scope-preset]'), function (button) {
+      button.addEventListener('click', function () {
+        applyPreset(button.getAttribute('data-scope-preset'));
+      });
+    });
+
+    var field = $('start-scopes');
+    if (field) field.addEventListener('input', syncBoxesFromField);
+  }
+
   function wireStarter(redirectUri) {
     var form = $('start-form');
     if (!form) return;
@@ -293,6 +511,7 @@
   function init() {
     var get = reader();
     var redirectUri = showRedirectUri();
+    wireScopePicker();
     wireStarter(redirectUri);
     wireCopy('redirect-uri-copy', 'redirect-uri');
 
