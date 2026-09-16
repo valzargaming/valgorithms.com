@@ -163,6 +163,12 @@ const DEFAULT_PROJECTS = [
     url: 'https://github.com/discord-php/DiscordPHP-Tutelar',
     kind: 'bot',
   },
+  {
+    name: 'DiscordPHP-TwitchBot',
+    blurb: 'A Discord and Twitch bot on one event loop: a configurable two-way chat relay, plus the Twitch Helix API driven from either chat.',
+    url: 'https://github.com/discord-php/DiscordPHP-TwitchBot',
+    kind: 'bot',
+  },
 ];
 
 const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
