@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Twitch authorization — valgorithms</title>
+
+  <!--
+    This page deliberately does NOT include the shared head partial.
+
+    It handles access tokens and authorization codes, so it loads nothing from
+    anywhere else — no web fonts, no analytics, nothing that could observe the
+    URL it was opened with. `no-referrer` keeps the query string out of any
+    outbound Referer, and the CSP means a compromised or injected script has
+    nowhere to send a token even if one got in. The system font stack is a
+    small cosmetic price for a page whose whole job is to hold a credential
+    for a few seconds.
+  -->
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <!--
+    `frame-ancestors` is deliberately absent: it is ignored when delivered in a
+    <meta> element, and GitHub Pages cannot set response headers, so including
+    it would only log an error. Framing is refused in script instead — see the
+    top of twitch-oauth.js.
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src data:; form-action 'none'; base-uri 'none'" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c6cff'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='%230e0f1a'%3Ev%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="site-header">
+    <a class="brand" href="https://www.valgorithms.com">
+      <span class="brand-mark" aria-hidden="true">v</span>
+      <span class="brand-name">valgorithms</span>
+    </a>
+    <nav class="site-nav">
+      <a href="https://www.valgorithms.com#support">Support</a>
+      <a href="https://www.valgorithms.com#projects">Projects</a>
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub&nbsp;&#8599;</a>
+      <a class="nav-cta" href="https://github.com/sponsors/valzargaming" rel="noopener">Sponsor</a>
+    </nav>
+  </header>
+
+
+  <main class="legal oauth">
+    <p class="kicker">OAuth</p>
+    <h1>Twitch authorization</h1>
+    <p class="legal-meta">The redirect target for Twitch applications operated by Valithor Obsidion</p>
+
+    <!-- ─── Nothing in the URL: an explainer ─────────────────────────── -->
+    <section id="panel-idle" class="panel oauth-panel" hidden>
+      <h2>Nothing to show</h2>
+      <p>
+        This page receives the result of a Twitch authorization. You have
+        arrived without one, which usually means you opened it directly.
+      </p>
+      <p class="oauth-note">
+        If you were expecting a token, start the flow again from wherever you
+        began it &mdash; or use the form below.
+      </p>
+    </section>
+
+    <!-- ─── Implicit grant: a token in the fragment ──────────────────── -->
+    <section id="panel-token" class="panel oauth-panel oauth-ok" hidden>
+      <h2>Authorized</h2>
+      <p>
+        Twitch returned an access token. It is shown only in this tab and has
+        <strong>not been sent anywhere</strong> &mdash; it arrived in the URL
+        fragment, which browsers never transmit to a server.
+      </p>
+
+      <div class="oauth-field">
+        <span class="oauth-label">Access token</span>
+        <code id="token-value" class="oauth-value is-masked"></code>
+        <span class="oauth-actions">
+          <button type="button" id="token-reveal" class="btn btn-ghost" aria-pressed="false">Reveal</button>
+          <button type="button" id="token-copy" class="btn btn-ghost">Copy</button>
+        </span>
+      </div>
+
+      <dl class="oauth-meta">
+        <dt>Scopes</dt><dd id="token-scopes"></dd>
+        <dt>Type</dt><dd id="token-type"></dd>
+        <dt>Expires in</dt><dd id="token-expires"></dd>
+      </dl>
+
+      <p class="legal-callout">
+        Treat this like a password. It can act on the authorizing account for
+        every scope listed above. An implicit-grant token
+        <strong>cannot be refreshed</strong> &mdash; when it expires you will
+        have to authorize again. If you need a token that renews itself, use
+        <code>response_type=code</code> and exchange it somewhere that holds
+        your client secret.
+      </p>
+
+      <p id="token-state-note" class="oauth-note" hidden><span id="token-state-note-text"></span></p>
+    </section>
+
+    <!-- ─── Authorization code: a code in the query string ───────────── -->
+    <section id="panel-code" class="panel oauth-panel oauth-ok" hidden>
+      <h2>Authorized</h2>
+      <p>
+        Twitch returned an authorization code. It is single-use, expires within
+        a few minutes, and still has to be exchanged for a token by something
+        that holds the client secret.
+      </p>
+
+      <div class="oauth-field">
+        <span class="oauth-label">Code</span>
+        <code id="code-value" class="oauth-value is-masked"></code>
+        <span class="oauth-actions">
+          <button type="button" id="code-reveal" class="btn btn-ghost" aria-pressed="false">Reveal</button>
+          <button type="button" id="code-copy" class="btn btn-ghost">Copy</button>
+        </span>
+      </div>
+
+      <dl class="oauth-meta">
+        <dt>Scopes</dt><dd id="code-scopes"></dd>
+      </dl>
+
+      <p>Exchange it from a machine you control, never from a browser:</p>
+      <pre class="oauth-pre"><code>curl -X POST https://id.twitch.tv/oauth2/token \
+  -d client_id=YOUR_CLIENT_ID \
+  -d client_secret=YOUR_CLIENT_SECRET \
+  -d code=THE_CODE_ABOVE \
+  -d grant_type=authorization_code \
+  -d redirect_uri=<span id="redirect-uri-echo"></span></code></pre>
+
+      <p class="legal-callout">
+        The <code>redirect_uri</code> in that exchange must be byte-identical to
+        the one used to start the flow, or Twitch rejects it &mdash; even though
+        no further redirect happens.
+      </p>
+
+      <p id="code-state-note" class="oauth-note" hidden><span id="code-state-note-text"></span></p>
+    </section>
+
+    <!-- ─── State mismatch: refuse to display ────────────────────────── -->
+    <section id="panel-rejected" class="panel oauth-panel oauth-bad" hidden>
+      <h2>Discarded</h2>
+      <p id="rejected-reason"></p>
+      <p>
+        Nothing has been displayed or stored. If you did not just start an
+        authorization yourself, someone may have sent you this link hoping you
+        would complete one on their behalf &mdash; close the tab.
+      </p>
+    </section>
+
+    <!-- ─── Failure ──────────────────────────────────────────────────── -->
+    <section id="panel-error" class="panel oauth-panel oauth-bad" hidden>
+      <h2>Authorization failed</h2>
+      <dl class="oauth-meta">
+        <dt>Error</dt><dd><code id="error-code"></code></dd>
+        <dt>Detail</dt><dd id="error-description"></dd>
+      </dl>
+      <p class="oauth-note">
+        <code>redirect_mismatch</code> means the <code>redirect_uri</code> sent
+        to the authorize endpoint is not one of the URLs registered on the
+        application. It has to match exactly &mdash; scheme, host, port and
+        path, with <code>www.</code> and a trailing slash both counting as a
+        difference.
+      </p>
+    </section>
+
+    <!-- ─── Registration details, and a way to test ──────────────────── -->
+    <section class="panel oauth-panel">
+      <h2>Register this URL</h2>
+      <p>
+        Paste this into <em>OAuth Redirect URLs</em> on the application at
+        <a href="https://dev.twitch.tv/console/apps" rel="noopener">dev.twitch.tv/console/apps</a>,
+        exactly as shown:
+      </p>
+
+      <div class="oauth-field">
+        <span class="oauth-label">Redirect URL</span>
+        <code id="redirect-uri" class="oauth-value"></code>
+        <span class="oauth-actions">
+          <button type="button" id="redirect-uri-copy" class="btn btn-ghost">Copy</button>
+        </span>
+      </div>
+
+      <p class="oauth-note">
+        Read from the address bar, so it is the exact string this page is
+        actually served at. An application may register up to ten; add
+        <code>http://localhost</code> as well if you develop locally, which
+        Twitch permits over plain HTTP for loopback only.
+      </p>
+
+      <h3>Test an authorization</h3>
+      <p>
+        Starts a real flow against the redirect URL above, with a random
+        <code>state</code> stored in this tab so the response can be verified
+        when it comes back.
+      </p>
+
+      <form id="start-form" class="oauth-form">
+        <label for="start-client-id">Client ID</label>
+        <input type="text" id="start-client-id" name="client_id" autocomplete="off"
+               spellcheck="false" placeholder="your application's client id" required />
+
+        <label for="start-scopes">Scopes</label>
+        <input type="text" id="start-scopes" name="scope" autocomplete="off"
+               spellcheck="false" value="chat:read chat:edit" />
+
+        <label for="start-response-type">Flow</label>
+        <select id="start-response-type" name="response_type">
+          <option value="code">code &mdash; exchangeable, refreshable (needs a secret)</option>
+          <option value="token">token &mdash; returned here directly, cannot refresh</option>
+        </select>
+
+        <label class="oauth-check">
+          <input type="checkbox" id="start-force-verify" />
+          Force the consent screen even if already authorized
+        </label>
+
+        <button type="submit" class="btn">Authorize on Twitch</button>
+      </form>
+
+      <p class="oauth-note">
+        Your client ID stays in this tab; it is put into the Twitch URL and
+        nowhere else. Never enter a client <em>secret</em> on this page, or any
+        page &mdash; a secret belongs only on a server you control.
+      </p>
+    </section>
+
+    <p class="legal-back"><a href="https://www.valgorithms.com">&larr; valgorithms</a></p>
+  </main>
+
+    <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub</a><a href="https://discord.gg/dphp" rel="noopener">Discord</a><a href="mailto:valithor@valgorithms.com" rel="noopener">Email</a>
+      <a href="https://www.valgorithms.com/terms.html">Terms</a>
+      <a href="https://www.valgorithms.com/privacy.html">Privacy</a>
+    </div>
+    <p class="footer-meta">
+      © 2026 Valithor Obsidion · built from
+      <a href="https://github.com/valzargaming/valgorithms.com" rel="noopener">source</a>,
+      deployed on GitHub&nbsp;Pages.
+    </p>
+  </footer>
+
+  <script src="twitch-oauth.js"></script>
+</body>
+</html>

@@ -1,10 +1,11 @@
 {
-  "builtAt": "2026-09-14T22:31:09.202Z",
+  "builtAt": "2026-09-16T16:43:09.013Z",
   "pages": [
     "404.html",
     "index.html",
     "privacy.html",
-    "terms.html"
+    "terms.html",
+    "twitch.html"
   ],
   "projects": 13,
   "cname": "www.valgorithms.com"
