@@ -338,3 +338,163 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   .btn { width: 100%; justify-content: center; }
   .panel { padding: 1.5rem; }
 }
+
+/* ── OAuth redirect page (twitch.html) ─────────────────────────────────
+   Shares the site's tokens and panel shape; adds only what a page that
+   displays a credential needs — masking, copy affordances, and a clear
+   success/failure edge. */
+
+.oauth-panel {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+}
+
+.oauth-panel h2 {
+  margin-top: 0;
+}
+
+.oauth-ok {
+  border-left: 3px solid var(--accent);
+}
+
+.oauth-bad {
+  border-left: 3px solid var(--pink);
+}
+
+.oauth-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.oauth-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex: 0 0 100%;
+}
+
+.oauth-value {
+  flex: 1 1 18rem;
+  min-width: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  word-break: break-all;
+  /* A credential is long; let it wrap rather than overflow the panel. */
+  white-space: pre-wrap;
+}
+
+/* Masked until deliberately revealed, so a token is not sitting on screen
+   during a screen share. The value stays in the DOM for the copy button —
+   this hides it from eyes, not from the page. */
+.oauth-value.is-masked {
+  color: transparent;
+  text-shadow: 0 0 0.55rem var(--muted);
+  user-select: none;
+}
+
+.oauth-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.oauth-actions .btn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.oauth-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.92rem;
+}
+
+.oauth-meta dt {
+  color: var(--muted);
+}
+
+.oauth-meta dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.oauth-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.oauth-pre {
+  overflow-x: auto;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--bg);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.oauth-form {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 34rem;
+  margin: 1rem 0;
+}
+
+.oauth-form label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.oauth-form input[type='text'],
+.oauth-form select {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.oauth-form input[type='text']:focus-visible,
+.oauth-form select:focus-visible,
+.oauth-form button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.oauth-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.3rem 0 0.6rem;
+}
+
+.oauth-form .btn {
+  justify-self: start;
+}
+
+@media (max-width: 30rem) {
+  .oauth-actions {
+    flex: 1 1 100%;
+  }
+
+  .oauth-meta {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .oauth-meta dd {
+    margin-bottom: 0.5rem;
+  }
+}
