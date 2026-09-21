@@ -106,13 +106,13 @@ const DEFAULT_PROJECTS = [
   {
     name: 'DiscordPHP-NHA',
     blurb: 'API library (and bot) for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.',
-    url: 'https://github.com/valzargaming/DiscordPHP-NHA',
+    url: 'https://github.com/discord-php/DiscordPHP-NHA',
     kind: 'library',
   },
   {
     name: 'DiscordPHP-MTG',
     blurb: 'A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.',
-    url: 'https://github.com/valzargaming/DiscordPHP-MTG',
+    url: 'https://github.com/discord-php/DiscordPHP-MTG',
     kind: 'library',
   },
   {
@@ -136,7 +136,7 @@ const DEFAULT_PROJECTS = [
   {
     name: 'DiscordPHP-EventLogger',
     blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
-    url: 'https://github.com/valzargaming/DiscordPHP-EventLogger',
+    url: 'https://github.com/Valgorithms/DiscordPHP-EventLogger',
     kind: 'library',
   },
   {
@@ -154,7 +154,7 @@ const DEFAULT_PROJECTS = [
   {
     name: 'Civilizationbot',
     blurb: 'Civ13’s official Discord bot — game-server management, player verification, moderation.',
-    url: 'https://github.com/valzargaming/Civilizationbot',
+    url: 'https://github.com/Valgorithms/Civilizationbot',
     kind: 'bot',
   },
   {
@@ -166,7 +166,7 @@ const DEFAULT_PROJECTS = [
   {
     name: 'DiscordPHP-TwitchBot',
     blurb: 'A Discord and Twitch bot on one event loop: a configurable two-way chat relay, plus the Twitch Helix API driven from either chat.',
-    url: 'https://github.com/discord-php/DiscordPHP-TwitchBot',
+    url: 'https://github.com/Valgorithms/DiscordPHP-TwitchBot',
     kind: 'bot',
   },
 ];
