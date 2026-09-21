@@ -106,13 +106,13 @@ const DEFAULT_PROJECTS = [
   {
     name: 'DiscordPHP-NHA',
     blurb: 'API library (and bot) for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.',
-    url: 'https://github.com/discord-php/DiscordPHP-NHA',
+    url: 'https://github.com/Valgorithms/DiscordPHP-NHA',
     kind: 'library',
   },
   {
     name: 'DiscordPHP-MTG',
     blurb: 'A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.',
-    url: 'https://github.com/discord-php/DiscordPHP-MTG',
+    url: 'https://github.com/Valgorithms/DiscordPHP-MTG',
     kind: 'library',
   },
   {
