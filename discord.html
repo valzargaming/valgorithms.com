@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add to Discord — valgorithms</title>
+
+  <!--
+    Like twitch.html, this page does NOT include the shared head partial.
+
+    Discord sends the result of an install back here, and that URL carries an
+    authorization code. The code is useless without the application's client
+    secret — which this page never has — but it is still a credential, so the
+    page loads nothing from anywhere else, sends no Referer, and scrubs the
+    code out of the address bar before rendering anything.
+  -->
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src data:; form-action 'none'; base-uri 'none'" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c6cff'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='%230e0f1a'%3Ev%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="site-header">
+    <a class="brand" href="https://www.valgorithms.com">
+      <span class="brand-mark" aria-hidden="true">v</span>
+      <span class="brand-name">valgorithms</span>
+    </a>
+    <nav class="site-nav">
+      <a href="https://www.valgorithms.com#support">Support</a>
+      <a href="https://www.valgorithms.com#projects">Projects</a>
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub&nbsp;&#8599;</a>
+      <a class="nav-cta" href="https://github.com/sponsors/valzargaming" rel="noopener">Sponsor</a>
+    </nav>
+  </header>
+
+
+  <main class="legal oauth">
+    <p class="kicker">Discord</p>
+    <h1>Add to a server</h1>
+    <p class="legal-meta">Install links for the Discord applications operated by Valithor Obsidion</p>
+
+    <noscript>
+      <p class="legal-callout">This page needs JavaScript to build the install link.</p>
+    </noscript>
+
+    <!--
+      The applications this page will install, and nothing else. Inert data —
+      a JSON block is never executed, so the CSP needs no exception for it.
+    -->
+    <script type="application/json" id="discord-apps">[{"key":"bridge","name":"Bridge","client_id":"1548742142011121785","permissions":"536988672","blurb":"Bridges Discord channels with Twitch chat and Telegram groups — a two-way relay, plus each network’s commands from any of the three chats.","next":"In the channel you want bridged, run /twitch link or /telegram link.","source":"https://github.com/discord-php/DiscordPHP-Bridge","private":true,"why":{"10":"see the channels you bridge","11":"relay the other networks into Discord, and answer commands","14":"show links in relayed messages and command replies","15":"copy a Telegram photo or file into Discord when a webhook cannot be used","16":"reply to commands, and follow an edit back to the message it changes","29":"post each relayed message under the sender’s own name and picture — without it they arrive as the bot"}}]</script>
+
+    <!-- ─── Several apps, none named ─────────────────────────────────── -->
+    <section id="panel-choose" class="panel oauth-panel" hidden>
+      <h2>Which application?</h2>
+      <ul id="app-list" class="discord-app-list"></ul>
+    </section>
+
+    <!-- ─── A link naming something not installed from here ──────────── -->
+    <section id="panel-unknown" class="panel oauth-panel oauth-bad" hidden>
+      <h2>Not installed from here</h2>
+      <p>
+        This link names an application that is not one of the ones this page
+        installs. Only the applications listed on this site can be added
+        through it &mdash; if somebody sent you this link, do not trust where
+        it was meant to lead.
+      </p>
+    </section>
+
+    <!-- ─── The install itself ───────────────────────────────────────── -->
+    <section id="panel-install" class="panel oauth-panel" hidden>
+      <h2 id="install-name"></h2>
+      <p id="install-blurb"></p>
+
+      <p id="install-private" class="legal-callout" hidden>
+        <strong>Installed privately.</strong> Only its operator can add it to a
+        server &mdash; Discord refuses anyone else, so the button below works
+        for them alone. If you would like it in your server,
+        <a href="mailto:valithor@valgorithms.com">email</a> or ask in the
+        <a href="https://discord.gg/dphp" rel="noopener">Discord server</a>.
+      </p>
+
+      <h3>What it asks for</h3>
+      <ul id="install-permissions" class="discord-perms"></ul>
+      <p class="oauth-note">
+        Nothing else. Discord shows the same list before anything is granted,
+        and any of it can be unticked there.
+      </p>
+
+      <p class="discord-cta">
+        <button type="button" id="install-button" class="btn btn-sponsor">Add to Discord</button>
+      </p>
+      <p class="oauth-note" id="install-source" hidden>
+        Source: <a id="install-source-link" href="#" rel="noopener"></a>
+      </p>
+    </section>
+
+    <!-- ─── Back from Discord: installed ─────────────────────────────── -->
+    <section id="panel-added" class="panel oauth-panel oauth-ok" hidden>
+      <h2>Added</h2>
+      <p><strong id="added-name"></strong> is now in the server.</p>
+
+      <dl class="oauth-meta">
+        <dt>Server ID</dt><dd><code id="added-guild"></code></dd>
+        <dt>Granted</dt><dd id="added-permissions"></dd>
+      </dl>
+
+      <div id="added-missing" class="legal-callout" hidden>
+        <p><strong>Some permissions were left out.</strong> It will still run, without:</p>
+        <ul id="added-missing-list" class="discord-perms"></ul>
+        <p class="oauth-note">They can be granted later from the server's settings, under Roles.</p>
+      </div>
+
+      <p id="added-next"></p>
+      <p id="added-state-note" class="oauth-note" hidden></p>
+    </section>
+
+    <!-- ─── Back from Discord: cancelled ─────────────────────────────── -->
+    <section id="panel-cancelled" class="panel oauth-panel" hidden>
+      <h2>Not added</h2>
+      <p>The install was cancelled on Discord. Nothing was added to any server.</p>
+    </section>
+
+    <!-- ─── Back from Discord: state mismatch ────────────────────────── -->
+    <section id="panel-rejected" class="panel oauth-panel oauth-bad" hidden>
+      <h2>Discarded</h2>
+      <p id="rejected-reason"></p>
+      <p>
+        If you did not just start an install from this page yourself, somebody
+        may have sent you this link &mdash; close the tab.
+      </p>
+    </section>
+
+    <!-- ─── Back from Discord: failure ───────────────────────────────── -->
+    <section id="panel-error" class="panel oauth-panel oauth-bad" hidden>
+      <h2>Install failed</h2>
+      <dl class="oauth-meta">
+        <dt>Error</dt><dd><code id="error-code"></code></dd>
+        <dt>Detail</dt><dd id="error-description"></dd>
+      </dl>
+    </section>
+
+    <!-- ─── For the operator ─────────────────────────────────────────── -->
+    <details class="panel oauth-panel discord-setup">
+      <summary>Setting an application up to install from here</summary>
+
+      <p>
+        In the <a href="https://discord.com/developers/applications" rel="noopener">Developer Portal</a>,
+        for the application:
+      </p>
+      <ol>
+        <li>
+          <strong>Installation &rarr; Installation Contexts:</strong> Guild
+          Install only. Untick User Install.
+        </li>
+        <li>
+          <strong>Installation &rarr; Install Link:</strong> Custom URL, set to
+          <code id="setup-install-url"></code>
+          <button type="button" id="setup-install-url-copy" class="btn btn-ghost oauth-inline-btn">Copy</button>
+          <br /><span class="oauth-note">Do this first &mdash; Discord will not
+          make a bot private while its install link is Discord&rsquo;s own.</span>
+        </li>
+        <li>
+          <strong>Bot &rarr; Public Bot:</strong> off, so only you can add it.
+        </li>
+        <li>
+          <strong>Bot &rarr; Requires OAuth2 Code Grant:</strong> off. This page
+          cannot exchange a code, and with that on the bot would never join.
+        </li>
+        <li>
+          <strong>OAuth2 &rarr; Redirects:</strong> add
+          <code id="setup-redirect"></code>
+          <button type="button" id="setup-redirect-copy" class="btn btn-ghost oauth-inline-btn">Copy</button>
+          <br /><span class="oauth-note">Exactly as shown &mdash; scheme, host
+          and path all count, and <code>www.</code> is a different host.</span>
+        </li>
+      </ol>
+      <p class="oauth-note">
+        A new application is added to this page through the site build&rsquo;s
+        <code>DISCORD_APPS_JSON</code>; its client ID is public, but only the
+        ones listed there can be installed from here.
+      </p>
+    </details>
+
+    <p class="legal-back"><a href="https://www.valgorithms.com">&larr; valgorithms</a></p>
+  </main>
+
+    <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub</a><a href="https://discord.gg/dphp" rel="noopener">Discord</a><a href="mailto:valithor@valgorithms.com" rel="noopener">Email</a>
+      <a href="https://www.valgorithms.com/terms.html">Terms</a>
+      <a href="https://www.valgorithms.com/privacy.html">Privacy</a>
+    </div>
+    <p class="footer-meta">
+      © 2026 Valithor Obsidion · built from
+      <a href="https://github.com/valzargaming/valgorithms.com" rel="noopener">source</a>,
+      deployed on GitHub&nbsp;Pages.
+    </p>
+  </footer>
+
+  <script src="discord-install.js"></script>
+</body>
+</html>
