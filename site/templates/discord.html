@@ -161,14 +161,25 @@
           <strong>OAuth2 &rarr; Redirects:</strong> add
           <code id="setup-redirect"></code>
           <button type="button" id="setup-redirect-copy" class="btn btn-ghost oauth-inline-btn">Copy</button>
-          <br /><span class="oauth-note">Exactly as shown &mdash; scheme, host
-          and path all count, and <code>www.</code> is a different host.</span>
+          <br /><span class="oauth-note">Exactly as shown, <strong>without</strong>
+          the <code>?app=</code> part of the install link, then <strong>Save
+          Changes</strong>. Scheme, host and path all count, and <code>www.</code>
+          is a different host. Redirects are per application: each one
+          installed from here needs its own copy.</span>
         </li>
       </ol>
       <p class="oauth-note">
-        A new application is added to this page through the site build&rsquo;s
-        <code>DISCORD_APPS_JSON</code>; its client ID is public, but only the
-        ones listed there can be installed from here.
+        <strong>&ldquo;Invalid OAuth2 redirect_uri&rdquo;</strong> from Discord
+        means the redirect in the last step is missing or differs from the one
+        above by as much as a character.
+      </p>
+      <p class="oauth-note">
+        Another application is added to this page in the site build &mdash;
+        <code>DEFAULT_DISCORD_APPS</code> in <code>site/build.js</code>, or the
+        <code>DISCORD_APPS_JSON</code> variable; the
+        <a href="{{GITHUB_URL}}/valgorithms.com#adding-another-application" rel="noopener">README</a>
+        has the steps. Only the applications listed there can be installed
+        from here.
       </p>
     </details>
 

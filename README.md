@@ -76,14 +76,70 @@ starts Discord's bot authorization and shows the result when Discord redirects
 back. Like `/twitch.html` it loads nothing from anywhere else, makes no network
 requests, and scrubs the returned code from the address bar without showing it.
 
-Only applications listed in `DEFAULT_DISCORD_APPS` in `build.js` (or
-`DISCORD_APPS_JSON`) can be installed from it; `?app=<key>` picks one, and a
-link naming anything else is refused. Each entry is
-`{key, name, client_id, permissions, blurb, next, source, private, why}`, where
-`permissions` is the decimal bitfield and `why` maps a permission's bit number
-to the reason it is needed.
+Only the applications listed in the build can be installed from it. `?app=<key>`
+picks one; a link naming anything else is refused. With exactly one application
+listed, `?app=` can be left off.
 
-For each application, in the Developer Portal, in this order:
+| Application | Key | Client ID | Install link |
+| --- | --- | --- | --- |
+| Bridge | `bridge` | `1548742142011121785` | <https://www.valgorithms.com/discord.html?app=bridge> |
+
+### Adding another application
+
+**1. Collect three things.**
+
+- **Client ID.** Developer Portal → the application → *General Information* →
+  *Application ID*. It is public; it is not the token or the client secret,
+  neither of which belongs anywhere near this repository.
+- **Permissions.** The decimal permissions integer the bot needs. Tick them
+  in Developer Portal → *OAuth2* → *URL Generator* (scope `bot`) and copy the
+  `permissions=` value from the generated URL. Ask for what the code actually
+  uses and nothing more; the page shows each one to whoever installs it.
+- **Key.** A short name for the link: lower-case letters, digits and `-`, up to
+  32 characters (`tutelar`, `mtg`). It becomes `?app=<key>`, so it cannot
+  change later without re-pointing the portal.
+
+**2. Add an entry** to `DEFAULT_DISCORD_APPS` in `site/build.js`:
+
+```js
+{
+  key: 'tutelar',
+  name: 'Tutelar',
+  client_id: '123456789012345678',
+  permissions: '2048',
+  blurb: 'One sentence on what it does, shown at the top of the page.',
+  next: 'What to do once it has joined, shown after the install.',
+  source: 'https://github.com/discord-php/DiscordPHP-Tutelar',
+  private: true,
+  why: {
+    11: 'answer commands',
+  },
+},
+```
+
+| Field | |
+| --- | --- |
+| `key`, `name`, `client_id`, `permissions` | required; `client_id` is 17–20 digits, `permissions` a decimal string |
+| `blurb`, `next` | plain text |
+| `source` | an `https://` link, or leave it out |
+| `private` | `true` shows the "only its operator can add it" notice; match it to **Public Bot** |
+| `why` | permission **bit number** → the reason it is needed, e.g. `11` Send Messages, `29` Manage Webhooks. Bits with no reason are still listed, just without one. |
+
+An entry missing a required field, or with a malformed one, is skipped and the
+build prints `Skipping a Discord app …` — check the *Build site* step of the
+Actions run if a new app does not appear.
+
+Instead of editing `build.js`, the list can be set as the repository variable
+`DISCORD_APPS_JSON` (Settings → Secrets and variables → Actions → Variables),
+as a JSON array of the same entries. It **replaces** the list rather than adding
+to it, so it has to include the bridge as well.
+
+**3. Deploy.** Push to `main`, then open
+`https://www.valgorithms.com/discord.html?app=<key>` and check the name and the
+permission list.
+
+**4. Point the application at it.** In the Developer Portal, for *that*
+application, in this order:
 
 1. **Installation → Installation Contexts:** Guild Install only.
 2. **Installation → Install Link:** Custom URL,
@@ -92,9 +148,32 @@ For each application, in the Developer Portal, in this order:
    its own, which is why step 2 comes first.
 4. **Bot → Requires OAuth2 Code Grant:** off. The page cannot exchange a code,
    so with this on the bot would never join.
-5. **OAuth2 → Redirects:** `https://www.valgorithms.com/discord.html`, exactly.
-   The page sends Discord back to the address it is served at, and GitHub Pages
-   serves it on `www.`.
+5. **OAuth2 → Redirects:** add `https://www.valgorithms.com/discord.html` —
+   exactly that, **without** `?app=…` — then **Save Changes**. Redirects are
+   per application, so every application installed from here needs its own
+   copy of this line.
 
 The same checklist, with copy buttons for both URLs, is at the bottom of the
 page.
+
+**5. Check it.** Steps 1–3 are visible without logging in:
+
+```bash
+curl -s https://discord.com/api/v10/applications/<client_id>/rpc
+```
+
+Look for `"custom_install_url"` set to the link above, `"bot_public": false`,
+and `integration_types_config` with only a `"0"` key. The redirect list is not
+public; the only test for step 5 is pressing **Add to Discord** on the page.
+
+### "Invalid OAuth2 redirect_uri"
+
+Discord says this when the page's return address is not on the application's
+**OAuth2 → Redirects** list character for character. The page always sends
+`https://www.valgorithms.com/discord.html`. The usual differences:
+
+- the line was never added, or the page was left without **Save Changes**;
+- it was added with the `?app=…` from the install link — the redirect has no query;
+- it was added as `https://valgorithms.com/…` (no `www.`), `http://`, or with a
+  trailing slash;
+- it was added to a different application.
