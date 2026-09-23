@@ -172,6 +172,87 @@ const DEFAULT_PROJECTS = [
 ];
 
 const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
+
+// Discord applications installable from /discord.html — the page each app's
+// "Custom URL" install link points at. Each is:
+//
+//   { key, name, client_id, permissions, blurb, next, source, private, why }
+//
+// `key` is what `?app=` selects; `permissions` the bitfield the install asks
+// for, as a decimal string; `why` maps each permission's bit number to the
+// reason it is needed, shown next to it before anyone clicks. Override the
+// whole set with DISCORD_APPS_JSON (a JSON array of the same shape).
+//
+// Only what is listed here can be installed from the page: a link naming any
+// other application is refused, so the site cannot be used to dress up
+// somebody else's bot.
+const DEFAULT_DISCORD_APPS = [
+  {
+    key: 'bridge',
+    name: 'Bridge',
+    client_id: '1548742142011121785',
+    // View Channels, Send Messages, Embed Links, Attach Files,
+    // Read Message History, Manage Webhooks.
+    permissions: '536988672',
+    blurb:
+      'Bridges Discord channels with Twitch chat and Telegram groups — a two-way relay, plus each network’s commands from any of the three chats.',
+    next: 'In the channel you want bridged, run /twitch link or /telegram link.',
+    source: 'https://github.com/discord-php/DiscordPHP-Bridge',
+    private: true,
+    why: {
+      10: 'see the channels you bridge',
+      11: 'relay the other networks into Discord, and answer commands',
+      14: 'show links in relayed messages and command replies',
+      15: 'copy a Telegram photo or file into Discord when a webhook cannot be used',
+      16: 'reply to commands, and follow an edit back to the message it changes',
+      29: 'post each relayed message under the sender’s own name and picture — without it they arrive as the bot',
+    },
+  },
+];
+
+function parseDiscordApps(raw) {
+  let list = DEFAULT_DISCORD_APPS;
+
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) list = parsed;
+    } catch (e) {
+      console.warn('DISCORD_APPS_JSON did not parse, using defaults:', e.message);
+    }
+  }
+
+  // Validated here rather than trusted in the browser: whatever survives is
+  // what the page will build an authorize URL from.
+  return list
+    .map((a) => ({
+      key: String(a.key || '').trim().toLowerCase(),
+      name: String(a.name || '').trim(),
+      client_id: String(a.client_id || '').trim(),
+      permissions: String(a.permissions || '0').trim(),
+      blurb: String(a.blurb || '').trim(),
+      next: String(a.next || '').trim(),
+      source: /^https:\/\//.test(String(a.source || '')) ? String(a.source) : '',
+      private: a.private !== false,
+      why: a.why && typeof a.why === 'object' ? a.why : {},
+    }))
+    .filter((a) => {
+      const ok = /^[a-z0-9-]{1,32}$/.test(a.key) && /^\d{17,20}$/.test(a.client_id) && /^\d{1,20}$/.test(a.permissions) && a.name;
+      if (!ok) console.warn('Skipping a Discord app that is missing a key, name, client_id or permissions:', a.key || a.name);
+      return ok;
+    });
+}
+
+const DISCORD_APPS = parseDiscordApps(process.env.DISCORD_APPS_JSON);
+
+// Embedded in a <script type="application/json"> block, which is inert — the
+// CSP needs no exception for it. Escaped so no value can close the block, and
+// so the template engine's %%TOKEN%% pass cannot rewrite anything inside it.
+const DISCORD_APPS_DATA = JSON.stringify(DISCORD_APPS)
+  .replace(/</g, '\\u003c')
+  .replace(/%/g, '\\u0025')
+  // Line and paragraph separators end a JS string in older parsers.
+  .replace(new RegExp('[' + String.fromCharCode(0x2028, 0x2029) + ']', 'g'), (c) => String.fromCharCode(92) + 'u' + c.charCodeAt(0).toString(16));
 const LIBRARIES = PROJECTS.filter((p) => p.kind !== 'bot');
 const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
 
@@ -274,6 +355,8 @@ const vars = {
   LEGAL_EFFECTIVE,
   SUPPORT_LINKS,
   SOCIAL_LINKS,
+  DISCORD_APPS_DATA,
+  DISCORD_SERVER_URL: env('DISCORD_URL', 'https://discord.gg/dphp'),
   YEAR,
   FOOTER_TEXT: `© ${YEAR} ${AUTHOR}`,
   BUILD_TIME: now.toISOString(),

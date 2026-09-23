@@ -637,3 +637,65 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+/* ── Install page (discord.html) ───────────────────────────────────────
+   Reuses the OAuth page's panels; adds the permission list, the one
+   primary button, and the collapsible operator notes. */
+
+.discord-perms {
+  margin: 0.5rem 0 0.75rem;
+  padding-left: 1.2rem;
+}
+
+.discord-perms li {
+  margin: 0 0 0.4rem;
+}
+
+/* A permission that acts on people or the server, called out rather than
+   buried in the list. */
+.discord-perms li.is-sensitive strong {
+  color: var(--pink);
+}
+
+.discord-cta {
+  margin: 1.4rem 0 0.6rem;
+}
+
+.discord-cta .btn {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.discord-app-list li {
+  margin: 0 0 0.6rem;
+}
+
+.discord-setup > summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.discord-setup > summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.discord-setup[open] > summary {
+  margin-bottom: 1rem;
+}
+
+.discord-setup ol li {
+  margin: 0 0 0.9rem;
+}
+
+.discord-setup code {
+  word-break: break-all;
+}
+
+.oauth-inline-btn {
+  margin-left: 0.4rem;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}

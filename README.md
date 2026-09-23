@@ -33,6 +33,7 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `KOFI_URL` / `PAYPAL_URL` / `HIRE_URL` | PayPal defaults on | a support card shows only when its URL is set |
 | `DISCORD_URL` / `TWITCH_URL` | Discord defaults on | footer links, shown when set |
 | `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
+| `DISCORD_APPS_JSON` | the bridge bot | JSON array of the Discord applications `/discord.html` installs — see below. Replaces the list wholesale. |
 
 ## Deploy
 
@@ -65,3 +66,35 @@ One-time setup (`valgorithms.com` on Namecheap BasicDNS):
   Libraries or Bots group.
 - Styling is a single `site/static/styles.css`; dark by default, light under
   `prefers-color-scheme`.
+
+## `/discord.html` — installing the Discord bots
+
+The page each Discord application's **Custom URL** install link points at, for
+bots installed privately (Public Bot off). It shows what the bot is, which
+permissions it asks for and why, and that only its operator can add it; then it
+starts Discord's bot authorization and shows the result when Discord redirects
+back. Like `/twitch.html` it loads nothing from anywhere else, makes no network
+requests, and scrubs the returned code from the address bar without showing it.
+
+Only applications listed in `DEFAULT_DISCORD_APPS` in `build.js` (or
+`DISCORD_APPS_JSON`) can be installed from it; `?app=<key>` picks one, and a
+link naming anything else is refused. Each entry is
+`{key, name, client_id, permissions, blurb, next, source, private, why}`, where
+`permissions` is the decimal bitfield and `why` maps a permission's bit number
+to the reason it is needed.
+
+For each application, in the Developer Portal, in this order:
+
+1. **Installation → Installation Contexts:** Guild Install only.
+2. **Installation → Install Link:** Custom URL,
+   `https://www.valgorithms.com/discord.html?app=<key>`.
+3. **Bot → Public Bot:** off. Discord refuses this while the install link is
+   its own, which is why step 2 comes first.
+4. **Bot → Requires OAuth2 Code Grant:** off. The page cannot exchange a code,
+   so with this on the bot would never join.
+5. **OAuth2 → Redirects:** `https://www.valgorithms.com/discord.html`, exactly.
+   The page sends Discord back to the address it is served at, and GitHub Pages
+   serves it on `www.`.
+
+The same checklist, with copy buttons for both URLs, is at the bottom of the
+page.

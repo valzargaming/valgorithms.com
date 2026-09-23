@@ -38,6 +38,7 @@ jobs:
       PAYPAL_URL: ${{ vars.PAYPAL_URL }}
       HIRE_URL: ${{ vars.HIRE_URL }}
       DISCORD_URL: ${{ vars.DISCORD_URL }}
+      DISCORD_APPS_JSON: ${{ vars.DISCORD_APPS_JSON }}
       TWITCH_URL: ${{ vars.TWITCH_URL }}
       CNAME: ${{ vars.CNAME }}
       OUTPUT_DIR: dist
