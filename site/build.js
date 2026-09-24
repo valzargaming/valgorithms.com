@@ -134,6 +134,24 @@ const DEFAULT_PROJECTS = [
     kind: 'library',
   },
   {
+    name: 'DiscordPHP-Bridge',
+    blurb: 'The platform-agnostic core of a Discord chat bridge — routing, persistence, one command catalogue served to every chat, and Components v2 panels. Networks plug in as connectors.',
+    url: 'https://github.com/discord-php/DiscordPHP-Bridge',
+    kind: 'library',
+  },
+  {
+    name: 'DiscordPHP-TwitchBot',
+    blurb: 'The Twitch connector for DiscordPHP-Bridge — a two-way IRC chat relay, the whole Helix API as commands, and device-code token recovery.',
+    url: 'https://github.com/Valgorithms/DiscordPHP-TwitchBot',
+    kind: 'library',
+  },
+  {
+    name: 'DiscordPHP-TelegramRelay',
+    blurb: 'The Telegram connector for DiscordPHP-Bridge — a relay that carries edits, photos, GIFs and profile pictures, plus group controls from any chat.',
+    url: 'https://github.com/Valgorithms/DiscordPHP-TelegramRelay',
+    kind: 'library',
+  },
+  {
     name: 'DiscordPHP-EventLogger',
     blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
     url: 'https://github.com/Valgorithms/DiscordPHP-EventLogger',
@@ -164,9 +182,9 @@ const DEFAULT_PROJECTS = [
     kind: 'bot',
   },
   {
-    name: 'DiscordPHP-TwitchBot',
-    blurb: 'A Discord and Twitch bot on one event loop: a configurable two-way chat relay, plus the Twitch Helix API driven from either chat.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-TwitchBot',
+    name: 'DiscordPHP-BridgeBot',
+    blurb: 'One Discord bot bridging Twitch and Telegram — a two-way relay between all three, and every network’s commands from any of the chats.',
+    url: 'https://github.com/Valgorithms/DiscordPHP-BridgeBot',
     kind: 'bot',
   },
 ];
