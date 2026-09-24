@@ -61,10 +61,15 @@ const SUPPORT_BODY = env(
   'Everything here is MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
 );
 
-// Project cards. Each is {name, blurb, url, kind} where kind is 'library'
-// (default) or 'bot' — a standalone bot that is NOT itself a reusable package.
-// A library that also ships a bot stays 'library'. Override the whole set with
-// PROJECTS_JSON (a JSON array of the same shape).
+// Project cards. Each is {name, blurb, url, kind} where kind is one of:
+//   'library' (default) — a package you require: API libraries and the rest.
+//                         A library that also ships a bot stays 'library'.
+//   'tool'              — something you run rather than build on: developer
+//                         tooling, browser apps, command-line utilities.
+//   'bot'               — a standalone bot that is NOT itself a reusable package.
+// Override the whole set with PROJECTS_JSON (a JSON array of the same shape).
+const PROJECT_KINDS = ['library', 'tool', 'bot'];
+
 function parseProjects(raw) {
   if (!raw) return null;
   try {
@@ -75,7 +80,7 @@ function parseProjects(raw) {
         name: String(p.name || '').trim(),
         blurb: String(p.blurb || '').trim(),
         url: String(p.url || '').trim(),
-        kind: String(p.kind || 'library').trim().toLowerCase() === 'bot' ? 'bot' : 'library',
+        kind: PROJECT_KINDS.find((kind) => kind === String(p.kind || '').trim().toLowerCase()) || 'library',
       }))
       .filter((p) => p.name);
   } catch (e) {
@@ -161,13 +166,25 @@ const DEFAULT_PROJECTS = [
     name: 'phpdoc-tool',
     blurb: 'phpDocumentor, patched to read and print the ?T|null types the DiscordPHP family documents itself with — the builder behind every reference on this shelf.',
     url: 'https://github.com/discord-php/phpdoc-tool',
-    kind: 'library',
+    kind: 'tool',
+  },
+  {
+    name: 'PDF-Converter',
+    blurb: 'Turns images into a PDF — a page for each, in the order you arrange them, every page the size of its image. Runs in the browser with nothing uploaded, or from PHP with only GD.',
+    url: 'https://valgorithms.github.io/PDF-Converter/',
+    kind: 'tool',
+  },
+  {
+    name: 'PDF-Signer',
+    blurb: 'Puts a drawn, typed or photographed signature onto an existing PDF, appended as an update so the original is kept intact. Runs in the browser with nothing uploaded, or from PHP.',
+    url: 'https://valgorithms.github.io/PDF-Signer/',
+    kind: 'tool',
   },
   {
     name: 'NFG',
     blurb: 'Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.',
     url: 'https://github.com/valzargaming/NFG',
-    kind: 'library',
+    kind: 'tool',
   },
   {
     name: 'Civilizationbot',
@@ -271,7 +288,8 @@ const DISCORD_APPS_DATA = JSON.stringify(DISCORD_APPS)
   .replace(/%/g, '\\u0025')
   // Line and paragraph separators end a JS string in older parsers.
   .replace(new RegExp('[' + String.fromCharCode(0x2028, 0x2029) + ']', 'g'), (c) => String.fromCharCode(92) + 'u' + c.charCodeAt(0).toString(16));
-const LIBRARIES = PROJECTS.filter((p) => p.kind !== 'bot');
+const LIBRARIES = PROJECTS.filter((p) => p.kind === 'library');
+const TOOLS = PROJECTS.filter((p) => p.kind === 'tool');
 const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
 
 // Support options. GitHub Sponsors is always shown; the rest appear only when
@@ -367,7 +385,9 @@ const vars = {
   SUPPORT_BODY,
   PROJECTS,
   LIBRARIES,
+  TOOLS,
   BOTS,
+  HAS_TOOLS: TOOLS.length > 0,
   HAS_BOTS: BOTS.length > 0,
   OPERATING_NAME,
   LEGAL_EFFECTIVE,

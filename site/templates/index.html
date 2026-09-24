@@ -41,8 +41,8 @@
     <section id="projects" class="panel">
       <h2>The shelf</h2>
       <p class="panel-lede">
-        A sample of what&rsquo;s maintained here. All MIT, all async PHP on ReactPHP,
-        all with real users filing real issues.
+        A sample of what&rsquo;s maintained here. All MIT; the libraries and bots are
+        async PHP on ReactPHP, with real users filing real issues.
       </p>
 
       <h3 class="shelf-group">Libraries</h3>
@@ -57,6 +57,21 @@
         </li>
         {{/each}}
       </ul>
+
+      {{#if HAS_TOOLS}}
+      <h3 class="shelf-group">Tools</h3>
+      <ul class="project-grid">
+        {{#each TOOLS}}
+        <li class="project-card">
+          <a href="{{this.url}}" rel="noopener">
+            <h4>{{this.name}}</h4>
+            <p>{{this.blurb}}</p>
+            <span class="project-link">{{this.url}}</span>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+      {{/if}}
 
       {{#if HAS_BOTS}}
       <h3 class="shelf-group">Bots</h3>
