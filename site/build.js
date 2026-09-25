@@ -145,15 +145,15 @@ const DEFAULT_PROJECTS = [
     kind: 'library',
   },
   {
-    name: 'DiscordPHP-TwitchBot',
+    name: 'DiscordPHP-Bridge-Twitch',
     blurb: 'The Twitch connector for DiscordPHP-Bridge — a two-way IRC chat relay, the whole Helix API as commands, and device-code token recovery.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-TwitchBot',
+    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch',
     kind: 'library',
   },
   {
-    name: 'DiscordPHP-TelegramRelay',
+    name: 'DiscordPHP-Bridge-Telegram',
     blurb: 'The Telegram connector for DiscordPHP-Bridge — a relay that carries edits, photos, GIFs and profile pictures, plus group controls from any chat.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-TelegramRelay',
+    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram',
     kind: 'library',
   },
   {

@@ -23,9 +23,9 @@
   var AUTHORIZE = 'https://id.twitch.tv/oauth2/authorize';
 
   /*
-   * What DiscordPHP-TwitchBot's built-in commands need, and nothing else.
+   * What DiscordPHP-Bridge-Twitch's built-in commands need, and nothing else.
    *
-   * Mirrors Bot::TWITCH_SCOPES. The value is the command it powers, which is
+   * Mirrors TwitchConnector::SCOPES. The value is the command it powers, which is
    * shown next to the checkbox — so the consent screen can be justified line
    * by line rather than taken on trust.
    *
