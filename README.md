@@ -35,6 +35,23 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
 | `DISCORD_APPS_JSON` | the bridge bot | JSON array of the Discord applications `/discord.html` installs — see below. Replaces the list wholesale. |
 
+## Newsletter
+
+`/newsletter.html` shows the daily newsletter written by the DiscordPHP-Newsletter bot. Once an
+edition is approved, the bot commits it to `site/data/newsletter.json` on `main`, and that push
+rebuilds and deploys the site as usual. `build.js` renders every edition into the page at build
+time, so the page runs no script. Edition bodies are Discord-flavoured markdown: they are escaped
+first, then bold, italics, inline code, bullet lists, `https` links and `owner/repo#123`
+references are applied. An edition can't add markup, and can't reach the template engine's
+`{{…}}` / `%%…%%` placeholders.
+
+```json
+{ "editions": [
+  { "key": "2026-09-27", "date": "2026-09-27", "headline": "…", "intro": "…",
+    "sections": [{ "title": "…", "body": "…" }], "signoff": "…", "published_at": "…" }
+] }
+```
+
 ## Deploy
 
 `.github/workflows/deploy-pages.yml` runs on every push to `main`: builds, then

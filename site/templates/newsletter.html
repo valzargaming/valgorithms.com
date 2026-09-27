@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Newsletter — {{SITE_TITLE}}</title>
+  {{> head}}
+</head>
+<body>
+  {{> header}}
+
+  <main class="legal newsletter">
+    <p class="kicker">Newsletter</p>
+    <h1>What I worked on today</h1>
+    <p class="legal-meta">
+      A daily recap of the code I shipped and reviewed, the communities I run, and what I played. Each edition is
+      drafted by a locally hosted model from the day&rsquo;s activity, and read and approved by me before it is published.
+    </p>
+
+    {{#if NO_EDITIONS}}
+    <div class="legal-callout">No editions have been published yet. Check back soon.</div>
+    {{/if}}
+
+    {{#if HAS_EDITIONS}}
+    <nav class="edition-index" aria-label="Editions">
+      <h2>Editions</h2>
+      <ol>
+        {{#each EDITIONS}}<li><a href="#{{this.key}}">{{this.headlineText}}</a> <span>{{this.date}}</span></li>{{/each}}
+      </ol>
+    </nav>
+
+    {{#each EDITIONS}}
+    <article class="edition" id="{{this.key}}">
+      <p class="legal-meta"><time datetime="{{this.date}}">{{this.dateLabel}}</time> · <a href="#{{this.key}}">Permalink</a></p>
+      <h2>{{this.headline}}</h2>
+      {{this.body}}
+    </article>
+    {{/each}}
+    {{/if}}
+  </main>
+
+  {{> footer}}
+</body>
+</html>
