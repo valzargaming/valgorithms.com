@@ -309,6 +309,108 @@ const SOCIAL_LINKS = [
   { label: 'Email', url: `mailto:${CONTACT_EMAIL}` },
 ].filter((l) => l.url);
 
+// ── Newsletter ───────────────────────────────────────────────────────────────
+// Daily editions from the DiscordPHP-Newsletter bot, which commits each approved
+// edition to site/data/newsletter.json. They are rendered here, at build time, so
+// newsletter.html is plain HTML with no script. Bodies are Discord-flavoured
+// markdown: everything is escaped first, then a small subset of formatting is
+// applied, so an edition can never add markup of its own.
+const NEWSLETTER_FILE = path.join('site', 'data', 'newsletter.json');
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
+    // The template engine runs over its own output: keep {{…}} and %%…%% inert.
+    .replace(/\{/g, '&#123;')
+    .replace(/\}/g, '&#125;')
+    .replace(/%/g, '&#37;');
+}
+
+function mdInline(text) {
+  const codes = [];
+  let html = escapeHtml(text).replace(/`([^`]+)`/g, (_, code) => {
+    codes.push(`<code>${code}</code>`);
+    return `\u0000${codes.length - 1}\u0000`;
+  });
+  html = html
+    .replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g, '<a href="$2" rel="noopener">$1</a>')
+    .replace(/(^|[\s(])(https:\/\/[^\s<)]+)/g, '$1<a href="$2" rel="noopener">$2</a>')
+    .replace(/(^|[\s(])([A-Za-z0-9-]+\/[A-Za-z0-9._-]+)#(\d+)\b/g, '$1<a href="https://github.com/$2/issues/$3" rel="noopener">$2#$3</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*\w])\*([^*\s][^*]*)\*(?!\w)/g, '$1<em>$2</em>')
+    .replace(/(^|[^_\w])_([^_\s][^_]*)_(?!\w)/g, '$1<em>$2</em>');
+
+  return html.replace(/\u0000(\d+)\u0000/g, (_, i) => codes[Number(i)]);
+}
+
+function mdBlock(markdown) {
+  const out = [];
+  let list = null;
+  let para = [];
+  const flushPara = () => {
+    if (para.length) out.push(`<p>${para.map(mdInline).join('<br>')}</p>`);
+    para = [];
+  };
+  const flushList = () => {
+    if (list) out.push(`<ul>${list.map((item) => `<li>${mdInline(item)}</li>`).join('')}</ul>`);
+    list = null;
+  };
+  for (const raw of String(markdown).split('\n')) {
+    const line = raw.trimEnd();
+    const bullet = line.match(/^\s*[-*•]\s+(.*)$/);
+    const heading = line.match(/^#{1,6}\s+(.*)$/);
+    if (bullet) {
+      flushPara();
+      (list = list || []).push(bullet[1]);
+    } else if (heading) {
+      flushPara();
+      flushList();
+      out.push(`<h4>${mdInline(heading[1])}</h4>`);
+    } else if (line.trim() === '') {
+      flushPara();
+      flushList();
+    } else {
+      flushList();
+      para.push(line.replace(/^-#\s+/, ''));
+    }
+  }
+  flushPara();
+  flushList();
+  return out.join('');
+}
+
+function loadNewsletter(file) {
+  if (!fs.existsSync(file)) return [];
+  let editions;
+  try {
+    editions = JSON.parse(fs.readFileSync(file, 'utf8')).editions;
+  } catch (e) {
+    console.warn(`${file} did not parse, publishing no newsletter editions:`, e.message);
+    return [];
+  }
+  if (!Array.isArray(editions)) return [];
+
+  return editions
+    .filter((e) => e && /^[\w-]{1,40}$/.test(String(e.key || '')) && /^\d{4}-\d{2}-\d{2}$/.test(String(e.date || '')))
+    .sort((a, b) => (a.date === b.date ? String(b.key).localeCompare(String(a.key)) : a.date < b.date ? 1 : -1))
+    .map((e) => {
+      const day = new Date(`${e.date}T12:00:00Z`);
+      const sections = (Array.isArray(e.sections) ? e.sections : [])
+        .map((s) => `<section>${s && s.title ? `<h3>${mdInline(s.title)}</h3>` : ''}${mdBlock((s && s.body) || '')}</section>`)
+        .join('');
+      return {
+        key: e.key,
+        date: e.date,
+        dateLabel: day.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
+        headline: mdInline(e.headline || e.key),
+        headlineText: escapeHtml(e.headline || e.key),
+        body: (e.intro ? mdBlock(e.intro) : '') + sections + (e.signoff ? `<div class="edition-signoff">${mdBlock(e.signoff)}</div>` : ''),
+      };
+    });
+}
+
+const EDITIONS = loadNewsletter(NEWSLETTER_FILE);
+
 // ── Tiny template engine (matches coffee-s-crafts semantics) ────────────────
 const partialCache = {};
 function partial(name) {
@@ -394,6 +496,9 @@ const vars = {
   SUPPORT_LINKS,
   SOCIAL_LINKS,
   DISCORD_APPS_DATA,
+  EDITIONS,
+  HAS_EDITIONS: EDITIONS.length > 0,
+  NO_EDITIONS: EDITIONS.length === 0,
   DISCORD_SERVER_URL: env('DISCORD_URL', 'https://discord.gg/dphp'),
   YEAR,
   FOOTER_TEXT: `© ${YEAR} ${AUTHOR}`,
@@ -416,7 +521,7 @@ if (CNAME) fs.writeFileSync(path.join(OUT, 'CNAME'), CNAME + '\n');
 
 fs.writeFileSync(
   path.join(OUT, 'build-info.json'),
-  JSON.stringify({ builtAt: vars.BUILD_TIME, pages, projects: PROJECTS.length, cname: CNAME }, null, 2),
+  JSON.stringify({ builtAt: vars.BUILD_TIME, pages, projects: PROJECTS.length, editions: EDITIONS.length, cname: CNAME }, null, 2),
 );
 
 console.log(`Built ${pages.length} page(s) to ${OUT}/`);
