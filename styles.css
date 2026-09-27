@@ -319,6 +319,30 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   font-size: 0.85rem;
 }
 
+/* ── Newsletter ────────────────────────────────────────────────────────── */
+.edition-index {
+  margin: 0 0 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+.edition-index h2 { margin: 0 0 0.4rem; }
+.edition-index ol { margin: 0; padding-left: 1.3rem; }
+.edition-index span { color: var(--muted); font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap; }
+.edition {
+  margin: 2.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 1rem;
+}
+.edition .legal-meta { margin: 0 0 0.4rem; }
+.edition h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+.edition h3 { margin: 1.4rem 0 0.4rem; font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+.edition h4 { margin: 1rem 0 0.3rem; font-size: 1rem; }
+.edition code { font-family: var(--font-mono); font-size: 0.88em; padding: 0.05rem 0.3rem; border-radius: 4px; background: var(--panel-2); }
+.edition-signoff p { color: var(--muted); font-style: italic; }
+
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .site-footer {
   max-width: var(--wrap);
