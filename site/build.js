@@ -139,6 +139,12 @@ const DEFAULT_PROJECTS = [
     kind: 'library',
   },
   {
+    name: 'YouTubePHP',
+    blurb: 'Async YouTube Data API client for PHP — every method generated from Google’s discovery document, live chat streamed as it is posted, and the daily quota counted.',
+    url: 'https://github.com/Valgorithms/YoutubePHP',
+    kind: 'library',
+  },
+  {
     name: 'DiscordPHP-Bridge',
     blurb: 'The platform-agnostic core of a Discord chat bridge — routing, persistence, one command catalogue served to every chat, and Components v2 panels. Networks plug in as connectors.',
     url: 'https://github.com/discord-php/DiscordPHP-Bridge',
@@ -154,6 +160,12 @@ const DEFAULT_PROJECTS = [
     name: 'DiscordPHP-Bridge-Telegram',
     blurb: 'The Telegram connector for DiscordPHP-Bridge — a relay that carries edits, photos, GIFs and profile pictures, plus group controls from any chat.',
     url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram',
+    kind: 'library',
+  },
+  {
+    name: 'DiscordPHP-Bridge-YouTube',
+    blurb: 'The YouTube connector for DiscordPHP-Bridge — a stream’s live chat in Discord, go-live announcements, and chat moderation from any chat, within the daily quota.',
+    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube',
     kind: 'library',
   },
   {
@@ -200,7 +212,7 @@ const DEFAULT_PROJECTS = [
   },
   {
     name: 'DiscordPHP-BridgeBot',
-    blurb: 'One Discord bot bridging Twitch and Telegram — a two-way relay between all three, and every network’s commands from any of the chats.',
+    blurb: 'One Discord bot bridging Twitch and Telegram both ways and bringing in YouTube live chat — and every network’s commands from any of the chats.',
     url: 'https://github.com/Valgorithms/DiscordPHP-BridgeBot',
     kind: 'bot',
   },
@@ -230,8 +242,8 @@ const DEFAULT_DISCORD_APPS = [
     // Read Message History, Manage Webhooks.
     permissions: '536988672',
     blurb:
-      'Bridges Discord channels with Twitch chat and Telegram groups — a two-way relay, plus each network’s commands from any of the three chats.',
-    next: 'In the channel you want bridged, run /twitch link or /telegram link.',
+      'Bridges Discord channels with Twitch chat and Telegram groups both ways, and brings a YouTube stream’s live chat in — plus each network’s commands from any of the chats.',
+    next: 'In the channel you want bridged, run /twitch link, /telegram link or /youtube link.',
     source: 'https://github.com/discord-php/DiscordPHP-Bridge',
     private: true,
     why: {
