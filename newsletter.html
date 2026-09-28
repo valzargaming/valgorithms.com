@@ -52,10 +52,16 @@
     <nav class="edition-index" aria-label="Editions">
       <h2>Editions</h2>
       <ol>
-        <li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
+        <li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
       </ol>
     </nav>
 
+    
+    <article class="edition" id="2026-09-28">
+      <p class="legal-meta"><time datetime="2026-09-28">Monday, September 28, 2026</time> · <a href="#2026-09-28">Permalink</a></p>
+      <h2>Major updates to DiscordPHP core and ecosystem releases</h2>
+      <p>It has been a massive day of progress for the DiscordPHP core. I have pushed out three new releases—<code>v10.64.0</code>, <code>v10.64.1</code>, and <code>v10.65.0</code>—which bring some foundational changes to how the library operates. The biggest shift involves a major refactor of our namespaces to align them with their corresponding API routes, as seen in <code>discordphp/discordphp#1507</code>. This reorganization, alongside the implementation of REST operations and updates to the <code>Factory</code> class, makes the entire library more intuitive and better structured for the long term. DiscordPHP now covers every route.</p><p>We also managed to squeeze in several important quality-of-life improvements and safety checks. I&#39;ve merged updates to improve autocomplete callbacks, added validation for embed field lengths, and implemented new regression tests for invites to ensure everything stays stable as we grow.</p><section><h3>Ecosystem growth and maintenance</h3><p>Beyond the core library, I spent a significant amount of time tending to our wider ecosystem and documentation. The DiscordPHP.org website has been updated with new class diagrams and route maps to help you navigate the library more easily. I also worked on the <code>DiscordPHP-Bridge</code> to move the live announcer over to the Twitch connector, and I released <code>v8.3.0</code> for the <code>DiscordPHP-Voice</code> extension, which now includes support for a voice session repository.</p><p>A large portion of my day was also dedicated to reviewing community contributions. I went through many pull requests, merging several helpful ones while closing others that were either outdated or caused fatal errors. All pending issues and PRs were either closed or merged. It is a constant balancing act to ensure that every piece of code added to the project meets our standards and provides clear benefits to everyone using it.</p></section><div class="edition-signoff"><p>Valithor</p></div>
+    </article>
     
     <article class="edition" id="2026-09-27-3">
       <p class="legal-meta"><time datetime="2026-09-27">Sunday, September 27, 2026</time> · <a href="#2026-09-27-3">Permalink</a></p>
