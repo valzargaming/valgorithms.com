@@ -52,10 +52,16 @@
     <nav class="edition-index" aria-label="Editions">
       <h2>Editions</h2>
       <ol>
-        <li><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
+        <li><a href="#2026-10-04">Expanding mechanics and gameplay modes</a> <span>2026-10-04</span></li><li><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
       </ol>
     </nav>
 
+    
+    <article class="edition" id="2026-10-04">
+      <p class="legal-meta"><time datetime="2026-10-04">Sunday, October 4, 2026</time> · <a href="#2026-10-04">Permalink</a></p>
+      <h2>Expanding mechanics and gameplay modes</h2>
+      <p>It has been a massive day of progress for the <code>DiscordPHP-MTGPocket</code> engine. My main focus was on deepening how the system understands the complexities of Magic: The Gathering. I have successfully merged a significant wave of updates that improve our data coverage, bringing in support for MTGJSON and ensuring we are ready for the future with PHP 8.5 compatibility. This means the engine is becoming much more robust when handling tricky elements like triggered and loyalty abilities, tokens, equipment, and specific mechanical nuances like modal spells or painlands.</p><section><h3>New ways to play and manage collections</h3><p>Beyond just understanding the cards, I have been working hard to make the actual experience of playing more immersive and functional. I have merged several major gameplay systems, including a new <code>/menu</code> panel that allows you to interact using buttons and forms, and a move-by-move match logging system to keep track of your games. I am also very excited to share that a full booster draft mode has been developed, complete with Swiss rounds and card retention.</p><p>I have also focused on making your collections more useful outside of Discord. I&#39;ve implemented features that allow you to export your decks and collections directly to MTG Arena, Tabletop Simulator, and Frogtown. While much of this is now part of the main branch, I am still spending time on the <code>claude/card-coverage-gaps-sc84tj</code> branch to bridge the remaining gaps in how the engine reads specific card text and mechanics. We are getting closer to a truly seamless simulation experience.</p></section><div class="edition-signoff"><p>Valithor</p></div>
+    </article>
     
     <article class="edition" id="2026-10-02-2">
       <p class="legal-meta"><time datetime="2026-10-02">Friday, October 2, 2026</time> · <a href="#2026-10-02-2">Permalink</a></p>
