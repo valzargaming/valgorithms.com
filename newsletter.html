@@ -52,10 +52,16 @@
     <nav class="edition-index" aria-label="Editions">
       <h2>Editions</h2>
       <ol>
-        <li><a href="#2026-10-04">Expanding mechanics and gameplay modes</a> <span>2026-10-04</span></li><li><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
+        <li><a href="#2026-10-05">Improving gameplay and mechanical depth</a> <span>2026-10-05</span></li><li><a href="#2026-10-04">Expanding mechanics and gameplay modes</a> <span>2026-10-04</span></li><li><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
       </ol>
     </nav>
 
+    
+    <article class="edition" id="2026-10-05">
+      <p class="legal-meta"><time datetime="2026-10-05">Monday, October 5, 2026</time> · <a href="#2026-10-05">Permalink</a></p>
+      <h2>Improving gameplay and mechanical depth</h2>
+      <p>It has been a massive day of progress for <code>DiscordPHP-MTGPocket</code>, focusing heavily on making the game more accessible and technically robust. I have been working to ensure that new players can jump right in without feeling lost, so I am happy to share that we have merged several features to help with that. Specifically, PR #30 and #33 have brought a new &quot;How to play&quot; quick start guide and the ability to play practice games against a bot into the project. You can even use rental decks to practice against the bot now, which should make getting started much smoother.</p><section><h3>Strengthening the engine</h3><p>Beyond the user experience, I spent a significant amount of time under the hood refining how the engine handles the complexities of the game. To ensure the rules engine is as accurate as possible, I merged a large series of updates, including PR #31 and #34, to better support intricate mechanics like damage prevention, double-faced cards, Sagas, and various &quot;look and reveal&quot; templates. This ensures that when these cards appear in a match, the logic holds up.</p><p>I am also continuing to bridge the gaps in our card coverage and deck construction. I&#39;ve been working through the <code>claude/card-coverage-gaps-sc84tj</code> branch to address these issues, which included a fix in PR #32 to add basic lands to certain short rental decks. To keep the project&#39;s foundation professional, I also integrated new PHP tooling via PR #35 and pushed some much-needed updates to the DiscordPHP.org and valgorithms.com websites.</p></section><div class="edition-signoff"><p>Valithor</p></div>
+    </article>
     
     <article class="edition" id="2026-10-04">
       <p class="legal-meta"><time datetime="2026-10-04">Sunday, October 4, 2026</time> · <a href="#2026-10-04">Permalink</a></p>
