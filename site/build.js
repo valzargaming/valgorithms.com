@@ -58,7 +58,7 @@ const HERO_CTA = env('HERO_CTA', 'Sponsor on GitHub');
 const SUPPORT_HEADING = env('SUPPORT_HEADING', 'What your sponsorship supports');
 const SUPPORT_BODY = env(
   'SUPPORT_BODY',
-  'Everything here is MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
+  'The software projects here are MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
 );
 
 // Project cards. Each is {name, blurb, url, kind} where kind is one of:
@@ -67,8 +67,9 @@ const SUPPORT_BODY = env(
 //   'tool'              — something you run rather than build on: developer
 //                         tooling, browser apps, command-line utilities.
 //   'bot'               — a standalone bot that is NOT itself a reusable package.
+//   'website'           — a public-facing site built or maintained here.
 // Override the whole set with PROJECTS_JSON (a JSON array of the same shape).
-const PROJECT_KINDS = ['library', 'tool', 'bot'];
+const PROJECT_KINDS = ['library', 'tool', 'bot', 'website'];
 
 function parseProjects(raw) {
   if (!raw) return null;
@@ -199,6 +200,12 @@ const DEFAULT_PROJECTS = [
     kind: 'tool',
   },
   {
+    name: 'Coffee-s-Crafts',
+    blurb: 'A portfolio and commission site featuring galleries for original art, fursuits and premades.',
+    url: 'https://github.com/Coffee-s-Crafts/coffee-s-crafts',
+    kind: 'website',
+  },
+  {
     name: 'Civilizationbot',
     blurb: 'Civ13’s official Discord bot — game-server management, player verification, moderation.',
     url: 'https://github.com/Valgorithms/Civilizationbot',
@@ -303,6 +310,7 @@ const DISCORD_APPS_DATA = JSON.stringify(DISCORD_APPS)
 const LIBRARIES = PROJECTS.filter((p) => p.kind === 'library');
 const TOOLS = PROJECTS.filter((p) => p.kind === 'tool');
 const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
+const WEBSITES = PROJECTS.filter((p) => p.kind === 'website');
 
 // Support options. GitHub Sponsors is always shown; the rest appear only when
 // their URL is provided.
@@ -503,6 +511,8 @@ const vars = {
   BOTS,
   HAS_TOOLS: TOOLS.length > 0,
   HAS_BOTS: BOTS.length > 0,
+  WEBSITES,
+  HAS_WEBSITES: WEBSITES.length > 0,
   OPERATING_NAME,
   LEGAL_EFFECTIVE,
   SUPPORT_LINKS,
