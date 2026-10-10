@@ -31,6 +31,7 @@
     <nav class="site-nav">
       <a href="https://www.valgorithms.com#support">Support</a>
       <a href="https://www.valgorithms.com#projects">Projects</a>
+      <a href="https://www.valgorithms.com/ecosystem.html">Releases</a>
       <a href="https://www.valgorithms.com/newsletter.html">Newsletter</a>
       <a href="https://github.com/valzargaming" rel="noopener">GitHub&nbsp;&#8599;</a>
       <a class="nav-cta" href="https://github.com/sponsors/valzargaming" rel="noopener">Sponsor</a>
@@ -86,123 +87,117 @@
     <section id="projects" class="panel">
       <h2>The shelf</h2>
       <p class="panel-lede">
-        A selection of software projects and websites.
-        The libraries and bots here are async PHP on ReactPHP.
+        A shared catalog of software projects and websites.
+        Browse async PHP libraries and bots, developer tools and project websites.
       </p>
+      <p class="catalog-link"><a href="/ecosystem.html">View latest releases and compatibility</a></p>
 
       <h3 class="shelf-group">Libraries</h3>
       <ul class="project-grid">
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/DiscordPHP" rel="noopener">
-            <h4>DiscordPHP</h4>
-            <p>The async PHP library for building Discord bots, on ReactPHP.</p>
-            <span class="project-link">https://github.com/discord-php/DiscordPHP</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/DiscordPHP" rel="noopener">DiscordPHP</a></h4>
+          <p class="project-package">team-reflex/discord-php</p>
+          <p>The asynchronous PHP client for Discord: gateway, cached models, commands, components, OAuth2 and webhooks.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/team-reflex/discord-php" rel="noopener">Install with Composer</a></li><li><a href="https://discord-php.github.io/DiscordPHP/guide/" rel="noopener">Start the guide</a></li><li><a href="https://discord.gg/dphp" rel="noopener">Ask for support</a></li><li><a href="https://github.com/discord-php/DiscordPHP/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/DiscordPHP-Http" rel="noopener">
-            <h4>DiscordPHP-Http</h4>
-            <p>The standalone HTTP + rate-limit layer the library talks to Discord through.</p>
-            <span class="project-link">https://github.com/discord-php/DiscordPHP-Http</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/DiscordPHP-Http" rel="noopener">DiscordPHP-Http</a></h4>
+          <p class="project-package">discord-php/http</p>
+          <p>An asynchronous Discord REST client with per-bucket queues, rate-limit handling and ReactPHP or Guzzle support.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/discord-php/http" rel="noopener">Install with Composer</a></li><li><a href="https://discord-php.github.io/DiscordPHP-Http/" rel="noopener">Read the docs</a></li><li><a href="https://github.com/discord-php/DiscordPHP-Http/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/DiscordPHP-Voice" rel="noopener">
-            <h4>DiscordPHP-Voice</h4>
-            <p>Voice send/receive, Opus & DAVE end-to-end encryption for DiscordPHP.</p>
-            <span class="project-link">https://github.com/discord-php/DiscordPHP-Voice</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/DiscordPHP-Voice" rel="noopener">DiscordPHP-Voice</a></h4>
+          <p class="project-package">discord-php-helpers/voice</p>
+          <p>Voice connections for DiscordPHP, including audio playback, recording and DAVE end-to-end encryption.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/discord-php-helpers/voice" rel="noopener">Install with Composer</a></li><li><a href="https://discord-php.github.io/DiscordPHP-Voice/" rel="noopener">Check voice requirements</a></li><li><a href="https://github.com/discord-php/DiscordPHP-Voice/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-NHA" rel="noopener">
-            <h4>DiscordPHP-NHA</h4>
-            <p>API library (and bot) for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-NHA</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/Collection" rel="noopener">Collection</a></h4>
+          <p class="project-package">discord-php-helpers/collection</p>
+          <p>The collection implementation behind DiscordPHP repositories, with an interface for bringing your own collection class.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/discord-php-helpers/collection" rel="noopener">Install with Composer</a></li><li><a href="https://discord-php.github.io/Collection/" rel="noopener">Read the reference</a></li><li><a href="https://github.com/discord-php/Collection/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-MTG" rel="noopener">
-            <h4>DiscordPHP-MTG</h4>
-            <p>A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-MTG</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/DiscordPHP-Bridge" rel="noopener">DiscordPHP-Bridge</a></h4>
+          <p class="project-package">vzgcoders/discordphp-bridge</p>
+          <p>A platform-agnostic chat bridge core with routing, persistence, shared commands, Components v2 panels and connector packages.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/discord-php/DiscordPHP-Bridge#readme" rel="noopener">Read the setup guide</a></li><li><a href="https://github.com/discord-php/DiscordPHP-Bridge/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/TwitchPHP" rel="noopener">
-            <h4>TwitchPHP</h4>
-            <p>Async Twitch framework for PHP — Helix REST, EventSub over WebSocket, and IRC chat, built like DiscordPHP.</p>
-            <span class="project-link">https://github.com/Valgorithms/TwitchPHP</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch" rel="noopener">DiscordPHP-Bridge-Twitch</a></h4>
+          <p class="project-package">vzgcoders/discordphp-bridge-twitch</p>
+          <p>A Twitch connector for DiscordPHP-Bridge with two-way chat relay and Helix API commands.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge-twitch" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch#readme" rel="noopener">Read setup instructions</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/TwitchPHP-Http" rel="noopener">
-            <h4>TwitchPHP-Http</h4>
-            <p>The standalone Helix transport for TwitchPHP — async queue, points rate-limiting, typed errors.</p>
-            <span class="project-link">https://github.com/Valgorithms/TwitchPHP-Http</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram" rel="noopener">DiscordPHP-Bridge-Telegram</a></h4>
+          <p class="project-package">vzgcoders/discordphp-bridge-telegram</p>
+          <p>A Telegram connector for DiscordPHP-Bridge, relaying edits, media and controls between group chats.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge-telegram" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram#readme" rel="noopener">Read setup instructions</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/TelegramPHP" rel="noopener">
-            <h4>TelegramPHP</h4>
-            <p>Async Telegram Bot API framework for PHP — every method and type generated from the official spec, built like DiscordPHP.</p>
-            <span class="project-link">https://github.com/Valgorithms/TelegramPHP</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube" rel="noopener">DiscordPHP-Bridge-YouTube</a></h4>
+          
+          <p>A YouTube connector that brings live chat and stream announcements into Discord and supports moderation from chat.</p>
+          <ul class="project-actions"><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube#readme" rel="noopener">Read setup instructions</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/YoutubePHP" rel="noopener">
-            <h4>YouTubePHP</h4>
-            <p>Async YouTube Data API client for PHP — every method generated from Google’s discovery document, live chat streamed as it is posted, and the daily quota counted.</p>
-            <span class="project-link">https://github.com/Valgorithms/YoutubePHP</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-NHA" rel="noopener">DiscordPHP-NHA</a></h4>
+          <p class="project-package">discord-php-extended/discordphp-nha</p>
+          <p>An API library and bot for the No Human Allowed agent-sandbox world, with an LLM autoplayer.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/discord-php-extended/discordphp-nha" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-NHA#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-NHA/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/DiscordPHP-Bridge" rel="noopener">
-            <h4>DiscordPHP-Bridge</h4>
-            <p>The platform-agnostic core of a Discord chat bridge — routing, persistence, one command catalogue served to every chat, and Components v2 panels. Networks plug in as connectors.</p>
-            <span class="project-link">https://github.com/discord-php/DiscordPHP-Bridge</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-MTG" rel="noopener">DiscordPHP-MTG</a></h4>
+          <p class="project-package">discord-php-extended/discordphp-mtg</p>
+          <p>A Magic: The Gathering API library and bot for card search and game rules, built on DiscordPHP.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/discord-php-extended/discordphp-mtg" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-MTG#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-MTG/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch" rel="noopener">
-            <h4>DiscordPHP-Bridge-Twitch</h4>
-            <p>The Twitch connector for DiscordPHP-Bridge — a two-way IRC chat relay, the whole Helix API as commands, and device-code token recovery.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/TwitchPHP" rel="noopener">TwitchPHP</a></h4>
+          <p class="project-package">vzgcoders/twitchphp</p>
+          <p>An asynchronous Twitch framework for PHP with Helix REST, EventSub over WebSocket and IRC chat.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/vzgcoders/twitchphp" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/TwitchPHP#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/TwitchPHP/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram" rel="noopener">
-            <h4>DiscordPHP-Bridge-Telegram</h4>
-            <p>The Telegram connector for DiscordPHP-Bridge — a relay that carries edits, photos, GIFs and profile pictures, plus group controls from any chat.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/TwitchPHP-Http" rel="noopener">TwitchPHP-Http</a></h4>
+          <p class="project-package">twitchphp/http</p>
+          <p>A standalone asynchronous Helix transport for TwitchPHP with queueing and rate-limit handling.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/twitchphp/http" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/TwitchPHP-Http#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/TwitchPHP-Http/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube" rel="noopener">
-            <h4>DiscordPHP-Bridge-YouTube</h4>
-            <p>The YouTube connector for DiscordPHP-Bridge — a stream’s live chat in Discord, go-live announcements, and chat moderation from any chat, within the daily quota.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/TelegramPHP" rel="noopener">TelegramPHP</a></h4>
+          <p class="project-package">vzgcoders/telegramphp</p>
+          <p>An asynchronous Telegram Bot API client generated from the official specification.</p>
+          <ul class="project-actions"><li><a href="https://packagist.org/packages/vzgcoders/telegramphp" rel="noopener">Install with Composer</a></li><li><a href="https://github.com/Valgorithms/TelegramPHP#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/TelegramPHP/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-EventLogger" rel="noopener">
-            <h4>DiscordPHP-EventLogger</h4>
-            <p>Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-EventLogger</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/YoutubePHP" rel="noopener">YouTubePHP</a></h4>
+          <p class="project-package">vzgcoders/youtubephp</p>
+          <p>An asynchronous YouTube Data API client generated from Google&#39;s discovery document, with live chat and quota tracking.</p>
+          <ul class="project-actions"><li><a href="https://github.com/Valgorithms/YoutubePHP#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/YoutubePHP/issues" rel="noopener">Report an issue</a></li></ul>
+        </li>
+        
+        <li class="project-card">
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-EventLogger" rel="noopener">DiscordPHP-EventLogger</a></h4>
+          <p class="project-package">valgorithms/discord-php-eventlogger</p>
+          <p>Drop-in audit logging for DiscordPHP bots, with readable output for every gateway event.</p>
+          <ul class="project-actions"><li><a href="https://github.com/Valgorithms/DiscordPHP-EventLogger#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-EventLogger/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
       </ul>
@@ -212,35 +207,27 @@
       <ul class="project-grid">
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/phpdoc-tool" rel="noopener">
-            <h4>phpdoc-tool</h4>
-            <p>phpDocumentor, patched to read and print the ?T|null types the DiscordPHP family documents itself with — the builder behind every reference on this shelf.</p>
-            <span class="project-link">https://github.com/discord-php/phpdoc-tool</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/phpdoc-tool" rel="noopener">phpdoc-tool</a></h4>
+          <p>A phpDocumentor fork that preserves nullable union types used in the DiscordPHP API references.</p>
+          <ul class="project-actions"><li><a href="https://github.com/discord-php/phpdoc-tool/releases" rel="noopener">Download the latest release</a></li><li><a href="https://github.com/discord-php/phpdoc-tool#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/discord-php/phpdoc-tool/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://valgorithms.github.io/PDF-Converter/" rel="noopener">
-            <h4>PDF-Converter</h4>
-            <p>Turns images into a PDF — a page for each, in the order you arrange them, every page the size of its image. Runs in the browser with nothing uploaded, or from PHP with only GD.</p>
-            <span class="project-link">https://valgorithms.github.io/PDF-Converter/</span>
-          </a>
+          <h4><a href="https://valgorithms.github.io/PDF-Converter/" rel="noopener">PDF-Converter</a></h4>
+          <p>Arrange images into a PDF in the browser without uploading files, or use the PHP version with GD.</p>
+          <ul class="project-actions"><li><a href="https://valgorithms.github.io/PDF-Converter/" rel="noopener">Open the tool</a></li><li><a href="https://github.com/Valgorithms/PDF-Converter#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/PDF-Converter/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://valgorithms.github.io/PDF-Signer/" rel="noopener">
-            <h4>PDF-Signer</h4>
-            <p>Puts a drawn, typed or photographed signature onto an existing PDF, appended as an update so the original is kept intact. Runs in the browser with nothing uploaded, or from PHP.</p>
-            <span class="project-link">https://valgorithms.github.io/PDF-Signer/</span>
-          </a>
+          <h4><a href="https://valgorithms.github.io/PDF-Signer/" rel="noopener">PDF-Signer</a></h4>
+          <p>Add a drawn, typed or photographed signature to a PDF while preserving the original document as an incremental update.</p>
+          <ul class="project-actions"><li><a href="https://valgorithms.github.io/PDF-Signer/" rel="noopener">Open the tool</a></li><li><a href="https://github.com/Valgorithms/PDF-Signer#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/PDF-Signer/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/valzargaming/NFG" rel="noopener">
-            <h4>NFG</h4>
-            <p>Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.</p>
-            <span class="project-link">https://github.com/valzargaming/NFG</span>
-          </a>
+          <h4><a href="https://github.com/valzargaming/NFG" rel="noopener">NFG</a></h4>
+          <p>A dependency-free form generator that turns inline JSON schemas into tabbed forms and exports standalone pages.</p>
+          <ul class="project-actions"><li><a href="https://github.com/valzargaming/NFG#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/valzargaming/NFG/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
       </ul>
@@ -251,11 +238,15 @@
       <ul class="project-grid">
         
         <li class="project-card">
-          <a href="https://github.com/Coffee-s-Crafts/coffee-s-crafts" rel="noopener">
-            <h4>Coffee-s-Crafts</h4>
-            <p>A portfolio and commission site featuring galleries for original art, fursuits and premades.</p>
-            <span class="project-link">https://github.com/Coffee-s-Crafts/coffee-s-crafts</span>
-          </a>
+          <h4><a href="https://discordphp.org/" rel="noopener">DiscordPHP.org</a></h4>
+          <p>The DiscordPHP project site for libraries, guides, community support and API route and event maps.</p>
+          <ul class="project-actions"><li><a href="https://discordphp.org/" rel="noopener">Visit DiscordPHP.org</a></li><li><a href="https://discordphp.org/libraries.html" rel="noopener">Browse the library catalog</a></li><li><a href="https://github.com/discord-php/DiscordPHP.org/issues" rel="noopener">Contribute or report an issue</a></li></ul>
+        </li>
+        
+        <li class="project-card">
+          <h4><a href="https://coffeescrafts.com/" rel="noopener">Coffee-s-Crafts</a></h4>
+          <p>A portfolio and commission site featuring galleries for original art, fursuits and premades.</p>
+          <ul class="project-actions"><li><a href="https://coffeescrafts.com/" rel="noopener">Visit the portfolio</a></li><li><a href="https://github.com/Coffee-s-Crafts/coffee-s-crafts" rel="noopener">View the source</a></li></ul>
         </li>
         
       </ul>
@@ -266,27 +257,27 @@
       <ul class="project-grid">
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/Civilizationbot" rel="noopener">
-            <h4>Civilizationbot</h4>
-            <p>Civ13’s official Discord bot — game-server management, player verification, moderation.</p>
-            <span class="project-link">https://github.com/Valgorithms/Civilizationbot</span>
-          </a>
+          <h4><a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot" rel="noopener">DiscordPHP-BridgeBot</a></h4>
+          <p>A ready-to-run Discord bot that brings the Bridge core and Twitch, Telegram and YouTube connectors together.</p>
+          <ul class="project-actions"><li><a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot#readme" rel="noopener">Get the bot</a></li><li><a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot/issues" rel="noopener">Report an issue</a></li><li><a href="https://discord.gg/dphp" rel="noopener">Ask in DiscordPHP support</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/discord-php/DiscordPHP-Tutelar" rel="noopener">
-            <h4>DiscordPHP-Tutelar</h4>
-            <p>A Discord community-management bot — event logging, native onboarding, rotating presence, per-guild config — on a PSR-4 module architecture.</p>
-            <span class="project-link">https://github.com/discord-php/DiscordPHP-Tutelar</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/D.PHP" rel="noopener">D.PHP</a></h4>
+          <p>DiscordPHP&#39;s support and maintainer bot for API lookups, support guidance and maintainer diagnostics.</p>
+          <ul class="project-actions"><li><a href="https://discord.com/oauth2/authorize?client_id=157746770539970560&amp;permissions=0&amp;scope=bot&#37;20applications.commands" rel="noopener">Install D.PHP</a></li><li><a href="https://discord.gg/dphp" rel="noopener">Use /help in Discord</a></li><li><a href="https://github.com/discord-php/D.PHP/issues" rel="noopener">Contribute or report an issue</a></li></ul>
         </li>
         
         <li class="project-card">
-          <a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot" rel="noopener">
-            <h4>DiscordPHP-BridgeBot</h4>
-            <p>One Discord bot bridging Twitch and Telegram both ways and bringing in YouTube live chat — and every network’s commands from any of the chats.</p>
-            <span class="project-link">https://github.com/Valgorithms/DiscordPHP-BridgeBot</span>
-          </a>
+          <h4><a href="https://github.com/discord-php/DiscordPHP-Tutelar" rel="noopener">Tutelar</a></h4>
+          <p>A Discord community-management bot with event logging, onboarding, role tools, per-guild settings and reports.</p>
+          <ul class="project-actions"><li><a href="https://github.com/discord-php/DiscordPHP-Tutelar#readme" rel="noopener">Read the setup guide</a></li><li><a href="https://github.com/discord-php/DiscordPHP-Tutelar/issues" rel="noopener">Report an issue</a></li><li><a href="https://discord.gg/dphp" rel="noopener">Ask in DiscordPHP support</a></li></ul>
+        </li>
+        
+        <li class="project-card">
+          <h4><a href="https://github.com/Valgorithms/Civilizationbot" rel="noopener">Civilizationbot</a></h4>
+          <p>Civ13&#39;s official Discord bot for game-server management, player verification and moderation.</p>
+          <ul class="project-actions"><li><a href="https://github.com/Valgorithms/Civilizationbot#readme" rel="noopener">Read the README</a></li><li><a href="https://github.com/Valgorithms/Civilizationbot/issues" rel="noopener">Report an issue</a></li></ul>
         </li>
         
       </ul>

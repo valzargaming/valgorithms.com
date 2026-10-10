@@ -232,16 +232,13 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
 }
 
-.project-card a {
-  display: block;
-  height: 100%;
+.project-card {
   padding: 1.1rem 1.2rem;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--panel-2);
-  color: var(--text);
 }
-.project-card a:hover { border-color: var(--accent); text-decoration: none; }
+.project-card:hover { border-color: var(--accent); }
 .project-card h4 {
   margin: 0 0 0.35rem;
   font-family: var(--font-mono);
@@ -249,7 +246,28 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   font-weight: 600;
   color: var(--accent);
 }
+.project-card h4 a { color: inherit; }
 .project-card p { margin: 0 0 0.7rem; color: var(--muted); font-size: 0.95rem; }
+.project-card p.project-package { font-family: var(--font-mono); font-size: 0.8rem; }
+.project-card .project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0.8rem 0 0;
+  padding: 0;
+}
+.project-card .project-actions a {
+  display: inline-block;
+  height: auto;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.project-card .project-actions a:hover { border-color: var(--accent); color: var(--accent); }
 .project-link {
   display: block;
   font-family: var(--font-mono);
@@ -257,6 +275,44 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   color: var(--muted);
   word-break: break-all;
 }
+
+/* ── Shared ecosystem release view ────────────────────────────────────── */
+.catalog-link { margin: 0.8rem 0 0; font-size: 0.9rem; }
+.catalog-status { color: var(--muted); font-family: var(--font-mono); font-size: 0.82rem; }
+.page-hero { padding-bottom: 1.5rem; }
+.release-table-wrap { overflow-x: auto; }
+.release-table { width: 100%; min-width: 850px; border-collapse: collapse; font-size: 0.9rem; }
+.release-table th,
+.release-table td { padding: 0.8rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.release-table th { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.release-table tr:last-child td { border-bottom: 0; }
+.release-project > a,
+.release-project .release-status,
+.release-project code,
+.release-table small { display: block; }
+.release-status,
+.release-table small { margin-top: 0.2rem; color: var(--muted); font-size: 0.78rem; }
+.release-project code { margin-top: 0.25rem; font-family: var(--font-mono); font-size: 0.75rem; }
+.release-note { color: var(--muted); font-size: 0.88rem; }
+
+/* ── Tagged shared newsletter ─────────────────────────────────────────── */
+.newsletter-filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+.newsletter-filters button,
+.newsletter-tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.78rem;
+}
+.legal .newsletter-tag { text-decoration: none; }
+.newsletter-tag:hover { border-color: var(--accent); color: var(--text); }
+.newsletter-filters button { cursor: pointer; }
+.newsletter-filters button.is-active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 15%, var(--panel-2)); color: var(--text); }
+.edition-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 
 /* ── Closer ────────────────────────────────────────────────────────────── */
 .closer {

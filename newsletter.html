@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Sora:wght@600;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
 
+  <script defer src="newsletter-tags.js"></script>
 </head>
 <body>
     <header class="site-header">
@@ -31,6 +32,7 @@
     <nav class="site-nav">
       <a href="https://www.valgorithms.com#support">Support</a>
       <a href="https://www.valgorithms.com#projects">Projects</a>
+      <a href="https://www.valgorithms.com/ecosystem.html">Releases</a>
       <a href="https://www.valgorithms.com/newsletter.html">Newsletter</a>
       <a href="https://github.com/valzargaming" rel="noopener">GitHub&nbsp;&#8599;</a>
       <a class="nav-cta" href="https://github.com/sponsors/valzargaming" rel="noopener">Sponsor</a>
@@ -42,9 +44,14 @@
     <p class="kicker">Newsletter</p>
     <h1>What I worked on today</h1>
     <p class="legal-meta">
-      A daily recap of the code I shipped and reviewed, the communities I run, and what I played. Each edition is
-      drafted by a locally hosted model from the day&rsquo;s activity, and read and approved by me before it is published.
+      Shared tagged updates from the DiscordPHP and Valgorithms ecosystem. Filter by topic or subscribe with your feed reader.
+      <a href="https://discordphp.org/newsletter.xml">RSS feed</a>.
     </p>
+
+    <nav class="newsletter-filters" aria-label="Filter editions by topic">
+      <button type="button" data-newsletter-filter="all" aria-pressed="true">All topics</button>
+      <button type="button" data-newsletter-filter="discordphp" aria-pressed="false">DiscordPHP</button><button type="button" data-newsletter-filter="releases" aria-pressed="false">Releases</button><button type="button" data-newsletter-filter="projects" aria-pressed="false">Projects</button><button type="button" data-newsletter-filter="maintenance" aria-pressed="false">Maintenance</button><button type="button" data-newsletter-filter="community" aria-pressed="false">Community</button><button type="button" data-newsletter-filter="websites" aria-pressed="false">Websites</button><button type="button" data-newsletter-filter="personal" aria-pressed="false">Personal</button>
+    </nav>
 
     
 
@@ -52,74 +59,85 @@
     <nav class="edition-index" aria-label="Editions">
       <h2>Editions</h2>
       <ol>
-        <li><a href="#2026-10-10">Engine updates and new frontiers</a> <span>2026-10-10</span></li><li><a href="#2026-10-09">New horizons and website updates</a> <span>2026-10-09</span></li><li><a href="#2026-10-08">Valithor&#39;s daily recap — Thursday, October 8, 2026</a> <span>2026-10-08</span></li><li><a href="#2026-10-06">A quiet day of maintenance</a> <span>2026-10-06</span></li><li><a href="#2026-10-05">Improving gameplay and mechanical depth</a> <span>2026-10-05</span></li><li><a href="#2026-10-04">Expanding mechanics and gameplay modes</a> <span>2026-10-04</span></li><li><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
+        <li data-newsletter-tags="discordphp releases projects community personal"><a href="#2026-10-10">Engine updates and new frontiers</a> <span>2026-10-10</span></li><li data-newsletter-tags="projects websites"><a href="#2026-10-09">New horizons and website updates</a> <span>2026-10-09</span></li><li data-newsletter-tags="personal"><a href="#2026-10-08">Valithor&#39;s daily recap — Thursday, October 8, 2026</a> <span>2026-10-08</span></li><li data-newsletter-tags="discordphp releases maintenance personal"><a href="#2026-10-06">A quiet day of maintenance</a> <span>2026-10-06</span></li><li data-newsletter-tags="discordphp projects maintenance"><a href="#2026-10-05">Improving gameplay and mechanical depth</a> <span>2026-10-05</span></li><li data-newsletter-tags="projects releases"><a href="#2026-10-04">Expanding mechanics and gameplay modes</a> <span>2026-10-04</span></li><li data-newsletter-tags="projects maintenance"><a href="#2026-10-02-2">Expanding AI-Router and refining PHPacker</a> <span>2026-10-02</span></li><li data-newsletter-tags="discordphp projects community"><a href="#2026-09-29">Preparing for big news</a> <span>2026-09-29</span></li><li data-newsletter-tags="discordphp releases"><a href="#2026-09-28">Major updates to DiscordPHP core and ecosystem releases</a> <span>2026-09-28</span></li><li data-newsletter-tags="discordphp releases projects"><a href="#2026-09-27-3">Core releases and bridge improvements</a> <span>2026-09-27</span></li><li data-newsletter-tags="projects websites"><a href="#2026-09-27-2">Deep Dives and Website Updates</a> <span>2026-09-27</span></li>
       </ol>
     </nav>
 
     
-    <article class="edition" id="2026-10-10">
+    <article class="edition" id="2026-10-10" data-newsletter-tags="discordphp releases projects community personal">
       <p class="legal-meta"><time datetime="2026-10-10">Saturday, October 10, 2026</time> · <a href="#2026-10-10">Permalink</a></p>
       <h2>Engine updates and new frontiers</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-10-10">DiscordPHP</a> <a class="newsletter-tag" href="?tag=releases#2026-10-10">Releases</a> <a class="newsletter-tag" href="?tag=projects#2026-10-10">Projects</a> <a class="newsletter-tag" href="?tag=community#2026-10-10">Community</a> <a class="newsletter-tag" href="?tag=personal#2026-10-10">Personal</a></p>
       <p>It has been a busy Saturday, split between refining my existing libraries and sharing some exciting new directions for my upcoming projects. Much of my focus went into <code>DiscordPHP-MTGPocket</code>, where I worked on expanding the engine&#39;s ability to understand complex Magic: The Gathering mechanics. By merging updates for things like &quot;Amass,&quot; &quot;shield counters,&quot; and various enchantment kinds, the engine is becoming much more capable of reading the game accurately. I also spent time keeping the <code>DiscordPHP</code> core in sync with the latest API changes from the October 8 OpenAPI description and improving the <code>VoiceClient</code> behavior to ensure it returns correctly when ready.</p><section><h3>New projects and community support</h3><p>I am officially announcing the early direction for <em>Frontier Systems</em>, a new cooperative engineering simulation project set within our solar system. I have shared the GitHub repository so you can see the early progress, which currently includes work on a health runtime, inventory UI, and cooperative playability. It is still in the very early stages, but seeing the core systems like equipment fabrication and Twitch integration start to take shape is very rewarding.</p><p>On a more practical note, I have introduced a new &quot;Life Support&quot; donation tier for <code>DiscordPHP</code>. This initiative is currently in progress to help cover the essential costs of library maintenance and API updates, as we are facing a shortage of emergency funds. Your support helps ensure these tools remain stable and up to date. Between the coding and the announcements, I also managed to squeeze in a quick 45-minute session of <em>Magic: The Gathering Arena</em> to unwind.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-10-09">
+    <article class="edition" id="2026-10-09" data-newsletter-tags="projects websites">
       <p class="legal-meta"><time datetime="2026-10-09">Friday, October 9, 2026</time> · <a href="#2026-10-09">Permalink</a></p>
       <h2>New horizons and website updates</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=projects#2026-10-09">Projects</a> <a class="newsletter-tag" href="?tag=websites#2026-10-09">Websites</a></p>
       <p>It has been a productive Friday, and I am happy to share that I have spent much of the day focusing on visibility and long-term vision. My main goal was ensuring that our progress is documented and easy to find, so I have successfully updated our project websites to include these recaps.</p><section><h3>Introducing Frontier Systems</h3><p>The most exciting part of today, however, was sharing a glimpse into the future with the Valgorithms community. I shared the early concept for a new project titled <strong>Frontier Systems</strong>. This is intended to be a cooperative engineering simulation set within the solar system.</p><p>While this is still an initial direction announcement, I wanted to get the concept in front of you all as soon as possible. It represents a new path for our collaborative work, and I am looking forward to seeing how this idea develops as we begin to shape its foundations.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-10-08">
+    <article class="edition" id="2026-10-08" data-newsletter-tags="personal">
       <p class="legal-meta"><time datetime="2026-10-08">Thursday, October 8, 2026</time> · <a href="#2026-10-08">Permalink</a></p>
       <h2>Valithor&#39;s daily recap — Thursday, October 8, 2026</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=personal#2026-10-08">Personal</a></p>
       <p>A quiet day: nothing to report from GitHub, Discord or Steam.</p>
     </article>
     
-    <article class="edition" id="2026-10-06">
+    <article class="edition" id="2026-10-06" data-newsletter-tags="discordphp releases maintenance personal">
       <p class="legal-meta"><time datetime="2026-10-06">Tuesday, October 6, 2026</time> · <a href="#2026-10-06">Permalink</a></p>
       <h2>A quiet day of maintenance</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-10-06">DiscordPHP</a> <a class="newsletter-tag" href="?tag=releases#2026-10-06">Releases</a> <a class="newsletter-tag" href="?tag=maintenance#2026-10-06">Maintenance</a> <a class="newsletter-tag" href="?tag=personal#2026-10-06">Personal</a></p>
       <p>Today was a non-progress day due to my vacation. I made two small patches to <code>DiscordPHP</code>, which were minimal effort. I&#39;ll fully review recent changes next week. I also spent a brief period playing <em>Brawlhalla</em>. I&#39;ll be streaming in the near future.</p><section><h3>DiscordPHP</h3><p>The small updates I pushed included the release of version <code>v10.66.3</code>, which addressed <code>addField</code> validation and some code style fixes. I am also continuing my ongoing work on the upcoming <code>v11</code> version.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-10-05">
+    <article class="edition" id="2026-10-05" data-newsletter-tags="discordphp projects maintenance">
       <p class="legal-meta"><time datetime="2026-10-05">Monday, October 5, 2026</time> · <a href="#2026-10-05">Permalink</a></p>
       <h2>Improving gameplay and mechanical depth</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-10-05">DiscordPHP</a> <a class="newsletter-tag" href="?tag=projects#2026-10-05">Projects</a> <a class="newsletter-tag" href="?tag=maintenance#2026-10-05">Maintenance</a></p>
       <p>It has been a massive day of progress for <code>DiscordPHP-MTGPocket</code>, focusing heavily on making the game more accessible and technically robust. I have been working to ensure that new players can jump right in without feeling lost, so I am happy to share that we have merged several features to help with that. Specifically, PR #30 and #33 have brought a new &quot;How to play&quot; quick start guide and the ability to play practice games against a bot into the project. You can even use rental decks to practice against the bot now, which should make getting started much smoother.</p><section><h3>Strengthening the engine</h3><p>Beyond the user experience, I spent a significant amount of time under the hood refining how the engine handles the complexities of the game. To ensure the rules engine is as accurate as possible, I merged a large series of updates, including PR #31 and #34, to better support intricate mechanics like damage prevention, double-faced cards, Sagas, and various &quot;look and reveal&quot; templates. This ensures that when these cards appear in a match, the logic holds up.</p><p>I am also continuing to bridge the gaps in our card coverage and deck construction. I&#39;ve been working through the <code>claude/card-coverage-gaps-sc84tj</code> branch to address these issues, which included a fix in PR #32 to add basic lands to certain short rental decks. To keep the project&#39;s foundation professional, I also integrated new PHP tooling via PR #35 and pushed some much-needed updates to the DiscordPHP.org and valgorithms.com websites.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-10-04">
+    <article class="edition" id="2026-10-04" data-newsletter-tags="projects releases">
       <p class="legal-meta"><time datetime="2026-10-04">Sunday, October 4, 2026</time> · <a href="#2026-10-04">Permalink</a></p>
       <h2>Expanding mechanics and gameplay modes</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=projects#2026-10-04">Projects</a> <a class="newsletter-tag" href="?tag=releases#2026-10-04">Releases</a></p>
       <p>It has been a massive day of progress for the <code>DiscordPHP-MTGPocket</code> engine. My main focus was on deepening how the system understands the complexities of Magic: The Gathering. I have successfully merged a significant wave of updates that improve our data coverage, bringing in support for MTGJSON and ensuring we are ready for the future with PHP 8.5 compatibility. This means the engine is becoming much more robust when handling tricky elements like triggered and loyalty abilities, tokens, equipment, and specific mechanical nuances like modal spells or painlands.</p><section><h3>New ways to play and manage collections</h3><p>Beyond just understanding the cards, I have been working hard to make the actual experience of playing more immersive and functional. I have merged several major gameplay systems, including a new <code>/menu</code> panel that allows you to interact using buttons and forms, and a move-by-move match logging system to keep track of your games. I am also very excited to share that a full booster draft mode has been developed, complete with Swiss rounds and card retention.</p><p>I have also focused on making your collections more useful outside of Discord. I&#39;ve implemented features that allow you to export your decks and collections directly to MTG Arena, Tabletop Simulator, and Frogtown. While much of this is now part of the main branch, I am still spending time on the <code>claude/card-coverage-gaps-sc84tj</code> branch to bridge the remaining gaps in how the engine reads specific card text and mechanics. We are getting closer to a truly seamless simulation experience.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-10-02-2">
+    <article class="edition" id="2026-10-02-2" data-newsletter-tags="projects maintenance">
       <p class="legal-meta"><time datetime="2026-10-02">Friday, October 2, 2026</time> · <a href="#2026-10-02-2">Permalink</a></p>
       <h2>Expanding AI-Router and refining PHPacker</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=projects#2026-10-02-2">Projects</a> <a class="newsletter-tag" href="?tag=maintenance#2026-10-02-2">Maintenance</a></p>
       <p>It has been a productive Friday spent primarily on strengthening the core of the AI-Router. My main focus was on expanding what this project can do by adding support for both OpenAI and Copilot. This included updating model tests to ensure stability as these new capabilities are introduced. To make the development process smoother, I worked on refining Composer scripts to improve the workflow.</p><section><h3>Technical refinements to PHPacker</h3><p>In addition to the work on the router, I spent some time with the PHPacker integration. I made a few technical tweaks, such as adjusting the binary defaults to use the <code>--serve</code> flag. I also resolved a bug related to null timer cancellations.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-09-29">
+    <article class="edition" id="2026-09-29" data-newsletter-tags="discordphp projects community">
       <p class="legal-meta"><time datetime="2026-09-29">Tuesday, September 29, 2026</time> · <a href="#2026-09-29">Permalink</a></p>
       <h2>Preparing for big news</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-09-29">DiscordPHP</a> <a class="newsletter-tag" href="?tag=projects#2026-09-29">Projects</a> <a class="newsletter-tag" href="?tag=community#2026-09-29">Community</a></p>
       <p>It has been a busy day of preparation and fine-tuning. I spent a good portion of my time updating both <code>DiscordPHP.org</code> and <code>valgorithms.com</code> to make sure everything is ready for the newsletter regarding the major DiscordPHP core and ecosystem releases.</p><p>Today was a busy day working on non-code related tasks. I&#39;ll be taking a break until after the 10th as both Colin and Cezzy are coming to visit starting on Friday.</p><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-09-28">
+    <article class="edition" id="2026-09-28" data-newsletter-tags="discordphp releases">
       <p class="legal-meta"><time datetime="2026-09-28">Monday, September 28, 2026</time> · <a href="#2026-09-28">Permalink</a></p>
       <h2>Major updates to DiscordPHP core and ecosystem releases</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-09-28">DiscordPHP</a> <a class="newsletter-tag" href="?tag=releases#2026-09-28">Releases</a></p>
       <p>It has been a massive day of progress for the DiscordPHP core. I have pushed out three new releases—<code>v10.64.0</code>, <code>v10.64.1</code>, and <code>v10.65.0</code>—which bring some foundational changes to how the library operates. The biggest shift involves a major refactor of our namespaces to align them with their corresponding API routes, as seen in <code>discordphp/discordphp#1507</code>. This reorganization, alongside the implementation of REST operations and updates to the <code>Factory</code> class, makes the entire library more intuitive and better structured for the long term. DiscordPHP now covers every route.</p><p>We also managed to squeeze in several important quality-of-life improvements and safety checks. I&#39;ve merged updates to improve autocomplete callbacks, added validation for embed field lengths, and implemented new regression tests for invites to ensure everything stays stable as we grow.</p><section><h3>Ecosystem growth and maintenance</h3><p>Beyond the core library, I spent a significant amount of time tending to our wider ecosystem and documentation. The DiscordPHP.org website has been updated with new class diagrams and route maps to help you navigate the library more easily. I also worked on the <code>DiscordPHP-Bridge</code> to move the live announcer over to the Twitch connector, and I released <code>v8.3.0</code> for the <code>DiscordPHP-Voice</code> extension, which now includes support for a voice session repository.</p><p>A large portion of my day was also dedicated to reviewing community contributions. I went through many pull requests, merging several helpful ones while closing others that were either outdated or caused fatal errors. All pending issues and PRs were either closed or merged. It is a constant balancing act to ensure that every piece of code added to the project meets our standards and provides clear benefits to everyone using it.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-09-27-3">
+    <article class="edition" id="2026-09-27-3" data-newsletter-tags="discordphp releases projects">
       <p class="legal-meta"><time datetime="2026-09-27">Sunday, September 27, 2026</time> · <a href="#2026-09-27-3">Permalink</a></p>
       <h2>Core releases and bridge improvements</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=discordphp#2026-09-27-3">DiscordPHP</a> <a class="newsletter-tag" href="?tag=releases#2026-09-27-3">Releases</a> <a class="newsletter-tag" href="?tag=projects#2026-09-27-3">Projects</a></p>
       <p>It has been a productive Sunday focused heavily on stabilizing our core tools and expanding how we connect different platforms. I spent a significant portion of my time reviewing community pull requests regarding autocomplete handling, testing tooling, and emoji logic. After sending several requests back for refinement, I was able to merge some important updates, most notably magic property support in <code>discordphp/discordphp#1497</code>. This work directly contributed to the release of two new versions, <code>v10.61.0</code> and <code>v10.62.0</code>, which include improved documentation for the <code>init</code> event and better exception handlers for scheduled events.</p><section><h3>Expanding the ecosystem</h3><p>Beyond the core library, I focused on making our integrations more robust. I released <code>twitchphp/twitchphp#v3.4.0</code>, which brings much-needed improvements to connection handling and retry logic. To make this even more useful for creators, I added features to the Twitch bridges that can announce when streams go live or end, and I implemented a system to DM owners if a chat connection remains down. I also spent some time on the official website, adding a Discord server widget to the Community page and ensuring the site automatically rebuilds its maps on each release.</p><p>On the administrative side, I completed a series of updates to the Valgorithms server. This included refining the onboarding process, configuring new channels, and managing access and invitations to ensure everything is running smoothly for the community. I also took a moment to make the <code>discordphp/discordphp-newsletter</code> repository public and performed some minor maintenance on my other personal projects. It was a busy day of shipping code and tidying up our digital spaces, with just a quick 22-minute break to play some <em>Brawlhalla</em>.</p></section><div class="edition-signoff"><p>Valithor</p></div>
     </article>
     
-    <article class="edition" id="2026-09-27-2">
+    <article class="edition" id="2026-09-27-2" data-newsletter-tags="projects websites">
       <p class="legal-meta"><time datetime="2026-09-27">Sunday, September 27, 2026</time> · <a href="#2026-09-27-2">Permalink</a></p>
       <h2>Deep Dives and Website Updates</h2>
+      <p class="edition-tags" aria-label="Topics"><a class="newsletter-tag" href="?tag=projects#2026-09-27-2">Projects</a> <a class="newsletter-tag" href="?tag=websites#2026-09-27-2">Websites</a></p>
       <p>Happy Sunday! I am so excited to be sending out my very first newsletter today. It feels great to finally have a dedicated space to share what I&#39;ve been working on with all of you.</p><p>I&#39;ve spent most of my morning diving deep into code reviews and making some progress on our web projects. It has been a busy morning of reviewing and managing code, particularly within <code>discord-php/DiscordPHP</code>. I spent a significant amount of time conducting extensive reviews, including requesting changes on <code>discord-php/DiscordPHP#1414</code> regarding the command handler register overhaul and <code>discord-php/DiscordPHP#1416</code> for the autocomplete callback matched option value.</p><section><h3>Web and Community Updates</h3><p>I also managed several merges within <code>discord-php/DiscordPHP</code> to keep things moving forward, such as rebuilding maps on the official website and updating the documentation. Beyond the code reviews, I&#39;ve been focusing on our web presence. On <code>discord-php/DiscordPHP.org</code>, I added a Discord server widget to the Community page and added descriptions for the release dispatch process. I also performed some maintenance on <code>valzargaming/valgorithms.com</code> by creating a newsletter branch.</p><p>To help keep our community organized, I also created a new channel within the Valgorithms Discord server. You can join us and head directly to the new #newsletter channel <a href="https://discord.gg/4DYs7T9RE" rel="noopener">here</a>. The newsletter repository is also located <a href="https://github.com/Valgorithms/DiscordPHP-Newsletter/" rel="noopener">here</a>, but it is still private.</p></section><div class="edition-signoff"><p>See you all tomorrow!</p></div>
     </article>
     

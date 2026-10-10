@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Releases &amp; compatibility — valgorithms</title>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Open-source PHP & ReactPHP developer — maintainer of the DiscordPHP ecosystem. Sponsor the work." />
+  <meta name="author" content="Valithor Obsidion" />
+  <link rel="canonical" href="https://www.valgorithms.com" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="valgorithms — sponsor the work" />
+  <meta property="og:description" content="Open-source PHP & ReactPHP developer — maintainer of the DiscordPHP ecosystem. Sponsor the work." />
+  <meta property="og:url" content="https://www.valgorithms.com" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c6cff'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='%230e0f1a'%3Ev%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Sora:wght@600;700&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+    <header class="site-header">
+    <a class="brand" href="https://www.valgorithms.com">
+      <span class="brand-mark" aria-hidden="true">v</span>
+      <span class="brand-name">valgorithms</span>
+    </a>
+    <nav class="site-nav">
+      <a href="https://www.valgorithms.com#support">Support</a>
+      <a href="https://www.valgorithms.com#projects">Projects</a>
+      <a href="https://www.valgorithms.com/ecosystem.html">Releases</a>
+      <a href="https://www.valgorithms.com/newsletter.html">Newsletter</a>
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub&nbsp;&#8599;</a>
+      <a class="nav-cta" href="https://github.com/sponsors/valzargaming" rel="noopener">Sponsor</a>
+    </nav>
+  </header>
+
+
+  <main>
+    <section class="hero page-hero">
+      <p class="kicker">Shared ecosystem catalog</p>
+      <h1>Releases and compatibility</h1>
+      <p class="lede">One view of current releases and runtime requirements. Version data comes from Packagist or GitHub; PHP, DiscordPHP and extension constraints are read from each published Composer release. “No Composer metadata” means no readable composer.json was found at the release tag; “Not declared” means the file has no such constraint; “None declared” means no extensions are required.</p>
+      <p class="catalog-status">Release data generated October 10, 2026 · <a href="https://discordphp.org/newsletter.xml">Subscribe to the tagged RSS feed</a></p>
+    </section>
+
+    <section class="panel release-view">
+      <div class="release-table-wrap">
+        <table class="release-table">
+          <thead>
+            <tr><th>Project</th><th>Latest release</th><th>PHP</th><th>DiscordPHP</th><th>Extensions</th><th>Next step</th></tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/DiscordPHP">DiscordPHP</a>
+                <span class="release-status">stable</span>
+                <code>team-reflex/discord-php</code>
+              </td>
+              <td><a href="https://packagist.org/packages/team-reflex/discord-php">v10.66.3</a><small>Oct 6, 2026</small></td>
+              <td>^8.1.2</td>
+              <td>Core library</td>
+              <td>ext-zlib *</td>
+              <td><a href="https://packagist.org/packages/team-reflex/discord-php">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/DiscordPHP-Http">DiscordPHP-Http</a>
+                <span class="release-status">stable</span>
+                <code>discord-php/http</code>
+              </td>
+              <td><a href="https://packagist.org/packages/discord-php/http">v10.9.8</a><small>Sep 24, 2026</small></td>
+              <td>^7.4|^8.0</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/discord-php/http">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/DiscordPHP-Voice">DiscordPHP-Voice</a>
+                <span class="release-status">stable</span>
+                <code>discord-php-helpers/voice</code>
+              </td>
+              <td><a href="https://packagist.org/packages/discord-php-helpers/voice">v8.3.0</a><small>Sep 28, 2026</small></td>
+              <td>^8.3</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/discord-php-helpers/voice">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/Collection">Collection</a>
+                <span class="release-status">stable</span>
+                <code>discord-php-helpers/collection</code>
+              </td>
+              <td><a href="https://packagist.org/packages/discord-php-helpers/collection">v8.4.0</a><small>Mar 7, 2026</small></td>
+              <td>&gt;=8.4</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/discord-php-helpers/collection">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/DiscordPHP-Bridge">DiscordPHP-Bridge</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/discordphp-bridge</code>
+              </td>
+              <td><a href="https://github.com/discord-php/DiscordPHP-Bridge">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch">DiscordPHP-Bridge-Twitch</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/discordphp-bridge-twitch</code>
+              </td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge-twitch">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram">DiscordPHP-Bridge-Telegram</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/discordphp-bridge-telegram</code>
+              </td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://packagist.org/packages/vzgcoders/discordphp-bridge-telegram">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube">DiscordPHP-Bridge-YouTube</a>
+                <span class="release-status">stable</span>
+                
+              </td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube#readme">Read setup instructions</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot">DiscordPHP-BridgeBot</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/discordphp-bridgebot</code>
+              </td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-BridgeBot#readme">Get the bot</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/phpdoc-tool">phpdoc-tool</a>
+                <span class="release-status">stable</span>
+                <code>discord-php/phpdoc-tool</code>
+              </td>
+              <td><a href="https://github.com/discord-php/phpdoc-tool/releases/tag/v1.0.1">v1.0.1</a><small>Sep 14, 2026</small></td>
+              <td>&gt;=8.1.2</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://github.com/discord-php/phpdoc-tool/releases">Download the latest release</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/D.PHP">D.PHP</a>
+                <span class="release-status">stable</span>
+                <code>discord-php/d.php</code>
+              </td>
+              <td><a href="https://github.com/discord-php/D.PHP">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://discord.com/oauth2/authorize?client_id=157746770539970560&amp;permissions=0&amp;scope=bot&#37;20applications.commands">Install D.PHP</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/discord-php/DiscordPHP-Tutelar">Tutelar</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/discordphp-tutelar</code>
+              </td>
+              <td><a href="https://github.com/discord-php/DiscordPHP-Tutelar">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://github.com/discord-php/DiscordPHP-Tutelar#readme">Read the setup guide</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-NHA">DiscordPHP-NHA</a>
+                <span class="release-status">stable</span>
+                <code>discord-php-extended/discordphp-nha</code>
+              </td>
+              <td><a href="https://packagist.org/packages/discord-php-extended/discordphp-nha">v3.27.3</a><small>Oct 10, 2026</small></td>
+              <td>^8.3</td>
+              <td>dev-master</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/discord-php-extended/discordphp-nha">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-MTG">DiscordPHP-MTG</a>
+                <span class="release-status">stable</span>
+                <code>discord-php-extended/discordphp-mtg</code>
+              </td>
+              <td><a href="https://packagist.org/packages/discord-php-extended/discordphp-mtg">v1.1.0</a><small>Oct 3, 2026</small></td>
+              <td>^8.3</td>
+              <td>* || dev-master</td>
+              <td>ext-pdo_sqlite *, ext-zlib *</td>
+              <td><a href="https://packagist.org/packages/discord-php-extended/discordphp-mtg">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/TwitchPHP">TwitchPHP</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/twitchphp</code>
+              </td>
+              <td><a href="https://packagist.org/packages/vzgcoders/twitchphp">3.4.0</a><small>Sep 27, 2026</small></td>
+              <td>^8.4</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/vzgcoders/twitchphp">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/TwitchPHP-Http">TwitchPHP-Http</a>
+                <span class="release-status">stable</span>
+                <code>twitchphp/http</code>
+              </td>
+              <td><a href="https://packagist.org/packages/twitchphp/http">1.2.0</a><small>Sep 27, 2026</small></td>
+              <td>^8.1</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/twitchphp/http">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/TelegramPHP">TelegramPHP</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/telegramphp</code>
+              </td>
+              <td><a href="https://packagist.org/packages/vzgcoders/telegramphp">v10.3</a><small>Sep 15, 2026</small></td>
+              <td>^8.4</td>
+              <td>Not declared</td>
+              <td>None declared</td>
+              <td><a href="https://packagist.org/packages/vzgcoders/telegramphp">Install with Composer</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/YoutubePHP">YouTubePHP</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/youtubephp</code>
+              </td>
+              <td><a href="https://github.com/Valgorithms/YoutubePHP">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://github.com/Valgorithms/YoutubePHP#readme">Read the README</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/DiscordPHP-EventLogger">DiscordPHP-EventLogger</a>
+                <span class="release-status">stable</span>
+                <code>valgorithms/discord-php-eventlogger</code>
+              </td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-EventLogger">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://github.com/Valgorithms/DiscordPHP-EventLogger#readme">Read the README</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://valgorithms.github.io/PDF-Converter/">PDF-Converter</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/pdf-converter</code>
+              </td>
+              <td><a href="https://valgorithms.github.io/PDF-Converter/">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://valgorithms.github.io/PDF-Converter/">Open the tool</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://valgorithms.github.io/PDF-Signer/">PDF-Signer</a>
+                <span class="release-status">stable</span>
+                <code>vzgcoders/pdf-signer</code>
+              </td>
+              <td><a href="https://valgorithms.github.io/PDF-Signer/">No stable release</a></td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td>No Composer metadata</td>
+              <td><a href="https://valgorithms.github.io/PDF-Signer/">Open the tool</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/valzargaming/NFG">NFG</a>
+                <span class="release-status">stable</span>
+                
+              </td>
+              <td><a href="https://github.com/valzargaming/NFG/releases/tag/0.15.0">0.15.0</a><small>Sep 25, 2026</small></td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td><a href="https://github.com/valzargaming/NFG#readme">Read the README</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://discordphp.org/">DiscordPHP.org</a>
+                <span class="release-status">stable</span>
+                
+              </td>
+              <td><a href="https://discordphp.org/">No stable release</a></td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td><a href="https://discordphp.org/">Visit DiscordPHP.org</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://coffeescrafts.com/">Coffee-s-Crafts</a>
+                <span class="release-status">stable</span>
+                
+              </td>
+              <td><a href="https://coffeescrafts.com/">No stable release</a></td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td><a href="https://coffeescrafts.com/">Visit the portfolio</a></td>
+            </tr>
+            
+            <tr>
+              <td class="release-project">
+                <a href="https://github.com/Valgorithms/Civilizationbot">Civilizationbot</a>
+                <span class="release-status">stable</span>
+                
+              </td>
+              <td><a href="https://github.com/Valgorithms/Civilizationbot/releases/tag/v4.0.2">v4.0.2</a><small>Mar 25, 2025</small></td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td>Not applicable</td>
+              <td><a href="https://github.com/Valgorithms/Civilizationbot#readme">Read the README</a></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      <p class="release-note">“Not declared” means the tagged release does not publish that Composer constraint. “No Composer metadata” means its Composer file was unavailable. Websites and non-PHP tools show “Not applicable.” Check the project README before choosing a runtime.</p>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://github.com/valzargaming" rel="noopener">GitHub</a><a href="https://discord.gg/dphp" rel="noopener">Discord</a><a href="mailto:valithor@valgorithms.com" rel="noopener">Email</a>
+      <a href="https://www.valgorithms.com/terms.html">Terms</a>
+      <a href="https://www.valgorithms.com/privacy.html">Privacy</a>
+    </div>
+    <p class="footer-meta">
+      © 2026 Valithor Obsidion · built from
+      <a href="https://github.com/valzargaming/valgorithms.com" rel="noopener">source</a>,
+      deployed on GitHub&nbsp;Pages.
+    </p>
+  </footer>
+
+</body>
+</html>
