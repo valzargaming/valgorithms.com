@@ -55,8 +55,15 @@ references are applied. An edition can't add markup, and can't reach the templat
 ## Deploy
 
 `.github/workflows/deploy-pages.yml` runs on every push to `main`: builds, then
-publishes `dist/` to `gh-pages` via
-[`peaceiris/actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages).
+validates the generated pages and assets, and publishes the build artifact to
+`gh-pages` via [`peaceiris/actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages).
+Pull requests run the same build and validation with read-only repository
+permissions. The publishing job receives write permission only after the build
+succeeds. The workflow uses Node 24 and current Actions runtimes.
+
+To deploy manually, run **Build and Deploy Pages** from the Actions tab on
+`main`; the `publish` option defaults to off, so the run only builds unless you
+enable it.
 
 One-time setup (`valgorithms.com` on Namecheap BasicDNS):
 
