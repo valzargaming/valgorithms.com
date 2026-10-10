@@ -12,6 +12,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    - cron: '10 7 * * *'
 
 permissions:
   contents: read
@@ -41,7 +43,6 @@ jobs:
       HERO_CTA: ${{ vars.HERO_CTA }}
       SUPPORT_HEADING: ${{ vars.SUPPORT_HEADING }}
       SUPPORT_BODY: ${{ vars.SUPPORT_BODY }}
-      PROJECTS_JSON: ${{ vars.PROJECTS_JSON }}
       KOFI_URL: ${{ vars.KOFI_URL }}
       PAYPAL_URL: ${{ vars.PAYPAL_URL }}
       HIRE_URL: ${{ vars.HIRE_URL }}
@@ -50,12 +51,34 @@ jobs:
       TWITCH_URL: ${{ vars.TWITCH_URL }}
       CNAME: ${{ vars.CNAME }}
       OUTPUT_DIR: dist
+      ECOSYSTEM_SOURCE_DIR: ecosystem-source
+      ECOSYSTEM_DIR: ecosystem-source/data
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
         with:
           persist-credentials: false
+
+      - name: Checkout shared ecosystem catalog
+        uses: actions/checkout@v7
+        with:
+          repository: discord-php/DiscordPHP.org
+          ref: main
+          path: ecosystem-source
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
+
+      - name: Generate shared release and compatibility data
+        working-directory: ecosystem-source
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: php tools/versions.php data libraries.html
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -64,6 +87,9 @@ jobs:
 
       - name: Check JavaScript syntax
         run: npm run check:syntax
+
+      - name: Check shared ecosystem renderer syntax
+        run: node --check ecosystem-source/assets/js/ecosystem.js
 
       - name: Build site
         run: npm run build
@@ -83,7 +109,7 @@ jobs:
   deploy:
     name: Publish to GitHub Pages
     needs: build
-    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.publish) }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'schedule' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.publish) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

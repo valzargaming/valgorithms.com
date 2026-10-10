@@ -3,6 +3,7 @@
 <head>
   <title>Newsletter — {{SITE_TITLE}}</title>
   {{> head}}
+  <script defer src="newsletter-tags.js"></script>
 </head>
 <body>
   {{> header}}
@@ -11,9 +12,14 @@
     <p class="kicker">Newsletter</p>
     <h1>What I worked on today</h1>
     <p class="legal-meta">
-      A daily recap of the code I shipped and reviewed, the communities I run, and what I played. Each edition is
-      drafted by a locally hosted model from the day&rsquo;s activity, and read and approved by me before it is published.
+      Shared tagged updates from the DiscordPHP and Valgorithms ecosystem. Filter by topic or subscribe with your feed reader.
+      <a href="{{NEWSLETTER_FEED_URL}}">RSS feed</a>.
     </p>
+
+    <nav class="newsletter-filters" aria-label="Filter editions by topic">
+      <button type="button" data-newsletter-filter="all" aria-pressed="true">All topics</button>
+      {{#each NEWSLETTER_TAGS}}<button type="button" data-newsletter-filter="{{this.id}}" aria-pressed="false">{{this.label}}</button>{{/each}}
+    </nav>
 
     {{#if NO_EDITIONS}}
     <div class="legal-callout">No editions have been published yet. Check back soon.</div>
@@ -23,14 +29,15 @@
     <nav class="edition-index" aria-label="Editions">
       <h2>Editions</h2>
       <ol>
-        {{#each EDITIONS}}<li><a href="#{{this.key}}">{{this.headlineText}}</a> <span>{{this.date}}</span></li>{{/each}}
+        {{#each EDITIONS}}<li data-newsletter-tags="{{this.tagIds}}"><a href="#{{this.key}}">{{this.headlineText}}</a> <span>{{this.date}}</span></li>{{/each}}
       </ol>
     </nav>
 
     {{#each EDITIONS}}
-    <article class="edition" id="{{this.key}}">
+    <article class="edition" id="{{this.key}}" data-newsletter-tags="{{this.tagIds}}">
       <p class="legal-meta"><time datetime="{{this.date}}">{{this.dateLabel}}</time> · <a href="#{{this.key}}">Permalink</a></p>
       <h2>{{this.headline}}</h2>
+      <p class="edition-tags" aria-label="Topics">{{this.tagsHtml}}</p>
       {{this.body}}
     </article>
     {{/each}}

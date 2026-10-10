@@ -5,9 +5,9 @@
   "description": "Source for valzargaming.com — a single-page sponsorship site.",
   "scripts": {
     "build": "node site/build.js",
-    "check:syntax": "node --check site/build.js && node --check site/check-output.js",
+    "check:syntax": "node --check site/build.js && node --check site/check-output.js && node --check site/static/newsletter-tags.js",
     "check:output": "node site/check-output.js",
-    "serve": "node site/build.js && node -e \"const h=require('http'),f=require('fs'),p=require('path'),d='dist';h.createServer((q,s)=>{let u=q.url==='/'?'/index.html':q.url;let fp=p.join(d,u.split('?')[0]);f.readFile(fp,(e,b)=>{if(e){f.readFile(p.join(d,'404.html'),(e2,b2)=>{s.writeHead(404);s.end(e2?'404':b2)});return}const t={'.html':'text/html','.css':'text/css','.json':'application/json'}[p.extname(fp)]||'text/plain';s.writeHead(200,{'content-type':t});s.end(b)})}).listen(4173,()=>console.log('http://localhost:4173'))\""
+    "serve": "node site/build.js && node -e \"const h=require('http'),f=require('fs'),p=require('path'),d='dist';h.createServer((q,s)=>{let u=q.url==='/'?'/index.html':q.url;let fp=p.join(d,u.split('?')[0]);f.readFile(fp,(e,b)=>{if(e){f.readFile(p.join(d,'404.html'),(e2,b2)=>{s.writeHead(404);s.end(e2?'404':b2)});return}const t={'.html':'text/html','.css':'text/css','.js':'text/javascript','.json':'application/json','.xml':'application/rss+xml'}[p.extname(fp)]||'text/plain';s.writeHead(200,{'content-type':t});s.end(b)})}).listen(4173,()=>console.log('http://localhost:4173'))\""
   },
   "license": "MIT"
 }

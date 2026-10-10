@@ -6,7 +6,8 @@ ReactPHP libraries maintained there.
 
 Same shape as [coffee-s-crafts](https://github.com/Coffee-s-Crafts/coffee-s-crafts):
 a dependency-free Node build that renders `site/templates/` into `dist/`, deployed
-to the `gh-pages` branch by GitHub Actions.
+to the `gh-pages` branch by GitHub Actions. The project shelf, release data and
+newsletter are shared with [DiscordPHP.org](https://github.com/discord-php/DiscordPHP.org).
 
 ## Build
 
@@ -29,7 +30,6 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `CONTACT_EMAIL` | `valithor@valgorithms.com` | "Hire me" mailto |
 | `HERO_KICKER` / `HERO_TAGLINE` / `HERO_CTA` | … | hero copy (tagline allows inline HTML) |
 | `SUPPORT_HEADING` / `SUPPORT_BODY` | … | support-section copy |
-| `PROJECTS_JSON` | curated list | JSON array of `{name, blurb, url, kind}` — replaces the shelf wholesale. `kind` is `library` (default), `tool`, `bot` or `website`; the shelf renders a **Libraries** group and groups for any tools, bots or websites present. `library` is anything you require (API libraries and the rest), `tool` anything you run rather than build on (developer tooling, browser apps, command-line utilities), `bot` a standalone bot, and `website` a public-facing site built or maintained here. A library that also ships a bot stays `library`. |
 | `KOFI_URL` / `PAYPAL_URL` / `HIRE_URL` | PayPal defaults on | a support card shows only when its URL is set |
 | `DISCORD_URL` / `TWITCH_URL` | Discord defaults on | footer links, shown when set |
 | `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
@@ -37,13 +37,25 @@ the environment; the defaults in `build.js` produce the live site as-is.
 
 ## Newsletter
 
-`/newsletter.html` shows the daily newsletter written by the DiscordPHP-Newsletter bot. Once an
-edition is approved, the bot commits it to `site/data/newsletter.json` on `main`, and that push
-rebuilds and deploys the site as usual. `build.js` renders every edition into the page at build
-time, so the page runs no script. Edition bodies are Discord-flavoured markdown: they are escaped
-first, then bold, italics, inline code, bullet lists, `https` links and `owner/repo#123`
-references are applied. An edition can't add markup, and can't reach the template engine's
-`{{…}}` / `%%…%%` placeholders.
+`/newsletter.html` renders the tagged feed from `DiscordPHP.org/data/newsletter.json`. That is the
+single source used on both sites; the bot commits approved editions there. Each edition's `tags`
+must use an ID from `DiscordPHP.org/data/ecosystem.json`. Both sites can filter by topic, and the
+shared RSS feed is <https://discordphp.org/newsletter.xml>. This site rebuilds nightly to pick up
+catalog or newsletter changes from DiscordPHP.org. Edition bodies are Discord-flavoured markdown:
+they are escaped first, then bold, italics, inline code, bullet lists, `https` links and
+`owner/repo#123` references are applied.
+
+## Shared ecosystem catalog
+
+`DiscordPHP.org/data/ecosystem.json` is the canonical catalog for the project shelf on this site
+and the Libraries page on DiscordPHP.org. It contains project descriptions, audiences, status,
+repositories, Composer packages and useful next steps. The shared `/ecosystem.html` view shows each
+project's latest stable release and Composer PHP, DiscordPHP and extension requirements, read from
+the tagged release's `composer.json` by the shared generator.
+
+For local builds, keep `DiscordPHP.org` beside this repository or set `ECOSYSTEM_SOURCE_DIR` and
+`ECOSYSTEM_DIR` to its checkout and `data/` directory. GitHub Actions checks out the canonical
+repository automatically and refreshes release metadata before building.
 
 ```json
 { "editions": [
@@ -54,8 +66,8 @@ references are applied. An edition can't add markup, and can't reach the templat
 
 ## Deploy
 
-`.github/workflows/deploy-pages.yml` runs on every push to `main`: builds, then
-validates the generated pages and assets, and publishes the build artifact to
+`.github/workflows/deploy-pages.yml` runs on every push to `main` and nightly: checks out the
+shared catalog, refreshes release metadata, builds, validates the generated pages and assets, and publishes the build artifact to
 `gh-pages` via [`peaceiris/actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages).
 Pull requests run the same build and validation with read-only repository
 permissions. The publishing job receives write permission only after the build
@@ -85,9 +97,10 @@ One-time setup (`valgorithms.com` on Namecheap BasicDNS):
 ## Editing content
 
 - Copy lives in `site/build.js` defaults and `site/templates/*.html`.
-- The project shelf is the `DEFAULT_PROJECTS` array in `build.js` (or set
-  `PROJECTS_JSON`); each entry's `kind` (`library` / `tool` / `bot` / `website`)
-  sorts it into the matching shelf group.
+- The shared shelf is `DiscordPHP.org/data/ecosystem.json`; set the `audiences`
+  field to control which site's catalog displays an entry. Each `nextSteps` link
+  should send visitors to a concrete action such as installation, documentation,
+  support or issue reporting.
 - Styling is a single `site/static/styles.css`; dark by default, light under
   `prefers-color-scheme`.
 

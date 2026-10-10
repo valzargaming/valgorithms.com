@@ -41,19 +41,19 @@
     <section id="projects" class="panel">
       <h2>The shelf</h2>
       <p class="panel-lede">
-        A selection of software projects and websites.
-        The libraries and bots here are async PHP on ReactPHP.
+        A shared catalog of software projects and websites.
+        Browse async PHP libraries and bots, developer tools and project websites.
       </p>
+      <p class="catalog-link"><a href="/ecosystem.html">View latest releases and compatibility</a></p>
 
       <h3 class="shelf-group">Libraries</h3>
       <ul class="project-grid">
         {{#each LIBRARIES}}
         <li class="project-card">
-          <a href="{{this.url}}" rel="noopener">
-            <h4>{{this.name}}</h4>
-            <p>{{this.blurb}}</p>
-            <span class="project-link">{{this.url}}</span>
-          </a>
+          <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
+          {{#if this.package}}<p class="project-package">{{this.package}}</p>{{/if}}
+          <p>{{this.blurb}}</p>
+          <ul class="project-actions">{{this.nextStepsHtml}}</ul>
         </li>
         {{/each}}
       </ul>
@@ -63,11 +63,9 @@
       <ul class="project-grid">
         {{#each TOOLS}}
         <li class="project-card">
-          <a href="{{this.url}}" rel="noopener">
-            <h4>{{this.name}}</h4>
-            <p>{{this.blurb}}</p>
-            <span class="project-link">{{this.url}}</span>
-          </a>
+          <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
+          <p>{{this.blurb}}</p>
+          <ul class="project-actions">{{this.nextStepsHtml}}</ul>
         </li>
         {{/each}}
       </ul>
@@ -78,11 +76,9 @@
       <ul class="project-grid">
         {{#each WEBSITES}}
         <li class="project-card">
-          <a href="{{this.url}}" rel="noopener">
-            <h4>{{this.name}}</h4>
-            <p>{{this.blurb}}</p>
-            <span class="project-link">{{this.url}}</span>
-          </a>
+          <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
+          <p>{{this.blurb}}</p>
+          <ul class="project-actions">{{this.nextStepsHtml}}</ul>
         </li>
         {{/each}}
       </ul>
@@ -93,11 +89,9 @@
       <ul class="project-grid">
         {{#each BOTS}}
         <li class="project-card">
-          <a href="{{this.url}}" rel="noopener">
-            <h4>{{this.name}}</h4>
-            <p>{{this.blurb}}</p>
-            <span class="project-link">{{this.url}}</span>
-          </a>
+          <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
+          <p>{{this.blurb}}</p>
+          <ul class="project-actions">{{this.nextStepsHtml}}</ul>
         </li>
         {{/each}}
       </ul>

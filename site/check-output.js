@@ -48,6 +48,11 @@ for (const relative of filesBelow(STATIC)) {
   if (!fs.existsSync(output)) fail(`static asset was not copied: ${relative}`);
 }
 
+for (const relative of ['ecosystem.html', 'data/ecosystem.json', 'data/releases.json', 'data/newsletter.json']) {
+  const output = path.join(OUT, relative);
+  if (!fs.existsSync(output) || fs.statSync(output).size === 0) fail(`missing shared ecosystem output: ${relative}`);
+}
+
 const expectedCname = process.env.CNAME || 'www.valgorithms.com';
 const cnamePath = path.join(OUT, 'CNAME');
 if (!fs.existsSync(cnamePath)) {
