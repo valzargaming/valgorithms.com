@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Releases &amp; compatibility — {{SITE_TITLE}}</title>
+  {{> head}}
+</head>
+<body>
+  {{> header}}
+
+  <main>
+    <section class="hero page-hero">
+      <p class="kicker">Shared ecosystem catalog</p>
+      <h1>Releases and compatibility</h1>
+      <p class="lede">One view of current releases and runtime requirements. Version data comes from Packagist or GitHub; PHP, DiscordPHP and extension constraints are read from each published Composer release. “No Composer metadata” means no readable composer.json was found at the release tag; “Not declared” means the file has no such constraint; “None declared” means no extensions are required.</p>
+      <p class="catalog-status">Release data generated {{ECOSYSTEM_GENERATED}} · <a href="{{NEWSLETTER_FEED_URL}}">Subscribe to the tagged RSS feed</a></p>
+    </section>
+
+    <section class="panel release-view">
+      <div class="release-table-wrap">
+        <table class="release-table">
+          <thead>
+            <tr><th>Project</th><th>Latest release</th><th>PHP</th><th>DiscordPHP</th><th>Extensions</th><th>Next step</th></tr>
+          </thead>
+          <tbody>
+            {{#each RELEASE_PROJECTS}}
+            <tr>
+              <td class="release-project">
+                <a href="{{this.url}}">{{this.name}}</a>
+                <span class="release-status">{{this.status}}</span>
+                {{#if this.package}}<code>{{this.package}}</code>{{/if}}
+              </td>
+              <td><a href="{{this.releaseUrl}}">{{this.version}}</a>{{#if this.releasedAt}}<small>{{this.releasedAt}}</small>{{/if}}</td>
+              <td>{{this.php}}</td>
+              <td>{{this.discordphp}}</td>
+              <td>{{this.extensions}}</td>
+              <td><a href="{{this.nextUrl}}">{{this.nextLabel}}</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <p class="release-note">“Not declared” means the tagged release does not publish that Composer constraint. “No Composer metadata” means its Composer file was unavailable. Websites and non-PHP tools show “Not applicable.” Check the project README before choosing a runtime.</p>
+    </section>
+  </main>
+
+  {{> footer}}
+</body>
+</html>

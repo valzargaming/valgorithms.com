@@ -1,13 +1,13 @@
 'use strict';
 
 /*
- * Static-site builder for valzargaming.com — a single sponsorship landing page.
+ * Static-site builder for valzargaming.com — a sponsorship site and project shelf.
  *
  * Mirrors the coffee-s-crafts build: no dependencies, `%%TOKEN%%` / `{{KEY}}`
  * placeholders, `{{> partial}}` includes, `{{#each ARR}}…{{/each}}` loops, and a
- * straight copy of `site/static/` into the output. Every value is overridable
- * from the environment (wired to GitHub Actions vars/secrets in the workflow)
- * so the deployed copy can be tuned without a code change.
+ * straight copy of `site/static/` into the output. Site copy and support links
+ * are configurable from the environment; project and newsletter data come from
+ * DiscordPHP.org's shared catalog.
  *
  *   SITE_URL="https://valzargaming.com" SPONSOR_URL="https://github.com/sponsors/valzargaming" \
  *     node site/build.js
@@ -24,6 +24,20 @@ const OUT = process.env.OUTPUT_DIR || 'dist';
 const TPL = path.join('site', 'templates');
 const PARTIALS = path.join(TPL, 'partials');
 const STATIC = path.join('site', 'static');
+const ECOSYSTEM_ROOT = path.resolve(process.env.ECOSYSTEM_SOURCE_DIR || path.join(__dirname, '..', '..', 'DiscordPHP.org'));
+const ECOSYSTEM_DIR = path.resolve(process.env.ECOSYSTEM_DIR || path.join(ECOSYSTEM_ROOT, 'data'));
+
+function readJson(file, fallback) {
+  if (!fs.existsSync(file)) return fallback;
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+const ECOSYSTEM = readJson(path.join(ECOSYSTEM_DIR, 'ecosystem.json'), null);
+if (!ECOSYSTEM || !Array.isArray(ECOSYSTEM.projects)) {
+  throw new Error(`Shared ecosystem catalog not found or invalid: ${path.join(ECOSYSTEM_DIR, 'ecosystem.json')}`);
+}
+const RELEASE_DATA = readJson(path.join(ECOSYSTEM_DIR, 'releases.json'), { projects: {} });
+const NEWSLETTER_FILE = path.join(ECOSYSTEM_DIR, 'newsletter.json');
 
 // ── Config (env → default) ──────────────────────────────────────────────────
 const env = (key, fallback) => {
@@ -61,171 +75,29 @@ const SUPPORT_BODY = env(
   'The software projects here are MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
 );
 
-// Project cards. Each is {name, blurb, url, kind} where kind is one of:
-//   'library' (default) — a package you require: API libraries and the rest.
-//                         A library that also ships a bot stays 'library'.
-//   'tool'              — something you run rather than build on: developer
-//                         tooling, browser apps, command-line utilities.
-//   'bot'               — a standalone bot that is NOT itself a reusable package.
-//   'website'           — a public-facing site built or maintained here.
-// Override the whole set with PROJECTS_JSON (a JSON array of the same shape).
+// Project cards are mapped from the canonical DiscordPHP.org ecosystem catalog.
 const PROJECT_KINDS = ['library', 'tool', 'bot', 'website'];
 
-function parseProjects(raw) {
-  if (!raw) return null;
-  try {
-    const arr = JSON.parse(raw);
-    if (!Array.isArray(arr) || arr.length === 0) return null;
-    return arr
-      .map((p) => ({
-        name: String(p.name || '').trim(),
-        blurb: String(p.blurb || '').trim(),
-        url: String(p.url || '').trim(),
-        kind: PROJECT_KINDS.find((kind) => kind === String(p.kind || '').trim().toLowerCase()) || 'library',
-      }))
-      .filter((p) => p.name);
-  } catch (e) {
-    console.warn('PROJECTS_JSON did not parse, using defaults:', e.message);
-    return null;
-  }
+function catalogProjects() {
+  return ECOSYSTEM.projects
+    .filter((project) => Array.isArray(project.audiences) && project.audiences.includes('valgorithms'))
+    .map((project) => ({
+      name: escapeHtml(project.name || ''),
+      blurb: escapeHtml(project.description || ''),
+      url: escapeHtml(project.website || (project.repository ? `https://github.com/${project.repository}` : '')),
+      kind: project.kind === 'integration' ? 'library' : (PROJECT_KINDS.includes(project.kind) ? project.kind : 'library'),
+      status: escapeHtml(project.status || 'stable'),
+      package: escapeHtml(project.package || ''),
+      nextSteps: (Array.isArray(project.nextSteps) ? project.nextSteps : [])
+        .filter((action) => /^https:\/\//.test(String(action.url || '')))
+        .map((action) => ({ label: escapeHtml(action.label || 'Open project'), url: escapeHtml(action.url) })),
+      nextStepsHtml: (Array.isArray(project.nextSteps) ? project.nextSteps : [])
+        .filter((action) => /^https:\/\//.test(String(action.url || '')))
+        .map((action) => `<li><a href="${escapeHtml(action.url)}" rel="noopener">${escapeHtml(action.label || 'Open project')}</a></li>`).join(''),
+    }));
 }
 
-const DEFAULT_PROJECTS = [
-  {
-    name: 'DiscordPHP',
-    blurb: 'The async PHP library for building Discord bots, on ReactPHP.',
-    url: 'https://github.com/discord-php/DiscordPHP',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Http',
-    blurb: 'The standalone HTTP + rate-limit layer the library talks to Discord through.',
-    url: 'https://github.com/discord-php/DiscordPHP-Http',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Voice',
-    blurb: 'Voice send/receive, Opus & DAVE end-to-end encryption for DiscordPHP.',
-    url: 'https://github.com/discord-php/DiscordPHP-Voice',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-NHA',
-    blurb: 'API library (and bot) for the "No Human Allowed" agent-sandbox world, with an LLM autoplayer.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-NHA',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-MTG',
-    blurb: 'A Magic: The Gathering API library and bot — card search and rules on top of DiscordPHP.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-MTG',
-    kind: 'library',
-  },
-  {
-    name: 'TwitchPHP',
-    blurb: 'Async Twitch framework for PHP — Helix REST, EventSub over WebSocket, and IRC chat, built like DiscordPHP.',
-    url: 'https://github.com/Valgorithms/TwitchPHP',
-    kind: 'library',
-  },
-  {
-    name: 'TwitchPHP-Http',
-    blurb: 'The standalone Helix transport for TwitchPHP — async queue, points rate-limiting, typed errors.',
-    url: 'https://github.com/Valgorithms/TwitchPHP-Http',
-    kind: 'library',
-  },
-  {
-    name: 'TelegramPHP',
-    blurb: 'Async Telegram Bot API framework for PHP — every method and type generated from the official spec, built like DiscordPHP.',
-    url: 'https://github.com/Valgorithms/TelegramPHP',
-    kind: 'library',
-  },
-  {
-    name: 'YouTubePHP',
-    blurb: 'Async YouTube Data API client for PHP — every method generated from Google’s discovery document, live chat streamed as it is posted, and the daily quota counted.',
-    url: 'https://github.com/Valgorithms/YoutubePHP',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Bridge',
-    blurb: 'The platform-agnostic core of a Discord chat bridge — routing, persistence, one command catalogue served to every chat, and Components v2 panels. Networks plug in as connectors.',
-    url: 'https://github.com/discord-php/DiscordPHP-Bridge',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Bridge-Twitch',
-    blurb: 'The Twitch connector for DiscordPHP-Bridge — a two-way IRC chat relay, the whole Helix API as commands, and device-code token recovery.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-Twitch',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Bridge-Telegram',
-    blurb: 'The Telegram connector for DiscordPHP-Bridge — a relay that carries edits, photos, GIFs and profile pictures, plus group controls from any chat.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-Telegram',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-Bridge-YouTube',
-    blurb: 'The YouTube connector for DiscordPHP-Bridge — a stream’s live chat in Discord, go-live announcements, and chat moderation from any chat, within the daily quota.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-Bridge-YouTube',
-    kind: 'library',
-  },
-  {
-    name: 'DiscordPHP-EventLogger',
-    blurb: 'Drop-in audit logging for DiscordPHP bots — every gateway event, formatted.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-EventLogger',
-    kind: 'library',
-  },
-  {
-    name: 'phpdoc-tool',
-    blurb: 'phpDocumentor, patched to read and print the ?T|null types the DiscordPHP family documents itself with — the builder behind every reference on this shelf.',
-    url: 'https://github.com/discord-php/phpdoc-tool',
-    kind: 'tool',
-  },
-  {
-    name: 'PDF-Converter',
-    blurb: 'Turns images into a PDF — a page for each, in the order you arrange them, every page the size of its image. Runs in the browser with nothing uploaded, or from PHP with only GD.',
-    url: 'https://valgorithms.github.io/PDF-Converter/',
-    kind: 'tool',
-  },
-  {
-    name: 'PDF-Signer',
-    blurb: 'Puts a drawn, typed or photographed signature onto an existing PDF, appended as an update so the original is kept intact. Runs in the browser with nothing uploaded, or from PHP.',
-    url: 'https://valgorithms.github.io/PDF-Signer/',
-    kind: 'tool',
-  },
-  {
-    name: 'NFG',
-    blurb: 'Note Form Generator — a dependency-free HTML/JS tool that turns inline JSON schemas into tabbed forms and exports a standalone page.',
-    url: 'https://github.com/valzargaming/NFG',
-    kind: 'tool',
-  },
-  {
-    name: 'Coffee-s-Crafts',
-    blurb: 'A portfolio and commission site featuring galleries for original art, fursuits and premades.',
-    url: 'https://github.com/Coffee-s-Crafts/coffee-s-crafts',
-    kind: 'website',
-  },
-  {
-    name: 'Civilizationbot',
-    blurb: 'Civ13’s official Discord bot — game-server management, player verification, moderation.',
-    url: 'https://github.com/Valgorithms/Civilizationbot',
-    kind: 'bot',
-  },
-  {
-    name: 'DiscordPHP-Tutelar',
-    blurb: 'A Discord community-management bot — event logging, native onboarding, rotating presence, per-guild config — on a PSR-4 module architecture.',
-    url: 'https://github.com/discord-php/DiscordPHP-Tutelar',
-    kind: 'bot',
-  },
-  {
-    name: 'DiscordPHP-BridgeBot',
-    blurb: 'One Discord bot bridging Twitch and Telegram both ways and bringing in YouTube live chat — and every network’s commands from any of the chats.',
-    url: 'https://github.com/Valgorithms/DiscordPHP-BridgeBot',
-    kind: 'bot',
-  },
-];
-
-const PROJECTS = parseProjects(process.env.PROJECTS_JSON) || DEFAULT_PROJECTS;
+const PROJECTS = catalogProjects();
 
 // Discord applications installable from /discord.html — the page each app's
 // "Custom URL" install link points at. Each is:
@@ -311,6 +183,36 @@ const LIBRARIES = PROJECTS.filter((p) => p.kind === 'library');
 const TOOLS = PROJECTS.filter((p) => p.kind === 'tool');
 const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
 const WEBSITES = PROJECTS.filter((p) => p.kind === 'website');
+const RELEASE_PROJECTS = ECOSYSTEM.projects
+  .filter((project) => Array.isArray(project.audiences) && project.audiences.includes('valgorithms'))
+  .map((project) => {
+    const release = RELEASE_DATA.projects?.[project.id]?.release;
+    const compatibility = RELEASE_DATA.projects?.[project.id]?.compatibility || {};
+    const isPhpProject = Boolean(project.package) || ['library', 'integration'].includes(project.kind);
+    const hasComposerMetadata = compatibility.available === true;
+    const next = (project.nextSteps || []).find((action) => /^https:\/\//.test(String(action.url || '')));
+    return {
+      name: escapeHtml(project.name || ''),
+      blurb: escapeHtml(project.description || ''),
+      package: escapeHtml(project.package || ''),
+      url: escapeHtml(project.website || (project.repository ? `https://github.com/${project.repository}` : '')),
+      status: escapeHtml(project.status || project.kind || ''),
+      version: escapeHtml(release?.version || 'No stable release'),
+      releaseUrl: escapeHtml(release?.url || project.website || (project.repository ? `https://github.com/${project.repository}` : '')),
+      releasedAt: release?.time ? new Date(release.time).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }) : '',
+      php: escapeHtml(isPhpProject ? (hasComposerMetadata ? compatibility.php || 'Not declared' : 'No Composer metadata') : 'Not applicable'),
+      discordphp: escapeHtml(project.id === 'discordphp' ? 'Core library' : (isPhpProject ? (hasComposerMetadata ? compatibility.discordphp || 'Not declared' : 'No Composer metadata') : 'Not applicable')),
+      extensions: escapeHtml(!isPhpProject ? 'Not applicable' : (hasComposerMetadata
+        ? (Object.entries(compatibility.extensions || {}).map(([name, constraint]) => constraint ? `${name} ${constraint}` : name).join(', ') || 'None declared')
+        : 'No Composer metadata')),
+      nextLabel: escapeHtml(next?.label || 'Open project'),
+      nextUrl: escapeHtml(next?.url || project.website || (project.repository ? `https://github.com/${project.repository}` : '')),
+    };
+  });
+const NEWSLETTER_TAGS = (ECOSYSTEM.newsletterTags || []).map((tag) => ({
+  id: escapeHtml(tag.id || ''),
+  label: escapeHtml(tag.label || tag.id || ''),
+}));
 
 // Support options. GitHub Sponsors is always shown; the rest appear only when
 // their URL is provided.
@@ -331,12 +233,10 @@ const SOCIAL_LINKS = [
 
 // ── Newsletter ───────────────────────────────────────────────────────────────
 // Daily editions from the DiscordPHP-Newsletter bot, which commits each approved
-// edition to site/data/newsletter.json. They are rendered here, at build time, so
-// newsletter.html is plain HTML with no script. Bodies are Discord-flavoured
+// edition to DiscordPHP.org/data/newsletter.json. They are rendered here at build time; the page's
+// small filter script only filters that static markup. Bodies are Discord-flavoured
 // markdown: everything is escaped first, then a small subset of formatting is
 // applied, so an edition can never add markup of its own.
-const NEWSLETTER_FILE = path.join('site', 'data', 'newsletter.json');
-
 function escapeHtml(text) {
   return String(text)
     .replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
@@ -421,6 +321,13 @@ function loadNewsletter(file) {
       return {
         key: e.key,
         date: e.date,
+        tags: (Array.isArray(e.tags) ? e.tags : [])
+          .filter((tag) => /^[a-z0-9-]{1,32}$/.test(String(tag)))
+          .map((id) => ({ id: escapeHtml(id), label: escapeHtml((ECOSYSTEM.newsletterTags || []).find((tag) => tag.id === id)?.label || id) })),
+        tagIds: (Array.isArray(e.tags) ? e.tags : []).filter((tag) => /^[a-z0-9-]{1,32}$/.test(String(tag))).join(' '),
+        tagsHtml: (Array.isArray(e.tags) ? e.tags : [])
+          .filter((tag) => /^[a-z0-9-]{1,32}$/.test(String(tag)))
+          .map((id) => `<a class="newsletter-tag" href="?tag=${encodeURIComponent(id)}#${encodeURIComponent(e.key)}">${escapeHtml((ECOSYSTEM.newsletterTags || []).find((tag) => tag.id === id)?.label || id)}</a>`).join(' '),
         dateLabel: day.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
         headline: mdInline(e.headline || e.key),
         headlineText: escapeHtml(e.headline || e.key),
@@ -506,6 +413,8 @@ const vars = {
   SUPPORT_HEADING,
   SUPPORT_BODY,
   PROJECTS,
+  RELEASE_PROJECTS,
+  ECOSYSTEM_GENERATED: new Date(RELEASE_DATA.generated || now).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
   LIBRARIES,
   TOOLS,
   BOTS,
@@ -519,6 +428,8 @@ const vars = {
   SOCIAL_LINKS,
   DISCORD_APPS_DATA,
   EDITIONS,
+  NEWSLETTER_TAGS,
+  NEWSLETTER_FEED_URL: 'https://discordphp.org/newsletter.xml',
   HAS_EDITIONS: EDITIONS.length > 0,
   NO_EDITIONS: EDITIONS.length === 0,
   DISCORD_SERVER_URL: env('DISCORD_URL', 'https://discord.gg/dphp'),
@@ -529,6 +440,17 @@ const vars = {
 
 ensureDir(OUT);
 copyDir(STATIC, OUT);
+
+const dataOut = path.join(OUT, 'data');
+ensureDir(dataOut);
+for (const file of ['ecosystem.json', 'releases.json', 'newsletter.json']) {
+  const source = path.join(ECOSYSTEM_DIR, file);
+  if (fs.existsSync(source)) {
+    fs.copyFileSync(source, path.join(dataOut, file));
+  } else if (file === 'releases.json') {
+    fs.writeFileSync(path.join(dataOut, file), JSON.stringify(RELEASE_DATA, null, 2) + '\n');
+  }
+}
 
 const pages = fs.readdirSync(TPL).filter((f) => f.endsWith('.html'));
 for (const page of pages) {
