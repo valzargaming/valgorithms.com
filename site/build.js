@@ -400,7 +400,7 @@ function copyDir(src, dest) {
 
 // ── Build ──────────────────────────────────────────────────────────────────
 const vars = {
-  SITE_TITLE,
+  SITE_TITLE: escapeHtml(SITE_TITLE),
   SITE_URL,
   SITE_DESCRIPTION,
   AUTHOR,

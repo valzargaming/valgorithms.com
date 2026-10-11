@@ -6,7 +6,7 @@ const BRAND_IMAGE = { path: 'brand-preview.png', width: 256, height: 256, type: 
 const ACCENT = '#7c6cff'; // Existing site favicon color.
 
 function httpUrl(value) {
-  if (typeof value !== 'string' || value.length > 2048) throw new Error('Invalid preview URL');
+  if (typeof value !== 'string' || value.length > 2048 || /\s/.test(value)) throw new Error('Invalid preview URL');
   const url = new URL(value);
   if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error('Invalid preview URL');
   return value;
@@ -23,15 +23,23 @@ function validatePayload(payload) {
       visit(child);
     });
   }
-  function media(value) {
+  function media(value, imagesOnly = false) {
     const url = new URL(httpUrl(value?.url));
-    if (!/\.(png|gif|jpe?g|webp|avif|mp4|webm|mov)$/i.test(url.pathname)) throw new Error('Unsupported preview media');
+    const formats = imagesOnly ? /\.(png|gif|jpe?g|webp|avif)$/i : /\.(png|gif|jpe?g|webp|avif|mp4|webm|mov)$/i;
+    if (!formats.test(url.pathname)) throw new Error('Unsupported preview media');
   }
   function visit(component) {
     if (!component || typeof component !== 'object') throw new Error('Invalid component');
+    const fields = { 1: ['components'], 2: ['url', 'style', 'label', 'emoji', 'disabled'], 9: ['components', 'accessory'],
+      10: ['content'], 11: ['media', 'description', 'spoiler'], 12: ['items'], 14: ['divider', 'spacing'], 17: ['components', 'accent_color', 'spoiler'] };
+    if (!fields[component.type] || Object.keys(component).some((key) => !['type', 'id', ...fields[component.type]].includes(key))) throw new Error('Unsupported component fields');
+    if (component.id !== undefined && (!Number.isInteger(component.id) || component.id < 0)) throw new Error('Invalid component id');
+    for (const key of ['spoiler', 'disabled', 'divider']) if (component[key] !== undefined && typeof component[key] !== 'boolean') throw new Error(`Invalid ${key}`);
+    if (component.description != null && (typeof component.description !== 'string' || component.description.length > 1024)) throw new Error('Invalid media description');
     if (++count > 40) throw new Error('Too many components');
     if (component.type === 17) {
       if (component !== payload.component) throw new Error('Nested Container');
+      if (component.accent_color != null && (!Number.isInteger(component.accent_color) || component.accent_color < 0 || component.accent_color > 0xffffff)) throw new Error('Invalid accent color');
       children(component.components, 1, 39, [1, 9, 10, 12, 14]);
     } else if (component.type === 1) {
       children(component.components, 1, 5, [2]);
@@ -47,14 +55,14 @@ function validatePayload(payload) {
     } else if (component.type === 10) {
       if (typeof component.content !== 'string' || !component.content || component.content.length > 4000) throw new Error('Invalid text display');
     } else if (component.type === 11) {
-      media(component.media);
+      media(component.media, true);
     } else if (component.type === 12) {
       if (!Array.isArray(component.items) || !component.items.length) throw new Error('Empty gallery');
       galleryItems += component.items.length;
       if (galleryItems > 10) throw new Error('Too many gallery items');
       component.items.forEach((item) => media(item.media));
-    } else if (component.type !== 14) {
-      throw new Error('Unsupported component');
+    } else if (component.type === 14 && component.spacing !== undefined && ![1, 2].includes(component.spacing)) {
+      throw new Error('Invalid separator spacing');
     }
   }
   visit(payload.component);

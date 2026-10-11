@@ -35,8 +35,6 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `CNAME` | `www.valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
 | `DISCORD_APPS_JSON` | the bridge bot | JSON array of the Discord applications `/discord.html` installs — see below. Replaces the list wholesale. |
 
-## Newsletter
-
 ## Link previews
 
 The homepage, `/ecosystem.html` and `/newsletter.html` contain server-rendered
