@@ -779,3 +779,7 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
   font-size: 0.8rem;
   cursor: pointer;
 }
+
+/* Official Open Collective donation image and a persistent text fallback. */
+.collective-button { display: inline-block; max-width: 100%; }
+.collective-button img { display: block; max-width: 100%; height: auto; }
