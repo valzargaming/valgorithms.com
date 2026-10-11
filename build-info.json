@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-10T23:21:45.931Z",
+  "builtAt": "2026-10-11T01:53:14.817Z",
   "pages": [
     "404.html",
     "discord.html",
@@ -9,6 +9,44 @@
     "privacy.html",
     "terms.html",
     "twitch.html"
+  ],
+  "previews": [
+    {
+      "page": "404.html",
+      "url": "https://www.valgorithms.com/404.html",
+      "title": "404 — valgorithms",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    },
+    {
+      "page": "ecosystem.html",
+      "url": "https://www.valgorithms.com/ecosystem.html",
+      "title": "Releases & compatibility — valgorithms",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    },
+    {
+      "page": "index.html",
+      "url": "https://www.valgorithms.com/",
+      "title": "valgorithms — sponsor open-source PHP",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    },
+    {
+      "page": "newsletter.html",
+      "url": "https://www.valgorithms.com/newsletter.html",
+      "title": "Newsletter — valgorithms",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    },
+    {
+      "page": "privacy.html",
+      "url": "https://www.valgorithms.com/privacy.html",
+      "title": "Privacy Policy — valgorithms",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    },
+    {
+      "page": "terms.html",
+      "url": "https://www.valgorithms.com/terms.html",
+      "title": "Terms of Service — valgorithms",
+      "image": "https://www.valgorithms.com/brand-preview.png"
+    }
   ],
   "projects": 25,
   "editions": 11,
