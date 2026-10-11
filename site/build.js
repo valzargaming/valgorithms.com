@@ -15,6 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { BRAND_IMAGE, ACCENT, httpUrl, createPayload, serializePayload } = require('./link-preview');
 
 const now = new Date();
 const YEAR = now.getFullYear();
@@ -453,9 +454,40 @@ for (const file of ['ecosystem.json', 'releases.json', 'newsletter.json']) {
 }
 
 const pages = fs.readdirSync(TPL).filter((f) => f.endsWith('.html'));
+const previews = [];
+function plainText(html) {
+  return html.replace(/<[^>]*>/g, ' ').replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos|rsquo|mdash|nbsp);/gi, (_, entity) => {
+    if (entity[0] === '#') return String.fromCodePoint(entity[1].toLowerCase() === 'x' ? parseInt(entity.slice(2), 16) : Number(entity.slice(1)));
+    return { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", rsquo: '’', mdash: '—', nbsp: ' ' }[entity.toLowerCase()];
+  }).replace(/\s+/g, ' ').trim();
+}
+const baseUrl = new URL(httpUrl(SITE_URL));
+baseUrl.search = '';
+baseUrl.hash = '';
+if (!baseUrl.pathname.endsWith('/')) baseUrl.pathname += '/';
 for (const page of pages) {
   const tpl = fs.readFileSync(path.join(TPL, page), 'utf8');
-  fs.writeFileSync(path.join(OUT, page), renderString(tpl, vars, null));
+  let html = renderString(tpl, vars, null);
+  if (html.includes('<!-- LINK_PREVIEW -->')) {
+    const title = plainText(html.match(/<title>([\s\S]*?)<\/title>/i)[1]);
+    const description = page === 'index.html' ? SITE_DESCRIPTION : plainText(html.match(/<p class="(?:lede|legal-meta)">([\s\S]*?)<\/p>/)?.[1] || SITE_DESCRIPTION);
+    const url = new URL(page === 'index.html' ? './' : page, baseUrl).href;
+    const image = new URL(BRAND_IMAGE.path, baseUrl).href;
+    const attr = escapeHtml;
+    let metadata = `<meta name="description" content="${attr(description)}" />\n  <link rel="canonical" href="${attr(url)}" />\n  <meta property="og:type" content="website" />\n  <meta property="og:site_name" content="${attr(SITE_TITLE)}" />\n  <meta property="og:title" content="${attr(title)}" />\n  <meta property="og:description" content="${attr(description)}" />\n  <meta property="og:url" content="${attr(url)}" />\n  <meta property="og:image" content="${attr(image)}" />\n  <meta property="og:image:width" content="${BRAND_IMAGE.width}" />\n  <meta property="og:image:height" content="${BRAND_IMAGE.height}" />\n  <meta property="og:image:type" content="${BRAND_IMAGE.type}" />\n  <meta property="og:image:alt" content="${attr(SITE_TITLE)} v monogram" />\n  <meta name="theme-color" content="${ACCENT}" />\n  <meta name="twitter:card" content="summary" />\n  <meta name="twitter:title" content="${attr(title)}" />\n  <meta name="twitter:description" content="${attr(description)}" />\n  <meta name="twitter:image" content="${attr(image)}" />\n  <meta name="twitter:image:alt" content="${attr(SITE_TITLE)} v monogram" />`;
+    if (['index.html', 'ecosystem.html', 'newsletter.html'].includes(page)) {
+      const links = [{ label: page === 'index.html' ? 'Explore projects' : 'Open page', url: page === 'index.html' ? `${url}#projects` : url }];
+      if (page === 'index.html') links.push({ label: 'Sponsor the work', url: SPONSOR_URL });
+      if (page === 'newsletter.html') links.push({ label: 'RSS feed', url: vars.NEWSLETTER_FEED_URL });
+      const latest = page === 'newsletter.html' && EDITIONS[0] ? ` Latest: ${plainText(EDITIONS[0].headlineText)} (${EDITIONS[0].date}).` : '';
+      const json = serializePayload(createPayload({ title, description: description + latest, url, image, links }));
+      metadata += `\n  <script id="discord:component-embed" type="application/json">${json}</script>`;
+    }
+    // Insert after all template passes so content cannot become a template token.
+    html = html.replace('<!-- LINK_PREVIEW -->', () => metadata);
+    previews.push({ page, url, title, image });
+  }
+  fs.writeFileSync(path.join(OUT, page), html);
   console.log('  •', page);
 }
 
@@ -465,7 +497,7 @@ if (CNAME) fs.writeFileSync(path.join(OUT, 'CNAME'), CNAME + '\n');
 
 fs.writeFileSync(
   path.join(OUT, 'build-info.json'),
-  JSON.stringify({ builtAt: vars.BUILD_TIME, pages, projects: PROJECTS.length, editions: EDITIONS.length, cname: CNAME }, null, 2),
+  JSON.stringify({ builtAt: vars.BUILD_TIME, pages, previews, projects: PROJECTS.length, editions: EDITIONS.length, cname: CNAME }, null, 2),
 );
 
 console.log(`Built ${pages.length} page(s) to ${OUT}/`);
