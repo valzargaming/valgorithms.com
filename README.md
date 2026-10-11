@@ -22,7 +22,7 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | Var | Default | Notes |
 |---|---|---|
 | `SITE_TITLE` | `valgorithms` | brand + `<title>` |
-| `SITE_URL` | `https://valgorithms.com` | canonical / OG url |
+| `SITE_URL` | `https://www.valgorithms.com` | base for page-specific canonical / preview URLs |
 | `SITE_DESCRIPTION` | … | meta description / OG |
 | `AUTHOR` | `Valithor Obsidion` | name in hero + footer |
 | `GITHUB_USER` | `valzargaming` | drives `GITHUB_URL` + `SPONSOR_URL` |
@@ -32,8 +32,28 @@ the environment; the defaults in `build.js` produce the live site as-is.
 | `SUPPORT_HEADING` / `SUPPORT_BODY` | … | support-section copy |
 | `KOFI_URL` / `PAYPAL_URL` / `HIRE_URL` | PayPal defaults on | a support card shows only when its URL is set |
 | `DISCORD_URL` / `TWITCH_URL` | Discord defaults on | footer links, shown when set |
-| `CNAME` | `valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
+| `CNAME` | `www.valgorithms.com` | written to `dist/CNAME`, also passed to the deploy action |
 | `DISCORD_APPS_JSON` | the bridge bot | JSON array of the Discord applications `/discord.html` installs — see below. Replaces the list wholesale. |
+
+## Link previews
+
+The homepage, `/ecosystem.html` and `/newsletter.html` contain server-rendered
+Discord component embeds: a purple accent, the existing v monogram, page copy
+and link buttons. The newsletter card includes the latest edition headline/date.
+Public pages have their own canonical URL and Open Graph/Twitter fallback tags;
+the credential-handling Discord and Twitch callback pages retain their separate heads.
+`site/static/brand-preview.png` is a 256×256 raster rendition of the existing
+purple v favicon, so preview crawlers receive a supported PNG rather than SVG.
+
+`site/link-preview.js` validates supported component placement, link-only buttons,
+media URLs, the 40-component and 10-gallery-item limits, and the exact escaped
+3,000-byte UTF-8 payload limit. Oversized or invalid generated payloads fail the
+build instead of silently publishing a broken card. JSON is inserted after
+template rendering and escapes HTML script boundaries and template tokens.
+`npm run check:output` runs boundary/escaping tests and checks metadata, payloads
+and actual PNG dimensions in `dist/`. PR CI uses those same checks without deploying.
+Local checks cannot prove Discord crawler access, fetch timing or rendering;
+after publication, use [Discord's Embed Debugger](https://discord.com/developers/embeds).
 
 ## Newsletter
 
