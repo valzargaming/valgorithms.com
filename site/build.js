@@ -73,11 +73,11 @@ const HERO_CTA = env('HERO_CTA', 'Sponsor on GitHub');
 const SUPPORT_HEADING = env('SUPPORT_HEADING', 'What your sponsorship supports');
 const SUPPORT_BODY = env(
   'SUPPORT_BODY',
-  'The software projects here are MIT-licensed and used in production by other people. Sponsorship pays for the unglamorous half — issue triage, release chores, keeping up with API breakage, and the docs.',
+  'Sponsorship supports the libraries, bots, websites and games on this shelf — issue triage, release chores, keeping up with API breakage, and the docs. Each project documents its own license.',
 );
 
 // Project cards are mapped from the canonical DiscordPHP.org ecosystem catalog.
-const PROJECT_KINDS = ['library', 'tool', 'bot', 'website'];
+const PROJECT_KINDS = ['library', 'tool', 'bot', 'website', 'game'];
 
 function catalogProjects() {
   return ECOSYSTEM.projects
@@ -184,6 +184,7 @@ const LIBRARIES = PROJECTS.filter((p) => p.kind === 'library');
 const TOOLS = PROJECTS.filter((p) => p.kind === 'tool');
 const BOTS = PROJECTS.filter((p) => p.kind === 'bot');
 const WEBSITES = PROJECTS.filter((p) => p.kind === 'website');
+const GAMES = PROJECTS.filter((p) => p.kind === 'game');
 const RELEASE_PROJECTS = ECOSYSTEM.projects
   .filter((project) => Array.isArray(project.audiences) && project.audiences.includes('valgorithms'))
   .map((project) => {
@@ -423,6 +424,7 @@ const vars = {
   HAS_BOTS: BOTS.length > 0,
   WEBSITES,
   HAS_WEBSITES: WEBSITES.length > 0,
+  GAMES,
   OPERATING_NAME,
   LEGAL_EFFECTIVE,
   SUPPORT_LINKS,
