@@ -74,15 +74,15 @@
             <li><a href="https://frontier-systems.discordphp.org/" rel="noopener">Visit the game website</a></li>
             <li><a href="https://github.com/Valgorithms/Frontier-Systems" rel="noopener">Explore the source prototype</a></li>
             <li><a href="https://ko-fi.com/valgorithms" rel="noopener">Support development</a></li>
-            {{#each GAMES}}
+          </ul>
+        </li>
+        {{#each GAMES}}
         <li class="project-card">
           <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
           <p>{{this.blurb}}</p>
           <ul class="project-actions">{{this.nextStepsHtml}}</ul>
         </li>
         {{/each}}
-      </ul>
-        </li>
       </ul>
 
       <h3 class="shelf-group">Libraries</h3>
