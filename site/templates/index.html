@@ -76,6 +76,13 @@
             <li><a href="https://ko-fi.com/valgorithms" rel="noopener">Support development</a></li>
           </ul>
         </li>
+        {{#each GAMES}}
+        <li class="project-card">
+          <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
+          <p>{{this.blurb}}</p>
+          <ul class="project-actions">{{this.nextStepsHtml}}</ul>
+        </li>
+        {{/each}}
       </ul>
 
       <h3 class="shelf-group">Libraries</h3>
