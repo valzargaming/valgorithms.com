@@ -17,10 +17,18 @@
  * installed. A link naming any other client id is refused, so the page cannot
  * be used to dress up somebody else's bot as one of these.
  *
- * This file makes no network requests of any kind, by design.
+ * The installer makes no network requests. The extensionless community alias
+ * navigates to the existing community invite instead.
  */
 (function () {
   'use strict';
+
+  // GitHub Pages can serve discord.html for /discord. Keep the explicit
+  // OAuth/install URL intact and never forward query strings or fragments.
+  if (location.pathname === '/discord' || location.pathname === '/discord/') {
+    location.replace('https://discord.gg/mPgPnCCPdJ');
+    return;
+  }
 
   var STATE_KEY = 'vg.discord.install';
   var AUTHORIZE = 'https://discord.com/oauth2/authorize';
