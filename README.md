@@ -124,6 +124,23 @@ One-time setup (`valgorithms.com` on Namecheap BasicDNS):
 - Styling is a single `site/static/styles.css`; dark by default, light under
   `prefers-color-scheme`.
 
+## `/discord` — community invite
+
+`/discord` and `/discord/` open `https://discord.gg/mPgPnCCPdJ`, the destination
+observed from the existing `http://discord.valgorithms.com` Namecheap forward.
+The invite and its Discord destination both support HTTPS; the subdomain's HTTPS
+connection timed out when checked on 2026-10-24, so this route goes directly to
+the verified HTTPS invite. No DNS or TLS configuration is changed.
+
+GitHub Pages hosts static files: `site/static/discord/index.html` supplies an
+immediate HTML refresh and a manual link for the directory route. If Pages
+resolves `/discord` to the existing `discord.html`, its script redirects only
+the two exact community paths, without forwarding query strings or fragments.
+That extensionless alias requires JavaScript for automatic navigation and has a
+manual link when JavaScript is disabled. `/discord.html` remains the bot
+installer and OAuth callback. These are browser redirects, not HTTP 301/302s;
+verify both HTTPS paths after an authorized publication.
+
 ## `/discord.html` — installing the Discord bots
 
 The page each Discord application's **Custom URL** install link points at, for
