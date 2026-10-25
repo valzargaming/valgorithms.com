@@ -54,6 +54,27 @@ for (const relative of ['ecosystem.html', 'data/ecosystem.json', 'data/releases.
   if (!fs.existsSync(output) || fs.statSync(output).size === 0) fail(`missing shared ecosystem output: ${relative}`);
 }
 
+// Keep the approved mission copy intact and between the introduction and projects.
+const homepage = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
+const missionSections = [...homepage.matchAll(/<section id="mission" class="panel" aria-labelledby="mission-heading">([\s\S]*?)<\/section>/g)];
+if (missionSections.length !== 1) {
+  fail('homepage must contain exactly one accessible mission panel');
+} else {
+  const mission = missionSections[0];
+  if (!mission[1].includes('<h2 id="mission-heading">My mission</h2>')) fail('mission heading is missing');
+  const paragraphs = [...mission[1].matchAll(/<p(?: class="panel-lede")?>([\s\S]*?)<\/p>/g)].map((match) => match[1].trim());
+  const expected = [
+    'My work is grounded in science, curiosity, and practical problem-solving. I believe in testing ideas, sharing knowledge, and improving our methods when the evidence supports it. AI-assisted programming belongs in that process, alongside human understanding, careful review, and responsibility for the result.',
+    'I also respect art as an expression of human creativity. The skill, intent, and effort behind creative work deserve recognition. Respecting that work means crediting its contributors and honoring the terms under which it is shared.',
+    'My goal is to build useful, accessible technology through open collaboration, while supporting both scientific progress and artistic expression.',
+  ];
+  if (JSON.stringify(paragraphs) !== JSON.stringify(expected)) fail('mission paragraphs do not match the approved copy');
+  const hero = homepage.indexOf('<section class="hero">');
+  const heroEnd = homepage.indexOf('</section>', hero);
+  const frontier = homepage.indexOf('<section id="frontier-systems"');
+  if (hero < 0 || heroEnd < 0 || mission.index <= heroEnd || frontier <= mission.index) fail('mission panel must follow the hero and precede Frontier Systems');
+}
+
 const expectedCname = process.env.CNAME || 'www.valgorithms.com';
 const cnamePath = path.join(OUT, 'CNAME');
 if (!fs.existsSync(cnamePath)) {
