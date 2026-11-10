@@ -783,3 +783,6 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem 4rem; }
 /* Official Open Collective donation image and a persistent text fallback. */
 .collective-button { display: inline-block; max-width: 100%; }
 .collective-button img { display: block; max-width: 100%; height: auto; }
+
+/* Featured development focus; inherits responsive panel and CTA layout. */
+.game-feature { border-color: var(--accent); border-inline-start-width: 4px; }
