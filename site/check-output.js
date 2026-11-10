@@ -75,6 +75,18 @@ if (missionSections.length !== 1) {
   if (hero < 0 || heroEnd < 0 || mission.index <= heroEnd || frontier <= mission.index) fail('mission panel must follow the hero and precede Frontier Systems');
 }
 
+// Preserve the requested project hierarchy and usable links in generated output.
+const featured = homepage.match(/<section id="civilization-13"[^>]*>([\s\S]*?)<\/section>/);
+const research = homepage.match(/<section id="frontier-systems"[^>]*>([\s\S]*?)<\/section>/);
+if (!featured || !featured[0].includes('aria-labelledby="civ13-heading"') || !featured[1].includes('Featured game in development')) fail('Civilization 13 must be an accessible featured game');
+if (featured && (homepage.indexOf(featured[0]) > homepage.indexOf('id="mission"') || homepage.indexOf(featured[0]) > homepage.indexOf('id="support"'))) fail('Civ13 must precede mission and support');
+for (const url of ['https://civ13.com/', 'https://civ13.com/#join', 'https://civ13.github.io/roadmap.html', 'https://github.com/Civ13/Civ13']) {
+  if (!featured?.[1].includes(`href="${url}"`)) fail(`featured game missing ${url}`);
+}
+if (!research || !research[1].includes('Research projects') || !research[1].includes('exploratory research project') || /ko-fi|Support development|Game in development/.test(research[1])) fail('Frontier Systems must remain research, without primary game fundraising');
+const gamesShelf = homepage.slice(homepage.indexOf('<h3 class="shelf-group">Games</h3>'), homepage.indexOf('<section id="frontier-systems"'));
+if (!gamesShelf.includes('Civilization 13') || gamesShelf.includes('Frontier Systems')) fail('games shelf must feature Civ13, not classify Frontier Systems as active game development');
+
 const expectedCname = process.env.CNAME || 'www.valgorithms.com';
 const cnamePath = path.join(OUT, 'CNAME');
 if (!fs.existsSync(cnamePath)) {

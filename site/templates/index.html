@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>{{SITE_TITLE}} — sponsor open-source PHP</title>
+  <title>{{SITE_TITLE}} — games in development &amp; open-source PHP</title>
   {{> head}}
 </head>
 <body>
@@ -23,6 +23,19 @@
       </div>
     </section>
 
+    <section id="civilization-13" class="panel game-feature" aria-labelledby="civ13-heading">
+      <p class="kicker">Featured game in development</p>
+      <h2 id="civ13-heading">Civilization 13</h2>
+      <p class="panel-lede">Build a society. Shape its history. Civilization 13 is a multiplayer game in active development, with crafting, technology and player-driven conflict across historical settings.</p>
+      <p>Explore the game and its community, learn how to join, or follow the development roadmap. Features continue to evolve; check the game website for current modes and joining instructions.</p>
+      <div class="cta-row">
+        <a class="btn btn-sponsor" href="https://civ13.com/" rel="noopener">Discover Civilization 13</a>
+        <a class="btn btn-ghost" href="https://civ13.com/#join" rel="noopener">How to play</a>
+        <a class="btn btn-ghost" href="https://civ13.github.io/roadmap.html" rel="noopener">Development roadmap</a>
+        <a class="btn btn-ghost" href="https://github.com/Civ13/Civ13" rel="noopener">Explore the source</a>
+      </div>
+    </section>
+
     <section id="mission" class="panel" aria-labelledby="mission-heading">
       <h2 id="mission-heading">My mission</h2>
       <p class="panel-lede">My work is grounded in science, curiosity, and practical problem-solving. I believe in testing ideas, sharing knowledge, and improving our methods when the evidence supports it. AI-assisted programming belongs in that process, alongside human understanding, careful review, and responsibility for the result.</p>
@@ -30,18 +43,6 @@
       <p>My goal is to build useful, accessible technology through open collaboration, while supporting both scientific progress and artistic expression.</p>
     </section>
 
-    <section id="frontier-systems" class="panel">
-      <p class="kicker">Game in development</p>
-      <h2>Build a frontier together</h2>
-      <p class="panel-lede">Frontier Systems is a cooperative, persistent engineering simulation in development. Mine finite resources, transport materials, refine them and build physical structures in an early source prototype. Moon and Mars colonies, spacecraft and orbital infrastructure are the longer-term vision.</p>
-      <p>Help fund the next playable milestones, or follow the code and verified progress. Support funds initial development; it is not a finished-game preorder or a promise of a release date.</p>
-      <div class="cta-row">
-        <a class="btn btn-sponsor" href="https://frontier-systems.discordphp.org/" rel="noopener">Discover Frontier Systems</a>
-        <a class="btn btn-ghost" href="https://ko-fi.com/valgorithms" rel="noopener">Support development</a>
-        <a class="btn btn-ghost" href="https://ko-fi.com/valgorithms/tiers" rel="noopener">Monthly memberships</a>
-        <a class="btn btn-ghost" href="https://github.com/Valgorithms/Frontier-Systems" rel="noopener">Explore the source prototype</a>
-      </div>
-    </section>
     <section id="support" class="panel">
       <h2>{{SUPPORT_HEADING}}</h2>
       <p class="panel-lede">{{SUPPORT_BODY}}</p>
@@ -74,15 +75,6 @@
 
       <h3 class="shelf-group">Games</h3>
       <ul class="project-grid">
-        <li class="project-card">
-          <h4><a href="https://frontier-systems.discordphp.org/" rel="noopener">Frontier Systems</a></h4>
-          <p>A cooperative engineering game in development: work with finite resources, transport materials and build physical structures. An early source prototype is available; finished-game sales are not open.</p>
-          <ul class="project-actions">
-            <li><a href="https://frontier-systems.discordphp.org/" rel="noopener">Visit the game website</a></li>
-            <li><a href="https://github.com/Valgorithms/Frontier-Systems" rel="noopener">Explore the source prototype</a></li>
-            <li><a href="https://ko-fi.com/valgorithms" rel="noopener">Support development</a></li>
-          </ul>
-        </li>
         {{#each GAMES}}
         <li class="project-card">
           <h4><a href="{{this.url}}" rel="noopener">{{this.name}}</a></h4>
@@ -91,6 +83,20 @@
         </li>
         {{/each}}
       </ul>
+
+      <section id="frontier-systems" aria-labelledby="research-heading">
+        <h3 id="research-heading" class="shelf-group">Research projects</h3>
+        <ul class="project-grid">
+          <li class="project-card">
+            <h4><a href="https://frontier-systems.discordphp.org/" rel="noopener">Frontier Systems</a></h4>
+            <p>An exploratory research project studying persistent engineering simulation. Its early source prototype explores resources, transport and construction; it is not the primary game-development focus or a promised release.</p>
+            <ul class="project-actions">
+              <li><a href="https://frontier-systems.discordphp.org/" rel="noopener">Explore the research</a></li>
+              <li><a href="https://github.com/Valgorithms/Frontier-Systems" rel="noopener">View the source prototype</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
 
       <h3 class="shelf-group">Libraries</h3>
       <ul class="project-grid">

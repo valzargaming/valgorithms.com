@@ -1,8 +1,12 @@
 # valgorithms.com
 
 Source for **[valgorithms.com](https://valgorithms.com)** — a one-page sponsorship
-site for [@valzargaming](https://github.com/valzargaming) and the DiscordPHP /
-ReactPHP libraries maintained there.
+site for [@valzargaming](https://github.com/valzargaming), Civilization 13 development
+and the DiscordPHP / ReactPHP libraries maintained there.
+
+Civilization 13 is the featured game in development. Frontier Systems is presented
+as exploratory research in the project shelf, not as the primary game or a release
+commitment. Generated-output checks preserve this hierarchy and its navigation links.
 
 Same shape as [coffee-s-crafts](https://github.com/Coffee-s-Crafts/coffee-s-crafts):
 a dependency-free Node build that renders `site/templates/` into `dist/`, deployed

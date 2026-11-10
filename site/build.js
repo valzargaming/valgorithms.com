@@ -50,7 +50,7 @@ const SITE_TITLE = env('SITE_TITLE', 'valgorithms');
 const SITE_URL = env('SITE_URL', 'https://www.valgorithms.com');
 const SITE_DESCRIPTION = env(
   'SITE_DESCRIPTION',
-  'Open-source PHP & ReactPHP developer — maintainer of the DiscordPHP ecosystem. Sponsor the work.',
+  'Civilization 13 game development, the DiscordPHP ecosystem and open-source PHP tools by Valithor Obsidion.',
 );
 const AUTHOR = env('AUTHOR', 'Valithor Obsidion');
 const GITHUB_USER = env('GITHUB_USER', 'valzargaming');
@@ -66,7 +66,7 @@ const LEGAL_EFFECTIVE = env('LEGAL_EFFECTIVE', 'September 8, 2026');
 const HERO_KICKER = env('HERO_KICKER', 'Open source, in the open');
 const HERO_TAGLINE = env(
   'HERO_TAGLINE',
-  'I build and maintain the <strong>DiscordPHP</strong> ecosystem and a shelf of ReactPHP libraries and bots. Your sponsorship keeps them fed, patched, and moving.',
+  'I develop <a href="#civilization-13">Civilization 13</a> and maintain the <strong>DiscordPHP</strong> ecosystem, ReactPHP libraries and bots. Explore the game in development and the open-source tools behind the work.',
 );
 const HERO_CTA = env('HERO_CTA', 'Sponsor on GitHub');
 
